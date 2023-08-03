@@ -1,0 +1,52 @@
+@import '../variables.scss';
+
+.header {
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  top: 0;
+  z-index: 2;
+  color: $secondary-color;
+  background-color: $accent-color;
+  text-transform: uppercase;
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  nav,
+  form {
+    display: flex;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    color: inherit;
+    background-color: inherit;
+  }
+
+  a,
+  input[type='submit'] {
+    padding: 0.4rem 0.8rem;
+    transition: background-color 0.2s;
+    vertical-align: middle;
+    text-decoration: none;
+  }
+
+  a:hover,
+  input[type='submit']:hover {
+    background-color: $accent-light-color;
+    cursor: pointer;
+  }
+
+  input[type='text'] {
+    margin: 0.4rem 0.2rem 0.4rem 0.8rem;
+  }
+
+  input:focus {
+    border-bottom: 1px solid $secondary-color;
+  }
+}

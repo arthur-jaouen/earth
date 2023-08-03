@@ -1,0 +1,35 @@
+@import '../variables.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem;
+  background-color: $secondary-color;
+  border-radius: 0.25rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem $shadow-color;
+}
+
+.card-title {
+  margin: 0;
+}
+
+.card-subtitle {
+  margin: 0;
+}
+
+.card-image {
+  flex: 1 1;
+  width: 100%;
+  max-height: 12rem;
+  object-fit: contain;
+}
+
+.card-legend {
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-size: 0.8rem;
+  font-style: italic;
+}
