@@ -117,11 +117,11 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
+            url="https://images.weserv.nl/?url=http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
         <CardImage
-          url="http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_20230802.png"
+          url="https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_20230802.png"
           alt="Arctic - Daily sea ice thickness"
           width={1109}
           height={1218}
@@ -134,11 +134,11 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
+            url="https://images.weserv.nl/?url=http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
         <CardImage
-          url="http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_20230802.png"
+          url="https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_20230802.png"
           alt="Arctic - Sea ice volume timeseries"
           width={1093}
           height={904}
@@ -207,11 +207,11 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="http://polarportal.dk/en/greenland/surface-conditions/"
+            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
-          url="http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_20230801.png"
+          url="https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_20230801.png"
           alt="Greenland - Surface mass balance"
           width={678}
           height={1063}
@@ -224,11 +224,11 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="http://polarportal.dk/en/greenland/surface-conditions/"
+            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
-          url="http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_20230801.png"
+          url="https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_20230801.png"
           alt="Greenland - Cumulated surface mass balance"
           width={679}
           height={1063}
@@ -241,11 +241,11 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="http://polarportal.dk/en/greenland/surface-conditions/"
+            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
-          url="http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_20230801.png"
+          url="https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_20230801.png"
           alt="Greenland - Surface mass balance timeseries"
           width={846}
           height={1080}
