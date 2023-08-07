@@ -117,7 +117,7 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="https://images.weserv.nl/?url=http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
+            url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
         <CardImage
@@ -134,7 +134,7 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="https://images.weserv.nl/?url=http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
+            url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
         <CardImage
@@ -207,7 +207,7 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
+            url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
@@ -224,7 +224,7 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
+            url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
@@ -241,7 +241,7 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource
             name="Polar Portal"
-            url="https://images.weserv.nl/?url=http://polarportal.dk/en/greenland/surface-conditions/"
+            url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
         <CardImage
