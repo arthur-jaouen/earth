@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install
         run: yarn install
@@ -30,19 +30,24 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Upload Pages artifact
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: 'dist/'
 
-      # - name: Deploy
-      #   run: |
-      #     git config --global user.name $user_name
-      #     git config --global user.email $user_email
-      #     git remote set-url origin https://${github_token}@github.com/${repository}
-      #     npx gh-pages -d dist
-      #   env:
-      #     user_name: 'github-actions[bot]'
-      #     user_email: 'github-actions[bot]@users.noreply.github.com'
-      #     github_token: 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
-      #     repository: ${{ github.repository }}
+  deploy:
+    needs: build
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
