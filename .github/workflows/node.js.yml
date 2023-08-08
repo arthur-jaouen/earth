@@ -32,6 +32,9 @@ jobs:
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'dist/'
+
       # - name: Deploy
       #   run: |
       #     git config --global user.name $user_name
