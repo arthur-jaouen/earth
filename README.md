@@ -1,4 +1,6 @@
-# Roadmap Earth
+# Earth
+
+## Roadmap
 
 - Update images that need to be updated
 - Add fullscreen + more details
