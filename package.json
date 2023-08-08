@@ -1,7 +1,11 @@
 {
   "name": "earth",
   "version": "0.0.1",
-  "private": true,
+  "description": "Website to monitor climate and volcanoes from multiple sources",
+  "author": "Arthur Jaouen",
+  "license": "MIT",
+  "repository": "git@github.com:arthur-jaouen/earth.git",
+  "homepage": "https://arthur-jaouen.github.io/earth",
   "type": "module",
   "scripts": {
     "dev": "webpack serve --progress --env=dev",
