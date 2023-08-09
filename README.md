@@ -1,5 +1,7 @@
 # Earth
 
+Website to monitor climate and volcanoes from multiple sources
+
 ## Roadmap
 
 - Update images that need to be updated
