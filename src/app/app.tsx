@@ -263,7 +263,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sst/world-ced2/]YYYY[/sst_world-ced2_]YYYY[_d213.png]"
+          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sst/world-ced2/]YYYY[/sst_world-ced2_]YYYY[_d]DOY[.png]"
           alt="World - Sea surface temperature"
           width={1100}
           height={759}
@@ -280,7 +280,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sstanom/world-ced2/]YYYY[/sstanom_world-ced2_]YYYY[_d213.png]"
+          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sstanom/world-ced2/]YYYY[/sstanom_world-ced2_]YYYY[_d]DOY[.png]"
           alt="World - Sea surface temperature anomaly"
           width={1100}
           height={764}
@@ -300,7 +300,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d213.png]"
+          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d]DOY[.png]"
           alt="World - Air temperature at 2 meters"
           width={1024}
           height={742}
@@ -317,7 +317,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d213.png]"
+          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d]DOY[.png]"
           alt="World - Air temperature at 2 meters"
           width={1024}
           height={741}
