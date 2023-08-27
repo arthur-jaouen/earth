@@ -9,6 +9,7 @@
   "type": "module",
   "scripts": {
     "dev": "webpack serve --progress --env=dev",
+    "dev-quiet": "webpack serve --env=dev > /dev/null 2> /dev/null",
     "build": "webpack --progress",
     "analyze": "webpack --progress --env=analyze",
     "lint": "eslint src --ext .ts,.tsx",
@@ -69,14 +70,9 @@
       ],
       "@babel/preset-typescript"
     ],
-    "plugins": [
-      "@babel/transform-runtime"
-    ]
+    "plugins": ["@babel/transform-runtime"]
   },
-  "browserslist": [
-    "> 0.25%",
-    "not dead"
-  ],
+  "browserslist": ["> 0.25%", "not dead"],
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
@@ -86,13 +82,7 @@
       "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
-    "plugins": [
-      "import",
-      "jsx-a11y",
-      "react",
-      "react-hooks",
-      "@typescript-eslint"
-    ],
+    "plugins": ["import", "jsx-a11y", "react", "react-hooks", "@typescript-eslint"],
     "root": true,
     "settings": {
       "react": {
