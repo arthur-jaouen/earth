@@ -57,13 +57,5 @@
 }
 
 @mixin tablet {
-  .header a,
-  .header div {
-    width: 0.5em;
-    overflow: hidden;
-  }
-
-  .header input {
-    display: none;
-  }
+  // TODO
 }

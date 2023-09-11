@@ -1,7 +1,7 @@
 import './app.scss';
 
 import { FunctionComponent } from 'react';
-import { Card, CardLegend, CardSource, CardSubtitle, CardTitle } from '../lib/card';
+import { Card, CardImage, CardLegend, CardSource, CardSubtitle, CardTitle } from '../lib/card';
 import { Image, TimeDependentImage } from '../lib/image';
 import { Header } from './header';
 import { Main } from './main';
@@ -16,12 +16,14 @@ export const App: FunctionComponent = () => (
           Summit Area&nbsp;
           <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
         </CardSubtitle>
-        <Image
-          url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_uwe_tilt_2day.png"
-          alt="Kilauea - Tilt past 2 days"
-          width={900}
-          height={300}
-        />
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_uwe_tilt_2day.png"
+            alt="Kilauea - Tilt past 2 days"
+            width={900}
+            height={300}
+          />
+        </CardImage>
         <CardLegend>Electronic tilt at the Kilauea summit area for the past 2 days</CardLegend>
       </Card>
 
@@ -31,12 +33,14 @@ export const App: FunctionComponent = () => (
           Summit Area&nbsp;
           <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
         </CardSubtitle>
-        <Image
-          url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_erz_tilt_week.png"
-          alt="Kilauea - Tilt past week"
-          width={900}
-          height={300}
-        />
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_erz_tilt_week.png"
+            alt="Kilauea - Tilt past week"
+            width={900}
+            height={300}
+          />
+        </CardImage>
         <CardLegend>Electronic tilt at the Kilauea summit area for the past week</CardLegend>
       </Card>
 
@@ -46,12 +50,14 @@ export const App: FunctionComponent = () => (
           Summit Area&nbsp;
           <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
         </CardSubtitle>
-        <Image
-          url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_erz_tilt_month.png"
-          alt="Kilauea - Tilt past month"
-          width={900}
-          height={300}
-        />
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_erz_tilt_month.png"
+            alt="Kilauea - Tilt past month"
+            width={900}
+            height={300}
+          />
+        </CardImage>
         <CardLegend>Electronic tilt at the Kilauea summit area for the past month</CardLegend>
       </Card>
 
@@ -61,12 +67,14 @@ export const App: FunctionComponent = () => (
           Summit Area&nbsp;
           <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
         </CardSubtitle>
-        <Image
-          url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_caldera_gps_year.png"
-          alt="Kilauea - GPS past year"
-          width={900}
-          height={300}
-        />
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_caldera_gps_year.png"
+            alt="Kilauea - GPS past year"
+            width={900}
+            height={300}
+          />
+        </CardImage>
         <CardLegend>GPS signal at the Kilauea summit area for the past year</CardLegend>
       </Card>
 
@@ -76,12 +84,14 @@ export const App: FunctionComponent = () => (
           Summit Area&nbsp;
           <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
         </CardSubtitle>
-        <Image
-          url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_caldera_gps_5years.png"
-          alt="Kilauea - GPS past 5 years"
-          width={900}
-          height={300}
-        />
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/summit_caldera_gps_5years.png"
+            alt="Kilauea - GPS past 5 years"
+            width={900}
+            height={300}
+          />
+        </CardImage>
         <CardLegend>GPS signal at the Kilauea summit area for the past 5 years</CardLegend>
       </Card>
 
@@ -90,12 +100,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/arcticseaicenews/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration.png"
-          alt="Arctic - Sea ice concentration"
-          width={420}
-          height={500}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration.png"
+            alt="Arctic - Sea ice concentration"
+            width={420}
+            height={500}
+          />
+        </CardImage>
         <CardLegend>Daily arctic sea ice concentration map</CardLegend>
       </Card>
 
@@ -104,12 +116,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/arcticseaicenews/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/data/seaice_index/images/daily_images/N_iqr_timeseries.png"
-          alt="Arctic - Sea ice area timeseries"
-          width={1050}
-          height={840}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/data/seaice_index/images/daily_images/N_iqr_timeseries.png"
+            alt="Arctic - Sea ice area timeseries"
+            width={1050}
+            height={840}
+          />
+        </CardImage>
         <CardLegend>Daily arctic sea ice extent timeseries</CardLegend>
       </Card>
 
@@ -121,12 +135,14 @@ export const App: FunctionComponent = () => (
             url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_]YYYYMMDD[.png]"
-          alt="Arctic - Daily sea ice thickness"
-          width={1109}
-          height={1218}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_]YYYYMMDD[.png]"
+            alt="Arctic - Daily sea ice thickness"
+            width={1109}
+            height={1218}
+          />
+        </CardImage>
         <CardLegend>Daily thickness of the arctic sea ice</CardLegend>
       </Card>
 
@@ -138,12 +154,14 @@ export const App: FunctionComponent = () => (
             url="http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_]YYYYMMDD[.png]"
-          alt="Arctic - Sea ice volume timeseries"
-          width={1093}
-          height={904}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_]YYYYMMDD[.png]"
+            alt="Arctic - Sea ice volume timeseries"
+            width={1093}
+            height={904}
+          />
+        </CardImage>
         <CardLegend>Timeseries of the total volume of arctic sea ice</CardLegend>
       </Card>
 
@@ -152,12 +170,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/arcticseaicenews/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/data/seaice_index/images/daily_images/S_daily_concentration.png"
-          alt="Antarctic - Sea ice concentration"
-          width={420}
-          height={500}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/data/seaice_index/images/daily_images/S_daily_concentration.png"
+            alt="Antarctic - Sea ice concentration"
+            width={420}
+            height={500}
+          />
+        </CardImage>
         <CardLegend>Daily arctic sea ice concentration map</CardLegend>
       </Card>
 
@@ -166,12 +186,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/arcticseaicenews/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/data/seaice_index/images/daily_images/S_iqr_timeseries.png"
-          alt="Antarctic - Sea ice area timeseries"
-          width={1050}
-          height={840}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/data/seaice_index/images/daily_images/S_iqr_timeseries.png"
+            alt="Antarctic - Sea ice area timeseries"
+            width={1050}
+            height={840}
+          />
+        </CardImage>
         <CardLegend>Daily arctic sea ice extent timeseries</CardLegend>
       </Card>
 
@@ -180,12 +202,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/greenland-today/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/greenland-today/images/greenland_daily_melt.png"
-          alt="Greenland - Melt area"
-          width={1200}
-          height={1800}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/greenland-today/images/greenland_daily_melt.png"
+            alt="Greenland - Melt area"
+            width={1200}
+            height={1800}
+          />
+        </CardImage>
         <CardLegend>Daily Greenland melt area</CardLegend>
       </Card>
 
@@ -194,12 +218,14 @@ export const App: FunctionComponent = () => (
         <CardSubtitle>
           <CardSource name="NSIDC" url="https://nsidc.org/greenland-today/" />
         </CardSubtitle>
-        <Image
-          url="https://nsidc.org/greenland-today/images/greenland_cumulative_melt.png"
-          alt="Greenland - Cumulated melt days"
-          width={1200}
-          height={1800}
-        />
+        <CardImage>
+          <Image
+            url="https://nsidc.org/greenland-today/images/greenland_cumulative_melt.png"
+            alt="Greenland - Cumulated melt days"
+            width={1200}
+            height={1800}
+          />
+        </CardImage>
         <CardLegend>Cumulated melt days of the Greenland ice sheet</CardLegend>
       </Card>
 
@@ -211,12 +237,14 @@ export const App: FunctionComponent = () => (
             url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_]YYYYMMDD[.png]"
-          alt="Greenland - Surface mass balance"
-          width={678}
-          height={1063}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_]YYYYMMDD[.png]"
+            alt="Greenland - Surface mass balance"
+            width={678}
+            height={1063}
+          />
+        </CardImage>
         <CardLegend>Daily surface mass balance of the Greenland ice sheet</CardLegend>
       </Card>
 
@@ -228,12 +256,14 @@ export const App: FunctionComponent = () => (
             url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_]YYYYMMDD[.png]"
-          alt="Greenland - Cumulated surface mass balance"
-          width={679}
-          height={1063}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_]YYYYMMDD[.png]"
+            alt="Greenland - Cumulated surface mass balance"
+            width={679}
+            height={1063}
+          />
+        </CardImage>
         <CardLegend>Cumulated surface mass balance of the Greenland ice sheet</CardLegend>
       </Card>
 
@@ -245,12 +275,14 @@ export const App: FunctionComponent = () => (
             url="http://polarportal.dk/en/greenland/surface-conditions/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_]YYYYMMDD[.png]"
-          alt="Greenland - Surface mass balance timeseries"
-          width={846}
-          height={1080}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://images.weserv.nl/?url=http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_]YYYYMMDD[.png]"
+            alt="Greenland - Surface mass balance timeseries"
+            width={846}
+            height={1080}
+          />
+        </CardImage>
         <CardLegend>Timeseries of the surface mass balance of the Greenland ice sheet</CardLegend>
       </Card>
 
@@ -262,12 +294,14 @@ export const App: FunctionComponent = () => (
             url="https://climatereanalyzer.org/clim/sst_daily/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]"
-          alt="World - Sea surface temperature"
-          width={1100}
-          height={759}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]"
+            alt="World - Sea surface temperature"
+            width={1100}
+            height={759}
+          />
+        </CardImage>
         <CardLegend>Daily surface temperature of the world&apos;s oceans</CardLegend>
       </Card>
 
@@ -279,12 +313,14 @@ export const App: FunctionComponent = () => (
             url="https://climatereanalyzer.org/clim/sst_daily/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]"
-          alt="World - Sea surface temperature anomaly"
-          width={1100}
-          height={764}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]"
+            alt="World - Sea surface temperature anomaly"
+            width={1100}
+            height={764}
+          />
+        </CardImage>
         <CardLegend>
           Daily surface temperature anomaly of the world&apos;s oceans (compared to 1971-2000
           baseline)
@@ -299,12 +335,14 @@ export const App: FunctionComponent = () => (
             url="https://climatereanalyzer.org/clim/t2_daily/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d]DOY[.png]"
-          alt="World - Air temperature at 2 meters"
-          width={1024}
-          height={742}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d]DOY[.png]"
+            alt="World - Air temperature at 2 meters"
+            width={1024}
+            height={742}
+          />
+        </CardImage>
         <CardLegend>Daily worldwide air temperature at 2 meters of altitude</CardLegend>
       </Card>
 
@@ -316,12 +354,14 @@ export const App: FunctionComponent = () => (
             url="https://climatereanalyzer.org/clim/t2_daily/"
           />
         </CardSubtitle>
-        <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d]DOY[.png]"
-          alt="World - Air temperature at 2 meters"
-          width={1024}
-          height={741}
-        />
+        <CardImage>
+          <TimeDependentImage
+            url="[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d]DOY[.png]"
+            alt="World - Air temperature at 2 meters"
+            width={1024}
+            height={741}
+          />
+        </CardImage>
         <CardLegend>
           Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000
           baseline)

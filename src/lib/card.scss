@@ -18,6 +18,18 @@
   margin: 0 0.8rem;
 }
 
+.card-image {
+  display: flex;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+
+  .image {
+    max-height: 20rem;
+  }
+}
+
 .card-legend {
   max-width: 100%;
   white-space: nowrap;
