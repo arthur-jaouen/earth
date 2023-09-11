@@ -23,5 +23,5 @@
     "strictPropertyInitialization": true,
     "target": "esnext"
   },
-  "include": ["src", "assets.d.ts"]
+  "include": ["src"]
 }
