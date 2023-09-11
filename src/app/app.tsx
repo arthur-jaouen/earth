@@ -263,7 +263,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sst/world-ced2/]YYYY[/sst_world-ced2_]YYYY[_d]DOY[.png]"
+          url="[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]"
           alt="World - Sea surface temperature"
           width={1100}
           height={759}
@@ -280,7 +280,7 @@ export const App: FunctionComponent = () => (
           />
         </CardSubtitle>
         <TimeDependentImage
-          url="[https://climatereanalyzer.org/clim/sst_daily/clim_frames/sstanom/world-ced2/]YYYY[/sstanom_world-ced2_]YYYY[_d]DOY[.png]"
+          url="[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]"
           alt="World - Sea surface temperature anomaly"
           width={1100}
           height={764}
