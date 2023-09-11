@@ -9,7 +9,6 @@
   "type": "module",
   "scripts": {
     "dev": "webpack serve --progress --env=dev",
-    "dev-quiet": "webpack serve --env=dev > /dev/null 2> /dev/null",
     "build": "webpack --progress",
     "analyze": "webpack --progress --env=analyze",
     "lint": "eslint src --ext .ts,.tsx",
