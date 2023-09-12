@@ -11,6 +11,7 @@
   color: $secondary-color;
   background-color: $accent-color;
   text-transform: uppercase;
+  overflow: hidden;
 
   .logo {
     font-size: 1.2rem;
@@ -54,8 +55,4 @@
   input:focus {
     border-bottom: 1px solid $secondary-color;
   }
-}
-
-@mixin tablet {
-  // TODO
 }
