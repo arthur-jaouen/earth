@@ -4,3 +4,15 @@ $accent-color: #012a23;
 $accent-light-color: #ffffff33;
 $background-color: #d7dedc;
 $shadow-color: #bababa;
+
+@mixin tablet {
+  @media screen and (max-width: 1023px) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}

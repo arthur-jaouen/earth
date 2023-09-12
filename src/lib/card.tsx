@@ -14,6 +14,10 @@ export const CardSubtitle: FunctionComponent<PropsWithChildren> = ({ children })
   <h5 className="card-subtitle">{children}</h5>
 );
 
+export const CardImage: FunctionComponent<PropsWithChildren> = ({ children }) => (
+  <div className="card-image">{children}</div>
+);
+
 export const CardLegend: FunctionComponent<PropsWithChildren> = ({ children }) => (
   <legend className="card-legend">{children}</legend>
 );

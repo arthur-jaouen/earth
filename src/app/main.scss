@@ -1,10 +1,16 @@
-@import '../variables.scss';
+@import '../common.scss';
 
 .main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   padding: 1rem;
   gap: 1rem;
+
+  @include phone {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+  }
 
   a:hover {
     color: $accent-color;
