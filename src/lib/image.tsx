@@ -11,7 +11,7 @@ export type ImageProps = {
 };
 
 export const Image: FunctionComponent<ImageProps> = ({ url, alt, width, height }) => (
-  <img className="image" src={url} alt={alt} title={`${url} - ${alt}`} />
+  <img className="image" src={url} alt={alt} title={`${url} - ${alt}`} style={{ aspectRatio: width / height }} />
 );
 
 export async function getLatestImage(templateUrl: string): Promise<string | null> {
