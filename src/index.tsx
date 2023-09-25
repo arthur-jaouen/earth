@@ -4,8 +4,8 @@ import 'dayjs/locale/fr';
 
 import dayjs from 'dayjs';
 import { createRoot } from 'react-dom/client';
-import { App } from './app/app';
-import { dayOfYear } from './lib/dayjs';
+import { App } from './app/App';
+import { dayOfYear } from './lib/DayOfYear';
 
 dayjs.extend(dayOfYear);
 
