@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 
-import './header.scss';
+import './Header.scss';
 
 export const Header: FunctionComponent = () => (
   <header className="header">

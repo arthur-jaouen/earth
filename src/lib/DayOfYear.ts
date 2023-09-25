@@ -6,10 +6,8 @@ export const dayOfYear: PluginFunc = (_, DayJs) => {
   const oldFormat = DayJs.prototype.format;
 
   DayJs.prototype.format = function (formatStr) {
-    const self = this;
-
-    if (!self.isValid()) {
-      return oldFormat.bind(self)(formatStr);
+    if (!this.isValid()) {
+      return oldFormat.bind(this)(formatStr);
     }
 
     const str = formatStr || FORMAT_DEFAULT;
@@ -17,13 +15,13 @@ export const dayOfYear: PluginFunc = (_, DayJs) => {
       switch (match) {
         case 'DOY':
           return (
-            Math.floor((self.startOf('day').unix() - self.startOf('year').unix()) / 86_400) + 1
+            Math.floor((this.startOf('day').unix() - this.startOf('year').unix()) / 86_400) + 1
           ).toString();
         default:
           return match;
       }
     });
 
-    return oldFormat.bind(self)(result);
+    return oldFormat.bind(this)(result);
   };
 };

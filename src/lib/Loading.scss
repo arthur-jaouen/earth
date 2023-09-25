@@ -1,0 +1,16 @@
+@import '../common.scss';
+
+.loading svg path {
+  color: $shadow-color;
+  animation: 2s linear infinite spin;
+  transform-origin: 16px 16px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

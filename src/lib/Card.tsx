@@ -1,6 +1,6 @@
 import { FunctionComponent, PropsWithChildren } from 'react';
 
-import './card.scss';
+import './Card.scss';
 
 export const Card: FunctionComponent<PropsWithChildren> = ({ children }) => (
   <div className="card">{children}</div>
