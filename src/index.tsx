@@ -5,9 +5,9 @@ import 'dayjs/locale/fr';
 import dayjs from 'dayjs';
 import { createRoot } from 'react-dom/client';
 import { App } from './app/App';
-import { dayOfYear } from './lib/DayOfYear';
+import { DayOfYear } from './lib/DayOfYear';
 
-dayjs.extend(dayOfYear);
+dayjs.extend(DayOfYear);
 
 const root = document.getElementById('root');
 

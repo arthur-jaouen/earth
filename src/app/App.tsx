@@ -62,6 +62,23 @@ export const App: FunctionComponent = () => (
       </Card>
 
       <Card>
+        <CardTitle>Kilauea - Tilt SDH station past month</CardTitle>
+        <CardSubtitle>
+          Summit Area&nbsp;
+          <CardSource name="USGS" url="https://www.usgs.gov/volcanoes/kilauea/monitoring-data" />
+        </CardSubtitle>
+        <CardImage>
+          <Image
+            url="https://volcanoes.usgs.gov/vsc/captures/kilauea/SDH-TILT-1mo.png"
+            alt="Kilauea - Tilt SDH station past month"
+            width={900}
+            height={300}
+          />
+        </CardImage>
+        <CardLegend>Electronic tilt at the Kilauea summit area for the past 2 days</CardLegend>
+      </Card>
+
+      <Card>
         <CardTitle>Kilauea - GPS past year</CardTitle>
         <CardSubtitle>
           Summit Area&nbsp;

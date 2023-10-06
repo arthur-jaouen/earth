@@ -2,7 +2,7 @@ import { PluginFunc } from 'dayjs';
 
 const FORMAT_DEFAULT = 'YYYY-MM-DDTHH:mm:ssZ';
 
-export const dayOfYear: PluginFunc = (_, DayJs) => {
+export const DayOfYear: PluginFunc = (_, DayJs) => {
   const oldFormat = DayJs.prototype.format;
 
   DayJs.prototype.format = function (formatStr) {
