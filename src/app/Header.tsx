@@ -1,4 +1,8 @@
 import { FunctionComponent } from 'react';
+import { AiFillWarning } from 'react-icons/ai';
+import { BsGlobe } from 'react-icons/bs';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { GiIceCube, GiVolcano, GiWaveCrest } from 'react-icons/gi';
 
 import './Header.scss';
 
@@ -6,20 +10,30 @@ export const Header: FunctionComponent = () => (
   <header className="header">
     <nav>
       <a className="logo" href="#">
-        &#x1F310;&#xFE0E;
+        <BsGlobe />
       </a>
 
-      <a href="#/volcanoes">&#x1F30B;&#xFE0E; Volcanoes</a>
-      <a href="#/oceans">&#x1F30A;&#xFE0E; Oceans</a>
-      <a href="#/ice">&#9927;&#xFE0E; Ice</a>
+      <a href="#/volcanoes">
+        <GiVolcano /> Volcanoes
+      </a>
+      <a href="#/oceans">
+        <GiWaveCrest /> Oceans
+      </a>
+      <a href="#/ice">
+        <GiIceCube /> Ice
+      </a>
     </nav>
 
-    <div>&#x26A0; ALPHA v0.0.1 - WORK IN PROGRESS &#x26A0;</div>
+    <div>
+      <AiFillWarning /> ALPHA v0.0.1 - WORK IN PROGRESS <AiFillWarning />
+    </div>
 
     <nav>
-      <form action="#search" method="GET">
+      <form action="" method="GET">
         <input type="text" name="q" placeholder="Search" />
-        <input type="submit" value="&#x1F50D;&#xFE0E;" />
+        <button type="submit">
+          <FaMagnifyingGlass />
+        </button>
       </form>
 
       <a href="#about">About</a>

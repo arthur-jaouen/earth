@@ -15,6 +15,10 @@
 
   .logo {
     font-size: 1.2rem;
+
+    svg {
+      padding-bottom: 0.08em;
+    }
   }
 
   nav,
@@ -29,13 +33,19 @@
     background-color: inherit;
   }
 
+  svg {
+    vertical-align: middle;
+    padding-bottom: 0.19em;
+  }
+
   a,
+  button,
   div {
     white-space: nowrap;
   }
 
   a,
-  input[type='submit'] {
+  button {
     padding: 0.4rem 0.8rem;
     transition: background-color 0.2s;
     vertical-align: middle;
@@ -43,7 +53,7 @@
   }
 
   a:hover,
-  input[type='submit']:hover {
+  button:hover {
     background-color: $accent-light-color;
     cursor: pointer;
   }
