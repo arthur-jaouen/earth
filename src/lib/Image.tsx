@@ -4,6 +4,7 @@ import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 
 import './Image.scss';
+import { useIsVisible } from './Visible';
 
 export type ImageProps = {
   url: string;
@@ -59,27 +60,30 @@ export const Image: FunctionComponent<ImageProps> = ({
 }) => {
   const [latest, setLatest] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const visible = useIsVisible();
 
   useEffect(() => {
-    const ref = { cancelled: false };
-    const promise = timed ? getLatestImage(url, duration, unit, limit) : loadImage(url);
+    if (visible) {
+      const ref = { cancelled: false };
+      const promise = timed ? getLatestImage(url, duration, unit, limit) : loadImage(url);
 
-    promise
-      .then((url) => {
-        if (!ref.cancelled) {
-          setLatest(url);
-        }
-      })
-      .finally(() => {
-        if (!ref.cancelled) {
-          setLoading(false);
-        }
-      });
+      promise
+        .then((url) => {
+          if (!ref.cancelled) {
+            setLatest(url);
+          }
+        })
+        .finally(() => {
+          if (!ref.cancelled) {
+            setLoading(false);
+          }
+        });
 
-    return () => {
-      ref.cancelled = true;
-    };
-  }, [url, timed, duration, unit, limit]);
+      return () => {
+        ref.cancelled = true;
+      };
+    }
+  }, [url, timed, duration, unit, limit, visible]);
 
   const aspectRatio = height && width ? width / height : undefined;
 
