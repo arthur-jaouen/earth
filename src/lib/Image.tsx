@@ -37,8 +37,10 @@ export async function getLatestImage(
 
   for (let count = 0; count < limit; count++) {
     try {
+      console.log('load');
       return await loadImage(date.format(templateUrl));
     } catch (error) {
+      console.log('err');
       // Nothing, just try next date
     }
 
@@ -64,7 +66,6 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   useEffect(() => {
     if (visible) {
-      console.log('visible');
       const ref = { cancelled: false };
       const promise = timed ? getLatestImage(url, duration, unit, limit) : loadImage(url);
 

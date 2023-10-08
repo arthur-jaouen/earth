@@ -48,8 +48,6 @@ function triggerVisibleItems() {
       item.left <= left + width
     ) {
       item.setVisible(true);
-      items.splice(i, 1);
-      i--;
     }
   }
 }
@@ -125,7 +123,10 @@ export const VisibleProvider: FunctionComponent<VisibleProviderProps> = ({ elem,
         }
 
         return () => {
-          items.splice(items.findIndex((i) => i.elem == elem));
+          items.splice(
+            items.findIndex((i) => i === item),
+            1,
+          );
         };
       }
     }
