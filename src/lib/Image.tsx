@@ -64,6 +64,7 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   useEffect(() => {
     if (visible) {
+      console.log('visible');
       const ref = { cancelled: false };
       const promise = timed ? getLatestImage(url, duration, unit, limit) : loadImage(url);
 
