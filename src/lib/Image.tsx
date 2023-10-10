@@ -2,9 +2,9 @@ import dayjs, { ManipulateType } from 'dayjs';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
+import { useIsVisible } from './Visible';
 
 import './Image.scss';
-import { useIsVisible } from './Visible';
 
 export type ImageProps = {
   url: string;
@@ -18,13 +18,13 @@ export type ImageProps = {
 };
 
 export async function loadImage(url: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const img = document.createElement('img');
+  const response = await fetch('https://wsrv.nl?url=' + url, { method: 'HEAD' });
 
-    img.onload = () => resolve(url);
-    img.onerror = reject;
-    img.src = url;
-  });
+  if (response.status !== 200) {
+    throw new Error();
+  }
+
+  return 'https://wsrv.nl?url=' + url;
 }
 
 export async function getLatestImage(
@@ -37,10 +37,8 @@ export async function getLatestImage(
 
   for (let count = 0; count < limit; count++) {
     try {
-      console.log('load');
       return await loadImage(date.format(templateUrl));
     } catch (error) {
-      console.log('err');
       // Nothing, just try next date
     }
 
@@ -69,17 +67,11 @@ export const Image: FunctionComponent<ImageProps> = ({
       const ref = { cancelled: false };
       const promise = timed ? getLatestImage(url, duration, unit, limit) : loadImage(url);
 
-      promise
-        .then((url) => {
-          if (!ref.cancelled) {
-            setLatest(url);
-          }
-        })
-        .finally(() => {
-          if (!ref.cancelled) {
-            setLoading(false);
-          }
-        });
+      promise.then((url) => {
+        if (!ref.cancelled) {
+          setLatest(url);
+        }
+      });
 
       return () => {
         ref.cancelled = true;
@@ -89,11 +81,21 @@ export const Image: FunctionComponent<ImageProps> = ({
 
   const aspectRatio = height && width ? width / height : undefined;
 
-  return loading ? (
-    <Loading className="image" title={alt} style={{ aspectRatio }} />
-  ) : latest ? (
-    <img className="image" src={latest} alt={alt} title={alt} style={{ aspectRatio }} />
-  ) : (
-    <NotFound className="image" title={alt} style={{ aspectRatio }} />
+  return (
+    <>
+      {loading ? <Loading className="image" title={alt} style={{ aspectRatio }} /> : null}
+      {latest ? (
+        <img
+          className={loading ? 'image overlay' : 'image'}
+          src={latest}
+          alt={alt}
+          title={alt}
+          onLoad={() => setLoading(false)}
+          style={{ aspectRatio }}
+        />
+      ) : loading ? null : (
+        <NotFound className="image" title={alt} style={{ aspectRatio }} />
+      )}
+    </>
   );
 };

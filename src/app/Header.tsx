@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
-import { AiFillWarning } from 'react-icons/ai';
+import { AiOutlineWarning } from 'react-icons/ai';
 import { BsGlobe } from 'react-icons/bs';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { GiIceCube, GiVolcano, GiWaveCrest } from 'react-icons/gi';
+import { categories } from '../data/categories';
 
 import './Header.scss';
 
@@ -13,19 +13,15 @@ export const Header: FunctionComponent = () => (
         <BsGlobe />
       </a>
 
-      <a href="#/volcanoes">
-        <GiVolcano /> Volcanoes
-      </a>
-      <a href="#/oceans">
-        <GiWaveCrest /> Oceans
-      </a>
-      <a href="#/ice">
-        <GiIceCube /> Ice
-      </a>
+      {Object.entries(categories).map(([key, category]) => (
+        <a key={key} href={'#' + key}>
+          <category.Icon /> {category.name}
+        </a>
+      ))}
     </nav>
 
     <div>
-      <AiFillWarning /> ALPHA v0.0.1 - WORK IN PROGRESS <AiFillWarning />
+      <AiOutlineWarning /> Alpha 1 <AiOutlineWarning />
     </div>
 
     <nav>
