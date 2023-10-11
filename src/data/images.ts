@@ -12,7 +12,7 @@ export type Image = {
   legend: string;
   width?: number;
   height?: number;
-  timed?: boolean;
+  timeline?: boolean;
   duration?: number;
   unit?: ManipulateType;
   limit?: number;
@@ -116,7 +116,7 @@ export const images: Image[] = [
     alt: 'Arctic - Daily sea ice thickness',
     width: 1109,
     height: 1218,
-    timed: true,
+    timeline: true,
     legend: 'Daily thickness of the arctic sea ice',
   },
   {
@@ -128,7 +128,7 @@ export const images: Image[] = [
     alt: 'Arctic - Sea ice volume timeseries',
     width: 1093,
     height: 904,
-    timed: true,
+    timeline: true,
     legend: 'Timeseries of the total volume of arctic sea ice',
   },
   {
@@ -184,7 +184,7 @@ export const images: Image[] = [
     alt: 'Greenland - Surface mass balance',
     width: 678,
     height: 1063,
-    timed: true,
+    timeline: true,
     legend: 'Daily surface mass balance of the Greenland ice sheet',
   },
   {
@@ -196,7 +196,7 @@ export const images: Image[] = [
     alt: 'Greenland - Cumulated surface mass balance',
     width: 679,
     height: 1063,
-    timed: true,
+    timeline: true,
     legend: 'Cumulated surface mass balance of the Greenland ice sheet',
   },
   {
@@ -208,7 +208,7 @@ export const images: Image[] = [
     alt: 'Greenland - Surface mass balance timeseries',
     width: 846,
     height: 1080,
-    timed: true,
+    timeline: true,
     legend: 'Timeseries of the surface mass balance of the Greenland ice sheet',
   },
   {
@@ -220,7 +220,7 @@ export const images: Image[] = [
     alt: 'World - Sea surface temperature',
     width: 1100,
     height: 759,
-    timed: true,
+    timeline: true,
     legend: "Daily surface temperature of the world's oceans",
   },
   {
@@ -232,7 +232,7 @@ export const images: Image[] = [
     alt: 'World - Sea surface temperature anomaly',
     width: 1100,
     height: 764,
-    timed: true,
+    timeline: true,
     legend:
       "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
   },
@@ -245,7 +245,7 @@ export const images: Image[] = [
     alt: 'World - Air temperature at 2 meters',
     width: 1024,
     height: 742,
-    timed: true,
+    timeline: true,
     legend: 'Daily worldwide air temperature at 2 meters of altitude',
   },
   {
@@ -257,7 +257,7 @@ export const images: Image[] = [
     alt: 'World - Air temperature at 2 meters',
     width: 1024,
     height: 741,
-    timed: true,
+    timeline: true,
     legend:
       'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
   },

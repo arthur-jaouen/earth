@@ -5,6 +5,7 @@ import { sources } from '../data/sources';
 import { Card, CardImage, CardLegend, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
 import { Image } from '../lib/Image';
 
+import { Timeline } from '../lib/Timeline';
 import './Main.scss';
 
 export const Main: FunctionComponent = () => {
@@ -22,13 +23,24 @@ export const Main: FunctionComponent = () => {
               <CardSource name={sources[image.source].name} url={sources[image.source].url} />
             </CardSubtitle>
             <CardImage>
-              <Image
-                url={image.url}
-                alt={image.title}
-                width={image.width}
-                height={image.height}
-                timed={image.timed}
-              />
+              {image.timeline ? (
+                <Timeline
+                  url={image.url}
+                  alt={image.title}
+                  width={image.width}
+                  height={image.height}
+                  duration={image.duration}
+                  unit={image.unit}
+                  limit={image.limit}
+                />
+              ) : (
+                <Image
+                  url={image.url}
+                  alt={image.title}
+                  width={image.width}
+                  height={image.height}
+                />
+              )}
             </CardImage>
             <CardLegend>{image.legend}</CardLegend>
           </Card>
