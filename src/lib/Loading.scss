@@ -1,9 +1,14 @@
 @import '../common.scss';
 
-.loading svg path {
-  color: $shadow-color;
-  animation: 2s linear infinite spin;
-  transform-origin: 16px 16px;
+.loading {
+  z-index: 1;
+  pointer-events: none;
+
+  svg path {
+    color: $shadow-color;
+    animation: 2s linear infinite spin;
+    transform-origin: 16px 16px;
+  }
 }
 
 @keyframes spin {

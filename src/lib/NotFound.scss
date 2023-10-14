@@ -1,5 +1,7 @@
 @import '../common.scss';
 
-.loading svg path {
-  color: $shadow-color;
+.not-found {
+  svg path {
+    color: $shadow-color;
+  }
 }

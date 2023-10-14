@@ -13,7 +13,7 @@ export const App: FunctionComponent = () => (
       <HashRouter>
         <Routes>
           <Route path="/" Component={Main} />
-          <Route path="/:category" Component={Main} />
+          <Route path="/:category/:id?" Component={Main} />
         </Routes>
       </HashRouter>
     </VisibleListener>

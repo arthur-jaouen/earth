@@ -1,74 +1,55 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, HTMLProps, useEffect, useState } from 'react';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 import { useIsVisible } from './Visible';
 
 import './Image.scss';
 
-export type ImageProps = {
+export type ImageProps = HTMLProps<HTMLImageElement> & {
   url: string;
   alt: string;
-  width?: number;
-  height?: number;
-  loader?: (url: string) => Promise<string | null>;
+  width: number;
+  height: number;
+  legend?: string;
 };
-
-export async function loadImage(url: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const img = document.createElement('img');
-
-    img.onload = () => resolve(url);
-    img.onerror = () => reject(new Error());
-    img.src = url;
-  });
-}
 
 export const Image: FunctionComponent<ImageProps> = ({
   url,
   alt,
   width,
   height,
-  loader = loadImage,
+  legend,
+  ...props
 }) => {
-  const [loaded, setLoaded] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const visible = useIsVisible();
+  const [state, setState] = useState<string>(visible ? 'loading' : 'pending');
 
   useEffect(() => {
     if (visible) {
-      const ref = { canceled: false };
-
-      loader(url)
-        .then((url) => {
-          if (!ref.canceled) {
-            setLoaded(url);
-          }
-        })
-        .catch((err) => console.error(err));
-
-      return () => {
-        ref.canceled = true;
-      };
+      setState('loading');
     }
-  }, [url, loader, visible]);
+  }, [visible, url]);
 
   const aspectRatio = height && width ? width / height : undefined;
 
   return (
-    <>
-      {loading ? <Loading className="image" title={alt} style={{ aspectRatio }} /> : null}
-      {loaded ? (
+    <div className={'image image-' + state}>
+      {state === 'loading' || state === 'success' ? (
         <img
-          className={loading ? 'image overlay' : 'image'}
-          src={loaded}
+          src={url}
           alt={alt}
-          title={alt}
-          onLoad={() => setLoading(false)}
+          onLoad={() => setState('success')}
+          onError={() => setState('error')}
           style={{ aspectRatio }}
+          {...props}
         />
-      ) : loading ? null : (
-        <NotFound className="image" title={alt} style={{ aspectRatio }} />
-      )}
-    </>
+      ) : null}
+      {state === 'pending' || state === 'loading' ? (
+        <Loading style={{ aspectRatio }} />
+      ) : state === 'error' ? (
+        <NotFound style={{ aspectRatio }} />
+      ) : null}
+      {legend ? <legend>{legend}</legend> : null}
+    </div>
   );
 };
