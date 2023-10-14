@@ -25,10 +25,6 @@ export const CardImage: FunctionComponent<PropsWithChildren> = ({ children }) =>
   <div className="card-image">{children}</div>
 );
 
-export const CardLegend: FunctionComponent<PropsWithChildren> = ({ children }) => (
-  <legend className="card-legend">{children}</legend>
-);
-
 export type CardSourceProps = {
   url: string;
   name: string;

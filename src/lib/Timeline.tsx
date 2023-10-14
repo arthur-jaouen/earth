@@ -1,39 +1,40 @@
 import dayjs, { Dayjs, ManipulateType } from 'dayjs';
-import { FunctionComponent, useCallback } from 'react';
-import { Image } from './Image';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { Image, ImageProps } from './Image';
+import { Loading } from './Loading';
+import { NotFound } from './NotFound';
+import { useIsVisible } from './Visible';
+import { usePromise } from './hooks';
 
-export type TimelineProps = {
-  url: string;
-  alt: string;
-  width?: number;
-  height?: number;
+import './Timeline.scss';
+
+export type TimelineProps = ImageProps & {
   duration?: number;
   unit?: ManipulateType;
-  limit?: number;
+  tries?: number;
 };
 
-export async function loadImage(url: string, date: Dayjs): Promise<string> {
-  const dateUrl = 'https://wsrv.nl?url=' + date.format(url);
-  const response = await fetch(dateUrl, { method: 'HEAD' });
-
-  if (response.status !== 200) {
-    throw new Error();
-  }
-
-  return dateUrl;
+export function getImageUrl(url: string, date: Dayjs): string {
+  return `https://wsrv.nl?url=${date.format(url)}`;
 }
 
-export async function getLatestImage(
+export async function getLatestAvailableDate(
   url: string,
   duration: number,
   unit: ManipulateType,
-  limit: number,
-): Promise<string | null> {
+  tries: number,
+): Promise<Dayjs | null> {
   let date = dayjs();
 
-  for (let count = 0; count < limit; count++) {
+  for (let count = 0; count < tries; count++) {
     try {
-      return await loadImage(url, date);
+      const response = await fetch(getImageUrl(url, date), { method: 'HEAD' });
+
+      if (response.status !== 200) {
+        throw new Error();
+      }
+
+      return date;
     } catch (error) {
       // Nothing, just try next date
     }
@@ -46,17 +47,46 @@ export async function getLatestImage(
 
 export const Timeline: FunctionComponent<TimelineProps> = ({
   url,
-  alt,
   width,
   height,
   duration = 1,
   unit = 'day',
-  limit = 10,
+  tries = 10,
+  ...props
 }) => {
-  const loader = useCallback(
-    (url: string) => getLatestImage(url, duration, unit, limit),
-    [duration, unit, limit],
-  );
+  const visible = useIsVisible();
+  const { state, data: latest, load } = usePromise<Dayjs | null>();
+  const [offset, setOffset] = useState(0);
 
-  return <Image url={url} alt={alt} width={width} height={height} loader={loader} />;
+  useEffect(() => {
+    if (visible) {
+      return load(getLatestAvailableDate(url, duration, unit, tries));
+    }
+  }, [load, url, duration, unit, tries, visible]);
+
+  const aspectRatio = height && width ? width / height : undefined;
+
+  return (
+    <div className={'timeline timeline-' + state}>
+      {state === 'pending' || state === 'loading' ? (
+        <Loading style={{ aspectRatio }} />
+      ) : state === 'error' ? (
+        <NotFound style={{ aspectRatio }} />
+      ) : state === 'success' && latest ? (
+        <Image
+          url={getImageUrl(url, latest.add(offset * duration, unit))}
+          width={width}
+          height={height}
+          {...props}
+        />
+      ) : null}
+      <input
+        type="range"
+        min={-30}
+        max={0}
+        value={offset}
+        onChange={(event) => setOffset(event.target.valueAsNumber)}
+      />
+    </div>
+  );
 };

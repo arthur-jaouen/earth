@@ -9,13 +9,13 @@ export type Image = {
   category: keyof Categories;
   url: string;
   alt: string;
-  legend: string;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
+  legend?: string;
   timeline?: boolean;
   duration?: number;
   unit?: ManipulateType;
-  limit?: number;
+  tries?: number;
 };
 
 export const images: Image[] = [
