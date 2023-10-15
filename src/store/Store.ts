@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { ImageSlice } from './Image';
-import { TimelineSlice } from './Timeline';
+import { PictureSlice } from './Pictures';
+import { TimelineSlice } from './Timelines';
 
 export const Store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -8,7 +8,7 @@ export const Store = configureStore({
       serializableCheck: false,
     }),
   reducer: {
-    [ImageSlice.name]: ImageSlice.reducer,
+    [PictureSlice.name]: PictureSlice.reducer,
     [TimelineSlice.name]: TimelineSlice.reducer,
   },
 });

@@ -1,0 +1,10 @@
+@import '../common.scss';
+
+.about {
+  padding: 0.6rem;
+  margin: 0.6rem;
+  background-color: $secondary-color;
+  border-radius: 0.25rem;
+  box-shadow: 0.1rem 0.1rem 0.5rem $shadow-color;
+  box-sizing: border-box;
+}

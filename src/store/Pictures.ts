@@ -1,34 +1,34 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { images } from '../data/images';
+import { pictures } from '../data/pictures';
 import { addBlob, getBlob } from './Db';
 import { Dispatch, State } from './Store';
 
-export type ImageItem = {
+export type PictureState = {
   state: 'pending' | 'loading' | 'success' | 'error';
   data?: string;
   error?: unknown;
 };
 
-export type ImageState = { [id: string]: ImageItem };
+export type PictureStates = { [id: string]: PictureState };
 
-const initialState: ImageState = Object.fromEntries(
-  Object.keys(images).map((id) => [id, { state: 'pending' }]),
+const initialState: PictureStates = Object.fromEntries(
+  Object.keys(pictures).map((id) => [id, { state: 'pending' }]),
 );
 
-export const ImageSlice = createSlice({
-  name: 'images',
+export const PictureSlice = createSlice({
+  name: 'pictures',
   initialState,
   reducers: {
-    setImagePending(state: ImageState, { payload: { id } }: PayloadAction<{ id: string }>) {
+    setPicturePending(state: PictureStates, { payload: { id } }: PayloadAction<{ id: string }>) {
       state[id] = {
         state: 'pending',
       };
     },
 
-    setImageLoading(
-      state: ImageState,
+    setPictureLoading(
+      state: PictureStates,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
       state[id] = {
@@ -37,8 +37,8 @@ export const ImageSlice = createSlice({
       };
     },
 
-    setImageSuccess(
-      state: ImageState,
+    setPictureSuccess(
+      state: PictureStates,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
       state[id] = {
@@ -47,8 +47,8 @@ export const ImageSlice = createSlice({
       };
     },
 
-    setImageError(
-      state: ImageState,
+    setPictureError(
+      state: PictureStates,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
       state[id] = {
@@ -59,17 +59,17 @@ export const ImageSlice = createSlice({
   },
 });
 
-export const { setImagePending, setImageLoading, setImageSuccess, setImageError } =
-  ImageSlice.actions;
+export const { setPicturePending, setPictureLoading, setPictureSuccess, setPictureError } =
+  PictureSlice.actions;
 
-export const useImage = (id: string) => useSelector((state: State) => state.images[id]);
+export const usePicture = (id: string) => useSelector((state: State) => state.pictures[id]);
 
-export const loadImage =
+export const loadPicture =
   (id: string, url: string, validity: number) =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const image = getState().images[id];
+    const picture = getState().pictures[id];
 
-    if (image.state !== 'error' && image.state !== 'pending') {
+    if (picture.state !== 'error' && picture.state !== 'pending') {
       return;
     }
 
@@ -80,14 +80,14 @@ export const loadImage =
         const data = URL.createObjectURL(cached.blob);
 
         if (dayjs(new Date()).isBefore(dayjs(cached.date).add(validity, 'second'))) {
-          dispatch(setImageSuccess({ id, data }));
+          dispatch(setPictureSuccess({ id, data }));
 
           return;
         } else {
-          dispatch(setImageLoading({ id, data }));
+          dispatch(setPictureLoading({ id, data }));
         }
       } else {
-        dispatch(setImageLoading({ id }));
+        dispatch(setPictureLoading({ id }));
       }
     } catch (error) {
       console.error(error);
@@ -100,7 +100,7 @@ export const loadImage =
       const blob = await response.blob();
       const data = URL.createObjectURL(blob);
 
-      dispatch(setImageSuccess({ id, data }));
+      dispatch(setPictureSuccess({ id, data }));
 
       setTimeout(async () => {
         await addBlob(id, blob, date);
@@ -108,6 +108,6 @@ export const loadImage =
     } catch (error) {
       console.error(error);
 
-      dispatch(setImageError({ id, error }));
+      dispatch(setPictureError({ id, error }));
     }
   };

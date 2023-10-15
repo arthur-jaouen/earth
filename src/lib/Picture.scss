@@ -1,6 +1,6 @@
 @import '../common.scss';
 
-.image {
+.picture {
   overflow: auto;
   position: relative;
   align-items: center;
@@ -31,8 +31,8 @@
     position: absolute;
   }
 
-  &.image-pending > img,
-  &.image-success > img {
+  &.picture-pending > img,
+  &.picture-success > img {
     z-index: 1;
   }
 }

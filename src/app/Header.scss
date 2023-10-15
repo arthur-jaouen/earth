@@ -31,8 +31,14 @@
   }
 
   @include phone {
-    .menu-link-item {
-      display: none;
+    .menu-link {
+      .icon {
+        margin-right: 0;
+      }
+
+      .menu-link-item {
+        display: none;
+      }
     }
   }
 }
