@@ -1,6 +1,6 @@
-import { AuthorTable } from './authors';
+import { AuthorTable } from './AuthorModel';
 
-export type SourceData = {
+export type SourceModel = {
   name: string;
   author: keyof AuthorTable;
   url: string;
@@ -15,41 +15,41 @@ export const sources = {
     author: 'cr',
     url: 'https://climatereanalyzer.org/clim/sst_daily/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   crT2: {
     name: 'Climate Reanalyzer',
     author: 'cr',
     url: 'https://climatereanalyzer.org/clim/t2_daily/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   kilaueaMonitoring: {
     name: 'USGS',
     author: 'usgs',
     url: 'https://www.usgs.gov/volcanoes/kilauea/monitoring-data',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   nsidcArctic: {
     name: 'NSIDC',
     author: 'nsidc',
     url: 'https://nsidc.org/arcticseaicenews/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   nsidcGreenland: {
     name: 'NSIDC',
     author: 'nsidc',
     url: 'https://nsidc.org/greenland-today/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   ppArctic: {
     name: 'Polar Portal',
     author: 'pp',
     url: 'http://polarportal.dk/en/sea-ice-and-icebergs/sea-ice-thickness-and-volume/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
   ppGreenland: {
     name: 'Polar Portal',
     author: 'pp',
     url: 'http://polarportal.dk/en/greenland/surface-conditions/',
     description: '',
-  } as SourceData,
+  } as SourceModel,
 };

@@ -1,4 +1,4 @@
-export type TagData = {
+export type TagModel = {
   name: string;
 };
 

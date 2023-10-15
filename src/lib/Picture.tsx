@@ -1,56 +1,43 @@
-import { FunctionComponent, HTMLProps, useCallback, useEffect, useState } from 'react';
+import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { PictureModel } from '../model/PictureModel';
+import { sources } from '../model/SourceModel';
 import {
   loadPicture,
   setPictureError,
   setPictureLoading,
   setPictureSuccess,
   usePicture,
-} from '../store/Pictures';
+} from '../store/PictureSlice';
 import { Dispatch } from '../store/Store';
+import { Card, CardSource, CardSubtitle, CardTitle } from './Card';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 import { useIsVisible } from './Visible';
 
 import './Picture.scss';
 
-export type PictureProps = HTMLProps<HTMLImageElement> & {
+export type PictureProps = {
   id: string;
-  url: string;
-  alt: string;
-  width: number;
-  height: number;
-  legend?: string;
-  cors?: boolean;
-  validity?: number;
+  picture: PictureModel;
 };
 
-export const Picture: FunctionComponent<PictureProps> = ({
-  id,
-  url,
-  alt,
-  width,
-  height,
-  legend,
-  cors,
-  validity = 365 * 24 * 3600,
-  ...props
-}) => {
+export const Picture: FunctionComponent<PictureProps> = ({ id, picture }) => {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
   const { state, data } = usePicture(id);
-  const currentSrc = visible ? (cors ? url : data) : undefined;
+  const currentSrc = visible ? (picture.cors ? picture.url : data) : undefined;
   const [prevSrc, setPrevSrc] = useState(currentSrc);
 
   useEffect(() => {
     if (visible && state === 'pending') {
-      if (cors) {
+      if (picture.cors) {
         dispatch(setPictureLoading({ id }));
       } else {
-        dispatch(loadPicture(id, url, validity));
+        dispatch(loadPicture(id, picture));
       }
     }
-  }, [dispatch, visible, state, id, url, validity, cors]);
+  }, [dispatch, visible, state, id, picture]);
 
   const onLoad = useCallback(() => dispatch(setPictureSuccess({ id })), [dispatch, id]);
   const onError = useCallback(
@@ -65,26 +52,40 @@ export const Picture: FunctionComponent<PictureProps> = ({
   }, [currentSrc]);
 
   const src = currentSrc || prevSrc;
-  const aspectRatio = height && width ? width / height : undefined;
 
   return (
     <div className={'picture picture-' + state}>
       {state === 'error' ? (
-        <NotFound style={{ aspectRatio }} />
+        <NotFound style={{ aspectRatio: picture.aspectRatio }} />
       ) : (
-        <Loading style={{ aspectRatio }} />
+        <Loading style={{ aspectRatio: picture.aspectRatio }} />
       )}
       {src ? (
         <img
           src={src}
-          alt={alt}
-          onLoad={cors ? onLoad : undefined}
-          onError={cors ? onError : undefined}
-          style={{ aspectRatio }}
-          {...props}
+          alt={picture.alt}
+          onLoad={picture.cors ? onLoad : undefined}
+          onError={picture.cors ? onError : undefined}
+          style={{ aspectRatio: picture.aspectRatio }}
         />
       ) : null}
-      {legend ? <legend>{legend}</legend> : null}
+      <legend>{picture.legend}</legend>
     </div>
   );
 };
+
+export type PictureCardProps = {
+  id: string;
+  picture: PictureModel;
+};
+
+export const PictureCard: FunctionComponent<PictureCardProps> = ({ id, picture }) => (
+  <Card>
+    <CardTitle>{picture.title}</CardTitle>
+    <CardSubtitle>
+      {picture.subtitle}&nbsp;
+      <CardSource name={sources[picture.source].name} url={sources[picture.source].url} />
+    </CardSubtitle>
+    <Picture id={id} picture={picture} />
+  </Card>
+);

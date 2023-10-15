@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import dayjs, { ManipulateType } from 'dayjs';
+import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { timelines } from '../data/timelines';
-import { setPicturePending } from './Pictures';
+import { TimelineModel, timelines } from '../model/TimelineModel';
+import { setPicturePending } from './PictureSlice';
 import { Dispatch, State } from './Store';
 
 export type TimelineState = {
@@ -12,9 +12,9 @@ export type TimelineState = {
   error?: unknown;
 };
 
-export type TimelineStates = { [id: string]: TimelineState };
+export type TimelineSliceState = { [id: string]: TimelineState };
 
-const initialState: TimelineStates = Object.fromEntries(
+const initialState: TimelineSliceState = Object.fromEntries(
   Object.keys(timelines).map((id) => [id, { state: 'pending' }]),
 );
 
@@ -22,14 +22,17 @@ export const TimelineSlice = createSlice({
   name: 'timelines',
   initialState,
   reducers: {
-    setTimelineLoading(state: TimelineStates, { payload: { id } }: PayloadAction<{ id: string }>) {
+    setTimelineLoading(
+      state: TimelineSliceState,
+      { payload: { id } }: PayloadAction<{ id: string }>,
+    ) {
       state[id] = {
         state: 'loading',
       };
     },
 
     setTimelineSuccess(
-      state: TimelineStates,
+      state: TimelineSliceState,
       { payload: { id, latest } }: PayloadAction<{ id: string; latest: string }>,
     ) {
       state[id] = {
@@ -40,7 +43,7 @@ export const TimelineSlice = createSlice({
     },
 
     setTimelineError(
-      state: TimelineStates,
+      state: TimelineSliceState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
       state[id] = {
@@ -50,7 +53,7 @@ export const TimelineSlice = createSlice({
     },
 
     setTimelineOffset(
-      state: TimelineStates,
+      state: TimelineSliceState,
       { payload: { id, offset } }: PayloadAction<{ id: string; offset: number }>,
     ) {
       state[id].offset = offset;
@@ -63,50 +66,21 @@ export const { setTimelineLoading, setTimelineSuccess, setTimelineError, setTime
 
 export const useTimeline = (id: string) => useSelector((state: State) => state.timelines[id]);
 
-export const getTimelinePictureId = (id: string, date: string) => `${id}_${date}`;
-
-export const getTimelinePictureUrl = (template: string, date: string) =>
-  `https://wsrv.nl?url=${dayjs(date).format(template)}`;
-
-export const getTimelineLatestDate = async (
-  template: string,
-  tries: number,
-  duration: number,
-  unit: ManipulateType,
-): Promise<string> => {
-  const start = dayjs().startOf(unit);
-
-  for (let count = 0; count < tries; count++) {
-    try {
-      const date = start.subtract(count * duration, unit).toISOString();
-      const response = await fetch(getTimelinePictureUrl(template, date), { method: 'HEAD' });
-
-      if (response.status === 200) {
-        return date;
-      }
-    } catch (error) {
-      // Nothing, just try next date
-    }
-  }
-
-  throw Error('Not found');
-};
-
 export const loadTimeline =
-  (id: string, template: string, tries: number, duration: number, unit: ManipulateType) =>
+  (id: string, timeline: TimelineModel) =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const timeline = getState().timelines[id];
+    const { state } = getState().timelines[id];
 
-    if (timeline.state !== 'error' && timeline.state !== 'pending') {
+    if (state !== 'error' && state !== 'pending') {
       return;
     }
 
     dispatch(setTimelineLoading({ id }));
 
     try {
-      const date = await getTimelineLatestDate(template, tries, duration, unit);
+      const date = await timeline.getLatestDate();
 
-      dispatch(setPicturePending({ id: getTimelinePictureId(id, date) }));
+      dispatch(setPicturePending({ id: timeline.getPictureId(id, date) }));
       dispatch(setTimelineSuccess({ id, latest: date }));
 
       return;
@@ -118,19 +92,19 @@ export const loadTimeline =
   };
 
 export const loadTimelineOffset =
-  (id: string, offset: number, duration: number, unit: ManipulateType) =>
+  (id: string, offset: number, timeline: TimelineModel) =>
   async (dispatch: Dispatch, getState: () => State) => {
-    const timeline = getState().timelines[id];
+    const { state, latest } = getState().timelines[id];
 
-    if (timeline.state === 'error' || timeline.state === 'pending') {
+    if (state === 'error' || state === 'pending') {
       return;
     }
 
-    const date = dayjs(timeline.latest)
-      .add(offset * duration, unit)
+    const date = dayjs(latest)
+      .add(offset * timeline.duration, timeline.unit)
       .toISOString();
 
-    const pictureId = getTimelinePictureId(id, date);
+    const pictureId = timeline.getPictureId(id, date);
     const picture = getState().pictures[pictureId];
 
     if (!picture) {

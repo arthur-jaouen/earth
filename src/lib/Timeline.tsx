@@ -1,78 +1,72 @@
-import dayjs, { ManipulateType } from 'dayjs';
-import { FunctionComponent, useEffect } from 'react';
+import dayjs from 'dayjs';
+import { FunctionComponent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
+import { sources } from '../model/SourceModel';
+import { TimelineModel } from '../model/TimelineModel';
 import { Dispatch } from '../store/Store';
-import {
-  getTimelinePictureId,
-  getTimelinePictureUrl,
-  loadTimeline,
-  loadTimelineOffset,
-  useTimeline,
-} from '../store/Timelines';
+import { loadTimeline, loadTimelineOffset, useTimeline } from '../store/TimelineSlice';
+import { Card, CardSource, CardSubtitle, CardTitle } from './Card';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
-import { Picture, PictureProps } from './Picture';
+import { Picture } from './Picture';
 import { Range } from './Range';
 import { useIsVisible } from './Visible';
 
 import './Timeline.scss';
 
-export type TimelineProps = Omit<PictureProps, 'url'> & {
+export type TimelineProps = {
   id: string;
-  template: string;
-  duration?: number;
-  unit?: ManipulateType;
-  tries?: number;
+  timeline: TimelineModel;
 };
 
-export const Timeline: FunctionComponent<TimelineProps> = ({
-  id,
-  template,
-  width,
-  height,
-  duration = 1,
-  unit = 'day',
-  tries = 10,
-  validity = 365 * 24 * 3600,
-  ...props
-}) => {
+export const Timeline: FunctionComponent<TimelineProps> = ({ id, timeline }) => {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
   const { state, latest, offset } = useTimeline(id);
 
   useEffect(() => {
     if (visible) {
-      dispatch(loadTimeline(id, template, tries, duration, unit));
+      dispatch(loadTimeline(id, timeline));
     }
-  }, [dispatch, visible, id, template, tries, duration, unit]);
+  }, [dispatch, visible, id, timeline]);
 
-  const aspectRatio = height && width ? width / height : undefined;
   const date = dayjs(latest!)
-    .add((offset || 0) * duration, unit)
+    .add((offset || 0) * timeline.duration, timeline.unit)
     .toISOString();
+
+  const picture = useMemo(() => timeline.getPictureModel(date), [timeline, date]);
 
   return (
     <div className={'timeline timeline-' + state}>
       {state === 'loading' || state === 'pending' ? (
-        <Loading style={{ aspectRatio }} />
+        <Loading style={{ aspectRatio: timeline.aspectRatio }} />
       ) : state === 'error' ? (
-        <NotFound style={{ aspectRatio }} />
+        <NotFound style={{ aspectRatio: timeline.aspectRatio }} />
       ) : state === 'success' ? (
-        <Picture
-          id={getTimelinePictureId(id, date)}
-          url={getTimelinePictureUrl(template, date)}
-          width={width}
-          height={height}
-          validity={validity}
-          {...props}
-        />
+        <Picture id={timeline.getPictureId(id, date)} picture={picture} />
       ) : null}
       <Range
         min={-30}
         max={0}
         value={offset || 0}
-        onChange={(value) => dispatch(loadTimelineOffset(id, value, duration, unit))}
+        onChange={(value) => dispatch(loadTimelineOffset(id, value, timeline))}
       />
     </div>
   );
 };
+
+export type TimelineCardProps = {
+  id: string;
+  timeline: TimelineModel;
+};
+
+export const TimelineCard: FunctionComponent<TimelineCardProps> = ({ id, timeline }) => (
+  <Card>
+    <CardTitle>{timeline.title}</CardTitle>
+    <CardSubtitle>
+      {timeline.subtitle}&nbsp;
+      <CardSource name={sources[timeline.source].name} url={sources[timeline.source].url} />
+    </CardSubtitle>
+    <Timeline id={id} timeline={timeline} />
+  </Card>
+);

@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react';
 import { BsGlobe } from 'react-icons/bs';
 import { FaCircleInfo } from 'react-icons/fa6';
-import { categories } from '../data/categories';
 import { Menu, MenuLink, MenuSearch } from '../lib/Menu';
+import { categories } from '../model/CategoryModel';
 
 import './Header.scss';
 
