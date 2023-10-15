@@ -10,7 +10,8 @@
     max-height: 100%;
   }
 
-  > input {
+  > .range,
+  > input[type='range'] {
     margin: 0.2rem 0.8rem;
   }
 }
