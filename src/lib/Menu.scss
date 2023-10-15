@@ -1,0 +1,40 @@
+@import '../common.scss';
+
+.menu {
+  display: flex;
+
+  .menu-link {
+    padding: 0.4rem 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .icon {
+    margin-right: 0.4rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .icon,
+  .menu-link-item {
+    vertical-align: middle;
+  }
+
+  .menu-search {
+    padding: 0;
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+
+    input {
+      padding: 0.4rem 0.8rem;
+      flex-grow: 1;
+      flex-shrink: 1;
+      width: 0;
+    }
+  }
+}

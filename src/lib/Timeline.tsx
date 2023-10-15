@@ -12,6 +12,7 @@ import {
 import { Image, ImageProps } from './Image';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
+import { Range } from './Range';
 import { useIsVisible } from './Visible';
 
 import './Timeline.scss';
@@ -66,14 +67,11 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
           {...props}
         />
       ) : null}
-      <input
-        type="range"
+      <Range
         min={-30}
         max={0}
         value={offset || 0}
-        onChange={(event) =>
-          dispatch(loadTimelineOffset(id, event.target.valueAsNumber, duration, unit))
-        }
+        onChange={(value) => dispatch(loadTimelineOffset(id, value, duration, unit))}
       />
     </div>
   );
