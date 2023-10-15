@@ -1,9 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { TimelineModel, timelines } from '../model/TimelineModel';
-import { setPicturePending } from './PictureSlice';
-import { Dispatch, State } from './Store';
+import { timelines } from '../model/TimelineModel';
+import { State } from './Store';
 
 export type TimelineState = {
   state: 'pending' | 'loading' | 'success' | 'error';
@@ -33,12 +31,14 @@ export const TimelineSlice = createSlice({
 
     setTimelineSuccess(
       state: TimelineSliceState,
-      { payload: { id, latest } }: PayloadAction<{ id: string; latest: string }>,
+      {
+        payload: { id, latest, offset },
+      }: PayloadAction<{ id: string; latest: string; offset: number }>,
     ) {
       state[id] = {
         state: 'success',
         latest,
-        offset: 0,
+        offset,
       };
     },
 
@@ -65,51 +65,3 @@ export const { setTimelineLoading, setTimelineSuccess, setTimelineError, setTime
   TimelineSlice.actions;
 
 export const useTimeline = (id: string) => useSelector((state: State) => state.timelines[id]);
-
-export const loadTimeline =
-  (id: string, timeline: TimelineModel) =>
-  async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const { state } = getState().timelines[id];
-
-    if (state !== 'error' && state !== 'pending') {
-      return;
-    }
-
-    dispatch(setTimelineLoading({ id }));
-
-    try {
-      const date = await timeline.getLatestDate();
-
-      dispatch(setPicturePending({ id: timeline.getPictureId(id, date) }));
-      dispatch(setTimelineSuccess({ id, latest: date }));
-
-      return;
-    } catch (error) {
-      console.error(error);
-
-      dispatch(setTimelineError({ id, error }));
-    }
-  };
-
-export const loadTimelineOffset =
-  (id: string, offset: number, timeline: TimelineModel) =>
-  async (dispatch: Dispatch, getState: () => State) => {
-    const { state, latest } = getState().timelines[id];
-
-    if (state === 'error' || state === 'pending') {
-      return;
-    }
-
-    const date = dayjs(latest)
-      .add(offset * timeline.duration, timeline.unit)
-      .toISOString();
-
-    const pictureId = timeline.getPictureId(id, date);
-    const picture = getState().pictures[pictureId];
-
-    if (!picture) {
-      dispatch(setPicturePending({ id: pictureId }));
-    }
-
-    dispatch(setTimelineOffset({ id, offset }));
-  };
