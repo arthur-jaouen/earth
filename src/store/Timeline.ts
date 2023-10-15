@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import dayjs, { ManipulateType } from 'dayjs';
 import { useSelector } from 'react-redux';
 import { timelines } from '../data/timelines';
-import { loadImage, setImageSuccess } from './Image';
+import { setImagePending } from './Image';
 import { Dispatch, State } from './Store';
 
 export type TimelineItem = {
@@ -23,58 +23,32 @@ export const TimelineSlice = createSlice({
   initialState,
   reducers: {
     setTimelineLoading(state: TimelineState, { payload: { id } }: PayloadAction<{ id: string }>) {
-      const timeline = state[id];
-
-      if (timeline) {
-        timeline.state = 'loading';
-        timeline.latest = undefined;
-        timeline.offset = undefined;
-        timeline.error = undefined;
-      } else {
-        state[id] = {
-          state: 'loading',
-        };
-      }
+      state[id] = {
+        state: 'loading',
+      };
     },
 
     setTimelineSuccess(
       state: TimelineState,
       { payload: { id, latest } }: PayloadAction<{ id: string; latest: string }>,
     ) {
-      const timeline = state[id];
-
-      if (timeline) {
-        timeline.state = 'success';
-        timeline.latest = latest;
-        timeline.offset = 0;
-        timeline.error = undefined;
-      } else {
-        state[id] = {
-          state: 'success',
-          latest,
-          offset: 0,
-        };
-      }
+      state[id] = {
+        state: 'success',
+        latest,
+        offset: 0,
+      };
     },
 
     setTimelineError(
       state: TimelineState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
-      const timeline = state[id];
-
-      if (timeline) {
-        timeline.state = 'error';
-        timeline.latest = undefined;
-        timeline.offset = undefined;
-        timeline.error = error;
-      } else {
-        state[id] = {
-          state: 'error',
-          error,
-        };
-      }
+      state[id] = {
+        state: 'error',
+        error,
+      };
     },
+
     setTimelineOffset(
       state: TimelineState,
       { payload: { id, offset } }: PayloadAction<{ id: string; offset: number }>,
@@ -99,18 +73,16 @@ export const getTimelineLatestDate = async (
   tries: number,
   duration: number,
   unit: ManipulateType,
-): Promise<{ data: string; date: string }> => {
+): Promise<string> => {
   const start = dayjs().startOf(unit);
 
   for (let count = 0; count < tries; count++) {
     try {
       const date = start.subtract(count * duration, unit).toISOString();
-      const response = await fetch(getTimelineImageUrl(template, date));
+      const response = await fetch(getTimelineImageUrl(template, date), { method: 'HEAD' });
 
       if (response.status === 200) {
-        const data = URL.createObjectURL(await response.blob());
-
-        return { date, data };
+        return date;
       }
     } catch (error) {
       // Nothing, just try next date
@@ -125,16 +97,16 @@ export const loadTimeline =
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
     const timeline = getState().timelines[id];
 
-    if (timeline && timeline.state !== 'error' && timeline.state !== 'pending') {
+    if (timeline.state !== 'error' && timeline.state !== 'pending') {
       return;
     }
 
     dispatch(setTimelineLoading({ id }));
 
     try {
-      const { data, date } = await getTimelineLatestDate(template, tries, duration, unit);
+      const date = await getTimelineLatestDate(template, tries, duration, unit);
 
-      dispatch(setImageSuccess({ id: getTimelineImageId(id, date), data }));
+      dispatch(setImagePending({ id: getTimelineImageId(id, date) }));
       dispatch(setTimelineSuccess({ id, latest: date }));
 
       return;
@@ -146,11 +118,11 @@ export const loadTimeline =
   };
 
 export const loadTimelineOffset =
-  (id: string, template: string, offset: number, duration: number, unit: ManipulateType) =>
+  (id: string, offset: number, duration: number, unit: ManipulateType) =>
   async (dispatch: Dispatch, getState: () => State) => {
     const timeline = getState().timelines[id];
 
-    if (!timeline || timeline.state === 'error' || timeline.state === 'pending') {
+    if (timeline.state === 'error' || timeline.state === 'pending') {
       return;
     }
 
@@ -158,6 +130,12 @@ export const loadTimelineOffset =
       .add(offset * duration, unit)
       .toISOString();
 
-    dispatch(loadImage(getTimelineImageId(id, date), getTimelineImageUrl(template, date)));
+    const imageId = getTimelineImageId(id, date);
+    const image = getState().images[imageId];
+
+    if (!image) {
+      dispatch(setImagePending({ id: imageId }));
+    }
+
     dispatch(setTimelineOffset({ id, offset }));
   };
