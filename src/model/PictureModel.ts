@@ -1,3 +1,7 @@
+import dayjs from 'dayjs';
+import { addBlob, getBlob } from '../store/Db';
+import { setPictureError, setPictureLoading, setPictureSuccess } from '../store/PictureSlice';
+import { Dispatch } from '../store/Store';
 import { CategoryTable } from './CategoryModel';
 import { SourceTable } from './SourceModel';
 
@@ -18,6 +22,57 @@ export class PictureModel {
 
   get aspectRatio(): number {
     return this.width / this.height;
+  }
+
+  loadCached(id: string) {
+    return async (dispatch: Dispatch): Promise<boolean> => {
+      const cached = await getBlob(id);
+
+      if (!cached) {
+        dispatch(setPictureLoading({ id }));
+
+        return true;
+      }
+
+      const data = URL.createObjectURL(cached.blob);
+      const isValid = dayjs(new Date()).isBefore(dayjs(cached.date).add(this.validity, 'second'));
+
+      if (!isValid) {
+        dispatch(setPictureLoading({ id, data }));
+
+        return true;
+      }
+
+      dispatch(setPictureSuccess({ id, data }));
+
+      return false;
+    };
+  }
+
+  loadData(id: string) {
+    return async (dispatch: Dispatch): Promise<void> => {
+      try {
+        const needsLoad = await dispatch(this.loadCached(id));
+
+        if (needsLoad) {
+          const response = await fetch(this.url);
+          // TODO const date = new Date(response.headers.get('Date') as string);
+          const date = new Date();
+          const blob = await response.blob();
+          const data = URL.createObjectURL(blob);
+
+          dispatch(setPictureSuccess({ id, data }));
+
+          setTimeout(async () => {
+            await addBlob(id, blob, date);
+          });
+        }
+      } catch (error) {
+        console.error(error);
+
+        dispatch(setPictureError({ id, error }));
+      }
+    };
   }
 }
 

@@ -1,4 +1,12 @@
 import dayjs, { ManipulateType } from 'dayjs';
+import { setPicturePending } from '../store/PictureSlice';
+import { Dispatch, State } from '../store/Store';
+import {
+  setTimelineError,
+  setTimelineLoading,
+  setTimelineOffset,
+  setTimelineSuccess,
+} from '../store/TimelineSlice';
 import { CategoryTable } from './CategoryModel';
 import { PictureModel } from './PictureModel';
 import { SourceTable } from './SourceModel';
@@ -21,6 +29,44 @@ export class TimelineModel {
 
   get aspectRatio(): number {
     return this.width / this.height;
+  }
+
+  loadData(id: string) {
+    return async (dispatch: Dispatch): Promise<void> => {
+      dispatch(setTimelineLoading({ id }));
+
+      try {
+        const date = await this.getLatestDate();
+
+        dispatch(setPicturePending({ id: this.getPictureId(id, date) }));
+        dispatch(setTimelineSuccess({ id, latest: date, offset: 0 }));
+
+        return;
+      } catch (error) {
+        console.error(error);
+
+        dispatch(setTimelineError({ id, error }));
+      }
+    };
+  }
+
+  loadAtOffset(id: string, offset: number) {
+    return async (dispatch: Dispatch, getState: () => State) => {
+      const { latest } = getState().timelines[id];
+
+      const date = dayjs(latest)
+        .add(offset * this.duration, this.unit)
+        .toISOString();
+
+      const pictureId = this.getPictureId(id, date);
+      const picture = getState().pictures[pictureId];
+
+      if (!picture) {
+        dispatch(setPicturePending({ id: pictureId }));
+      }
+
+      dispatch(setTimelineOffset({ id, offset }));
+    };
   }
 
   getPictureId(id: string, date: string): string {

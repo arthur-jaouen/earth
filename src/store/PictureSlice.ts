@@ -1,9 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { PictureModel, pictures } from '../model/PictureModel';
-import { addBlob, getBlob } from './Db';
-import { Dispatch, State } from './Store';
+import { pictures } from '../model/PictureModel';
+import { State } from './Store';
 
 export type PictureState = {
   state: 'pending' | 'loading' | 'success' | 'error';
@@ -66,51 +64,3 @@ export const { setPicturePending, setPictureLoading, setPictureSuccess, setPictu
   PictureSlice.actions;
 
 export const usePicture = (id: string) => useSelector((state: State) => state.pictures[id]);
-
-export const loadPicture =
-  (id: string, picture: PictureModel) =>
-  async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const { state } = getState().pictures[id];
-
-    if (state !== 'error' && state !== 'pending') {
-      return;
-    }
-
-    try {
-      const cached = await getBlob(id);
-
-      if (cached) {
-        const data = URL.createObjectURL(cached.blob);
-
-        if (dayjs(new Date()).isBefore(dayjs(cached.date).add(picture.validity, 'second'))) {
-          dispatch(setPictureSuccess({ id, data }));
-
-          return;
-        } else {
-          dispatch(setPictureLoading({ id, data }));
-        }
-      } else {
-        dispatch(setPictureLoading({ id }));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      const response = await fetch(picture.url);
-      // TODO const date = new Date(response.headers.get('Date') as string);
-      const date = new Date();
-      const blob = await response.blob();
-      const data = URL.createObjectURL(blob);
-
-      dispatch(setPictureSuccess({ id, data }));
-
-      setTimeout(async () => {
-        await addBlob(id, blob, date);
-      });
-    } catch (error) {
-      console.error(error);
-
-      dispatch(setPictureError({ id, error }));
-    }
-  };

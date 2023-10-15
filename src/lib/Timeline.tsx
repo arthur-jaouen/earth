@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { sources } from '../model/SourceModel';
 import { TimelineModel } from '../model/TimelineModel';
 import { Dispatch } from '../store/Store';
-import { loadTimeline, loadTimelineOffset, useTimeline } from '../store/TimelineSlice';
+import { useTimeline } from '../store/TimelineSlice';
 import { Card, CardSource, CardSubtitle, CardTitle } from './Card';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
@@ -26,7 +26,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ id, timeline }) => 
 
   useEffect(() => {
     if (visible) {
-      dispatch(loadTimeline(id, timeline));
+      dispatch(timeline.loadData(id));
     }
   }, [dispatch, visible, id, timeline]);
 
@@ -49,7 +49,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ id, timeline }) => 
         min={-30}
         max={0}
         value={offset || 0}
-        onChange={(value) => dispatch(loadTimelineOffset(id, value, timeline))}
+        onChange={(value) => dispatch(timeline.loadAtOffset(id, value))}
       />
     </div>
   );

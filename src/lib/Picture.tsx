@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { PictureModel } from '../model/PictureModel';
 import { sources } from '../model/SourceModel';
 import {
-  loadPicture,
   setPictureError,
   setPictureLoading,
   setPictureSuccess,
@@ -34,7 +33,7 @@ export const Picture: FunctionComponent<PictureProps> = ({ id, picture }) => {
       if (picture.cors) {
         dispatch(setPictureLoading({ id }));
       } else {
-        dispatch(loadPicture(id, picture));
+        dispatch(picture.loadData(id));
       }
     }
   }, [dispatch, visible, state, id, picture]);
