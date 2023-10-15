@@ -2,15 +2,15 @@ import { useCallback, useRef, useState } from 'react';
 
 export type Cancel = () => void;
 
-export type UsePromise<T> = {
+export type PromiseState<T> = {
   state: 'pending' | 'loading' | 'success' | 'error';
   data?: T;
   error?: unknown;
   load: (promise: Promise<T>) => Cancel;
 };
 
-export function usePromise<T>(): UsePromise<T> {
-  const [state, setState] = useState<Omit<UsePromise<T>, 'load'>>({ state: 'pending' });
+export function usePromise<T>(): PromiseState<T> {
+  const [state, setState] = useState<Omit<PromiseState<T>, 'load'>>({ state: 'pending' });
 
   const load = useCallback((promise: Promise<T>) => {
     let cancelled = false;

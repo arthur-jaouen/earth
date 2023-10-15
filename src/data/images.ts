@@ -1,8 +1,7 @@
-import { ManipulateType } from 'dayjs';
 import { Categories } from './categories';
 import { Sources } from './sources';
 
-export type Image = {
+export type ImageMeta = {
   title: string;
   subtitle: string;
   source: keyof Sources;
@@ -12,14 +11,13 @@ export type Image = {
   width: number;
   height: number;
   legend?: string;
-  timeline?: boolean;
-  duration?: number;
-  unit?: ManipulateType;
-  tries?: number;
+  cors?: boolean;
 };
 
-export const images: Image[] = [
-  {
+export type Images = typeof images;
+
+export const images = {
+  kilaueaTilt2d: {
     title: 'Kilauea - Tilt past 2 days',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -29,8 +27,9 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
-  },
-  {
+    tries: 10,
+  } as ImageMeta,
+  kilaueaTilt1w: {
     title: 'Kilauea - Tilt past week',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -40,8 +39,8 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past week',
-  },
-  {
+  } as ImageMeta,
+  kilaueaTilt1m: {
     title: 'Kilauea - Tilt past month',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -51,8 +50,8 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past month',
-  },
-  {
+  } as ImageMeta,
+  kilaueaTiltSdh1m: {
     title: 'Kilauea - Tilt SDH station past month',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -62,8 +61,8 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
-  },
-  {
+  } as ImageMeta,
+  kilaueaGps1y: {
     title: 'Kilauea - GPS past year',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -73,8 +72,8 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past year',
-  },
-  {
+  } as ImageMeta,
+  kilaueaGps5y: {
     title: 'Kilauea - GPS past 5 years',
     subtitle: 'Summit Area',
     source: 'kilaueaMonitoring',
@@ -84,8 +83,8 @@ export const images: Image[] = [
     width: 900,
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past 5 years',
-  },
-  {
+  } as ImageMeta,
+  nsidcArcticIceCon: {
     title: 'Arctic - Sea ice concentration',
     subtitle: '',
     source: 'nsidcArctic',
@@ -95,8 +94,9 @@ export const images: Image[] = [
     width: 420,
     height: 500,
     legend: 'Daily arctic sea ice concentration map',
-  },
-  {
+    cors: true,
+  } as ImageMeta,
+  nsidcArcticIceTime: {
     title: 'Arctic - Sea ice area timeseries',
     subtitle: '',
     source: 'nsidcArctic',
@@ -106,32 +106,9 @@ export const images: Image[] = [
     width: 1050,
     height: 840,
     legend: 'Daily arctic sea ice extent timeseries',
-  },
-  {
-    title: 'Arctic - Daily sea ice thickness',
-    subtitle: '',
-    source: 'ppArctic',
-    category: 'ice',
-    url: '[http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_]YYYYMMDD[.png]',
-    alt: 'Arctic - Daily sea ice thickness',
-    width: 1109,
-    height: 1218,
-    timeline: true,
-    legend: 'Daily thickness of the arctic sea ice',
-  },
-  {
-    title: 'Arctic - Sea ice volume timeseries',
-    subtitle: '',
-    source: 'ppArctic',
-    category: 'ice',
-    url: '[http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_]YYYYMMDD[.png]',
-    alt: 'Arctic - Sea ice volume timeseries',
-    width: 1093,
-    height: 904,
-    timeline: true,
-    legend: 'Timeseries of the total volume of arctic sea ice',
-  },
-  {
+    cors: true,
+  } as ImageMeta,
+  nsidcAntarcticIceCon: {
     title: 'Antarctic - Sea ice concentration',
     subtitle: '',
     source: 'nsidcArctic',
@@ -141,8 +118,9 @@ export const images: Image[] = [
     width: 420,
     height: 500,
     legend: 'Daily arctic sea ice concentration map',
-  },
-  {
+    cors: true,
+  } as ImageMeta,
+  nsidcAntarcticIceTime: {
     title: 'Antarctic - Sea ice area timeseries',
     subtitle: '',
     source: 'nsidcArctic',
@@ -152,8 +130,9 @@ export const images: Image[] = [
     width: 1050,
     height: 840,
     legend: 'Daily arctic sea ice extent timeseries',
-  },
-  {
+    cors: true,
+  } as ImageMeta,
+  greenlandMeltArea: {
     title: 'Greenland - Melt area',
     subtitle: '',
     source: 'nsidcGreenland',
@@ -163,8 +142,9 @@ export const images: Image[] = [
     width: 1200,
     height: 1800,
     legend: 'Daily Greenland melt area',
-  },
-  {
+    cors: true,
+  } as ImageMeta,
+  greenlandMeltDays: {
     title: 'Greenland - Cumulated melt days',
     subtitle: '',
     source: 'nsidcGreenland',
@@ -174,91 +154,6 @@ export const images: Image[] = [
     width: 1200,
     height: 1800,
     legend: 'Cumulated melt days of the Greenland ice sheet',
-  },
-  {
-    title: 'Greenland - Surface mass balance',
-    subtitle: '',
-    source: 'ppGreenland',
-    category: 'ice',
-    url: '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_]YYYYMMDD[.png]',
-    alt: 'Greenland - Surface mass balance',
-    width: 678,
-    height: 1063,
-    timeline: true,
-    legend: 'Daily surface mass balance of the Greenland ice sheet',
-  },
-  {
-    title: 'Greenland - Cumulated surface mass balance',
-    subtitle: '',
-    source: 'ppGreenland',
-    category: 'ice',
-    url: '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_]YYYYMMDD[.png]',
-    alt: 'Greenland - Cumulated surface mass balance',
-    width: 679,
-    height: 1063,
-    timeline: true,
-    legend: 'Cumulated surface mass balance of the Greenland ice sheet',
-  },
-  {
-    title: 'Greenland - Surface mass balance timeseries',
-    subtitle: '',
-    source: 'ppGreenland',
-    category: 'ice',
-    url: '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_]YYYYMMDD[.png]',
-    alt: 'Greenland - Surface mass balance timeseries',
-    width: 846,
-    height: 1080,
-    timeline: true,
-    legend: 'Timeseries of the surface mass balance of the Greenland ice sheet',
-  },
-  {
-    title: 'World - Sea surface temperature',
-    subtitle: '',
-    source: 'crSst',
-    category: 'oceans',
-    url: '[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]',
-    alt: 'World - Sea surface temperature',
-    width: 1100,
-    height: 759,
-    timeline: true,
-    legend: "Daily surface temperature of the world's oceans",
-  },
-  {
-    title: 'World - Sea surface temperature anomaly',
-    subtitle: '',
-    source: 'crSst',
-    category: 'oceans',
-    url: '[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]',
-    alt: 'World - Sea surface temperature anomaly',
-    width: 1100,
-    height: 764,
-    timeline: true,
-    legend:
-      "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
-  },
-  {
-    title: 'World - Air temperature at 2 meters',
-    subtitle: '',
-    source: 'crT2',
-    category: 'atmosphere',
-    url: '[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d]DOY[.png]',
-    alt: 'World - Air temperature at 2 meters',
-    width: 1024,
-    height: 742,
-    timeline: true,
-    legend: 'Daily worldwide air temperature at 2 meters of altitude',
-  },
-  {
-    title: 'World - Air temperature anomaly at 2 meters',
-    subtitle: '',
-    source: 'crT2',
-    category: 'atmosphere',
-    url: '[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d]DOY[.png]',
-    alt: 'World - Air temperature at 2 meters',
-    width: 1024,
-    height: 741,
-    timeline: true,
-    legend:
-      'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
-  },
-];
+    cors: true,
+  } as ImageMeta,
+};

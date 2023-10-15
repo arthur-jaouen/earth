@@ -1,52 +1,32 @@
-import dayjs, { Dayjs, ManipulateType } from 'dayjs';
-import { FunctionComponent, useEffect, useState } from 'react';
+import dayjs, { ManipulateType } from 'dayjs';
+import { FunctionComponent, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from '../store/Store';
+import {
+  getTimelineImageId,
+  getTimelineImageUrl,
+  loadTimeline,
+  loadTimelineOffset,
+  useTimeline,
+} from '../store/Timeline';
 import { Image, ImageProps } from './Image';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 import { useIsVisible } from './Visible';
-import { usePromise } from './hooks';
 
 import './Timeline.scss';
 
-export type TimelineProps = ImageProps & {
+export type TimelineProps = Omit<ImageProps, 'url'> & {
+  id: string;
+  template: string;
   duration?: number;
   unit?: ManipulateType;
   tries?: number;
 };
 
-export function getImageUrl(url: string, date: Dayjs): string {
-  return `https://wsrv.nl?url=${date.format(url)}`;
-}
-
-export async function getLatestAvailableDate(
-  url: string,
-  duration: number,
-  unit: ManipulateType,
-  tries: number,
-): Promise<Dayjs | null> {
-  let date = dayjs();
-
-  for (let count = 0; count < tries; count++) {
-    try {
-      const response = await fetch(getImageUrl(url, date), { method: 'HEAD' });
-
-      if (response.status !== 200) {
-        throw new Error();
-      }
-
-      return date;
-    } catch (error) {
-      // Nothing, just try next date
-    }
-
-    date = date.subtract(duration, unit);
-  }
-
-  return null;
-}
-
 export const Timeline: FunctionComponent<TimelineProps> = ({
-  url,
+  id,
+  template,
   width,
   height,
   duration = 1,
@@ -54,27 +34,31 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
   tries = 10,
   ...props
 }) => {
+  const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
-  const { state, data: latest, load } = usePromise<Dayjs | null>();
-  const [offset, setOffset] = useState(0);
+  const { state, latest, offset } = useTimeline(id);
 
   useEffect(() => {
     if (visible) {
-      return load(getLatestAvailableDate(url, duration, unit, tries));
+      dispatch(loadTimeline(id, template, tries, duration, unit));
     }
-  }, [load, url, duration, unit, tries, visible]);
+  }, [dispatch, visible, id, template, tries, duration, unit]);
 
   const aspectRatio = height && width ? width / height : undefined;
+  const date = dayjs(latest!)
+    .add((offset || 0) * duration, unit)
+    .toISOString();
 
   return (
     <div className={'timeline timeline-' + state}>
-      {state === 'pending' || state === 'loading' ? (
+      {state === 'loading' ? (
         <Loading style={{ aspectRatio }} />
       ) : state === 'error' ? (
         <NotFound style={{ aspectRatio }} />
-      ) : state === 'success' && latest ? (
+      ) : state === 'success' ? (
         <Image
-          url={getImageUrl(url, latest.add(offset * duration, unit))}
+          id={getTimelineImageId(id, date)}
+          url={getTimelineImageUrl(template, date)}
           width={width}
           height={height}
           {...props}
@@ -84,8 +68,10 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
         type="range"
         min={-30}
         max={0}
-        value={offset}
-        onChange={(event) => setOffset(event.target.valueAsNumber)}
+        value={offset || 0}
+        onChange={(event) =>
+          dispatch(loadTimelineOffset(id, template, event.target.valueAsNumber, duration, unit))
+        }
       />
     </div>
   );
