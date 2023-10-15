@@ -13,56 +13,26 @@
   text-transform: uppercase;
   overflow: auto;
 
-  .logo {
-    font-size: 1.2rem;
-
-    svg {
-      padding-bottom: 0.08em;
-    }
+  .menu {
+    width: 100%;
   }
 
-  nav,
-  form {
-    display: flex;
-  }
-
-  input {
-    border: none;
-    outline: none;
-    color: inherit;
-    background-color: inherit;
-  }
-
-  svg {
-    vertical-align: middle;
-    padding-bottom: 0.19em;
-  }
-
-  a,
-  button,
-  div {
-    white-space: nowrap;
+  .header-logo {
+    font-size: 1.4rem;
   }
 
   a,
   button {
-    padding: 0.4rem 0.8rem;
     transition: background-color 0.2s;
-    vertical-align: middle;
-    text-decoration: none;
+
+    &:hover {
+      background-color: $accent-light-color;
+    }
   }
 
-  a:hover,
-  button:hover {
-    background-color: $accent-light-color;
-    cursor: pointer;
-  }
-
-  input[type='text'] {
-    margin: 0.4rem 0.2rem 0.4rem 0.8rem;
-  }
-
-  input:focus {
-    border-bottom: 1px solid $secondary-color;
+  @include phone {
+    .menu-link-item {
+      display: none;
+    }
   }
 }

@@ -14,11 +14,11 @@ export const Card: FunctionComponent<PropsWithChildren> = ({ children }) => {
 };
 
 export const CardTitle: FunctionComponent<PropsWithChildren> = ({ children }) => (
-  <h4 className="card-title">{children}</h4>
+  <h3 className="card-title">{children}</h3>
 );
 
 export const CardSubtitle: FunctionComponent<PropsWithChildren> = ({ children }) => (
-  <h5 className="card-subtitle">{children}</h5>
+  <h4 className="card-subtitle">{children}</h4>
 );
 
 export const CardImage: FunctionComponent<PropsWithChildren> = ({ children }) => (

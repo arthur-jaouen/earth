@@ -1,38 +1,27 @@
 import { FunctionComponent } from 'react';
-import { AiOutlineWarning } from 'react-icons/ai';
 import { BsGlobe } from 'react-icons/bs';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { FaCircleInfo } from 'react-icons/fa6';
 import { categories } from '../data/categories';
+import { Menu, MenuLink, MenuSearch } from '../lib/Menu';
 
 import './Header.scss';
 
 export const Header: FunctionComponent = () => (
   <header className="header">
-    <nav>
-      <a className="logo" href="#">
-        <BsGlobe />
-      </a>
+    <Menu>
+      <MenuLink className="header-logo" href="#" Icon={BsGlobe} />
 
-      {Object.entries(categories).map(([key, category]) => (
-        <a key={key} href={'#' + key}>
-          <category.Icon /> {category.name}
-        </a>
+      {Object.entries(categories).map(([key, { Icon, name }]) => (
+        <MenuLink key={key} className={'header-' + key} href={'#' + key} Icon={Icon}>
+          {name}
+        </MenuLink>
       ))}
-    </nav>
 
-    <div>
-      <AiOutlineWarning /> Alpha 1 <AiOutlineWarning />
-    </div>
+      <MenuSearch />
 
-    <nav>
-      <form action="" method="GET">
-        <input type="text" name="q" placeholder="Search" />
-        <button type="submit">
-          <FaMagnifyingGlass />
-        </button>
-      </form>
-
-      <a href="#about">About</a>
-    </nav>
+      <MenuLink className="header-about" href="#about" Icon={FaCircleInfo}>
+        About
+      </MenuLink>
+    </Menu>
   </header>
 );
