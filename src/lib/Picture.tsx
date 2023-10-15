@@ -1,20 +1,20 @@
 import { FunctionComponent, HTMLProps, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  loadImage,
-  setImageError,
-  setImageLoading,
-  setImageSuccess,
-  useImage,
-} from '../store/Image';
+  loadPicture,
+  setPictureError,
+  setPictureLoading,
+  setPictureSuccess,
+  usePicture,
+} from '../store/Pictures';
 import { Dispatch } from '../store/Store';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 import { useIsVisible } from './Visible';
 
-import './Image.scss';
+import './Picture.scss';
 
-export type ImageProps = HTMLProps<HTMLImageElement> & {
+export type PictureProps = HTMLProps<HTMLImageElement> & {
   id: string;
   url: string;
   alt: string;
@@ -25,7 +25,7 @@ export type ImageProps = HTMLProps<HTMLImageElement> & {
   validity?: number;
 };
 
-export const Image: FunctionComponent<ImageProps> = ({
+export const Picture: FunctionComponent<PictureProps> = ({
   id,
   url,
   alt,
@@ -38,23 +38,23 @@ export const Image: FunctionComponent<ImageProps> = ({
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
-  const { state, data } = useImage(id);
+  const { state, data } = usePicture(id);
   const currentSrc = visible ? (cors ? url : data) : undefined;
   const [prevSrc, setPrevSrc] = useState(currentSrc);
 
   useEffect(() => {
     if (visible && state === 'pending') {
       if (cors) {
-        dispatch(setImageLoading({ id }));
+        dispatch(setPictureLoading({ id }));
       } else {
-        dispatch(loadImage(id, url, validity));
+        dispatch(loadPicture(id, url, validity));
       }
     }
   }, [dispatch, visible, state, id, url, validity, cors]);
 
-  const onLoad = useCallback(() => dispatch(setImageSuccess({ id })), [dispatch, id]);
+  const onLoad = useCallback(() => dispatch(setPictureSuccess({ id })), [dispatch, id]);
   const onError = useCallback(
-    () => dispatch(setImageError({ id, error: 'Error while loading image' })),
+    () => dispatch(setPictureError({ id, error: 'Error while loading picture' })),
     [dispatch, id],
   );
 
@@ -68,7 +68,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   const aspectRatio = height && width ? width / height : undefined;
 
   return (
-    <div className={'image image-' + state}>
+    <div className={'picture picture-' + state}>
       {state === 'error' ? (
         <NotFound style={{ aspectRatio }} />
       ) : (

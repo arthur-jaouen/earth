@@ -3,21 +3,21 @@ import { FunctionComponent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from '../store/Store';
 import {
-  getTimelineImageId,
-  getTimelineImageUrl,
+  getTimelinePictureId,
+  getTimelinePictureUrl,
   loadTimeline,
   loadTimelineOffset,
   useTimeline,
-} from '../store/Timeline';
-import { Image, ImageProps } from './Image';
+} from '../store/Timelines';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
+import { Picture, PictureProps } from './Picture';
 import { Range } from './Range';
 import { useIsVisible } from './Visible';
 
 import './Timeline.scss';
 
-export type TimelineProps = Omit<ImageProps, 'url'> & {
+export type TimelineProps = Omit<PictureProps, 'url'> & {
   id: string;
   template: string;
   duration?: number;
@@ -58,9 +58,9 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
       ) : state === 'error' ? (
         <NotFound style={{ aspectRatio }} />
       ) : state === 'success' ? (
-        <Image
-          id={getTimelineImageId(id, date)}
-          url={getTimelineImageUrl(template, date)}
+        <Picture
+          id={getTimelinePictureId(id, date)}
+          url={getTimelinePictureUrl(template, date)}
           width={width}
           height={height}
           validity={validity}

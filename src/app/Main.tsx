@@ -1,12 +1,12 @@
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
-import { images } from '../data/images';
+import { pictures } from '../data/pictures';
 import { sources } from '../data/sources';
-import { Card, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
-import { Image } from '../lib/Image';
-
 import { timelines } from '../data/timelines';
+import { Card, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
+import { Picture } from '../lib/Picture';
 import { Timeline } from '../lib/Timeline';
+
 import './Main.scss';
 
 export const Main: FunctionComponent = () => {
@@ -14,23 +14,23 @@ export const Main: FunctionComponent = () => {
 
   return (
     <main className="main">
-      {Object.entries(images)
-        .filter(([, image]) => !params.category || params.category === image.category)
-        .map(([id, image]) => (
+      {Object.entries(pictures)
+        .filter(([, picture]) => !params.category || params.category === picture.category)
+        .map(([id, picture]) => (
           <Card key={id}>
-            <CardTitle>{image.title}</CardTitle>
+            <CardTitle>{picture.title}</CardTitle>
             <CardSubtitle>
-              {image.subtitle}&nbsp;
-              <CardSource name={sources[image.source].name} url={sources[image.source].url} />
+              {picture.subtitle}&nbsp;
+              <CardSource name={sources[picture.source].name} url={sources[picture.source].url} />
             </CardSubtitle>
-            <Image
+            <Picture
               id={id}
-              url={image.url}
-              alt={image.title}
-              width={image.width}
-              height={image.height}
-              legend={image.legend}
-              cors={image.cors}
+              url={picture.url}
+              alt={picture.title}
+              width={picture.width}
+              height={picture.height}
+              legend={picture.legend}
+              cors={picture.cors}
             />
           </Card>
         ))}

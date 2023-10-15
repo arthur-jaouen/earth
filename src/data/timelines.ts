@@ -1,12 +1,12 @@
 import { ManipulateType } from 'dayjs';
-import { Categories } from './categories';
-import { Sources } from './sources';
+import { CategoryTable } from './categories';
+import { SourceTable } from './sources';
 
-export type TimelineMeta = {
+export type TimelineData = {
   title: string;
   subtitle: string;
-  source: keyof Sources;
-  category: keyof Categories;
+  source: keyof SourceTable;
+  category: keyof CategoryTable;
   template: string;
   alt: string;
   width: number;
@@ -17,7 +17,7 @@ export type TimelineMeta = {
   tries?: number;
 };
 
-export type Timelines = typeof timelines;
+export type TimelineTable = typeof timelines;
 
 export const timelines = {
   ppArcticThickness: {
@@ -31,7 +31,7 @@ export const timelines = {
     width: 1109,
     height: 1218,
     legend: 'Daily thickness of the arctic sea ice',
-  } as TimelineMeta,
+  } as TimelineData,
   ppArcticVolume: {
     title: 'Arctic - Sea ice volume timeseries',
     subtitle: '',
@@ -43,7 +43,7 @@ export const timelines = {
     width: 1093,
     height: 904,
     legend: 'Timeseries of the total volume of arctic sea ice',
-  } as TimelineMeta,
+  } as TimelineData,
   ppGreenlandSmb: {
     title: 'Greenland - Surface mass balance',
     subtitle: '',
@@ -55,7 +55,7 @@ export const timelines = {
     width: 678,
     height: 1063,
     legend: 'Daily surface mass balance of the Greenland ice sheet',
-  } as TimelineMeta,
+  } as TimelineData,
   ppGreenlandCumSmb: {
     title: 'Greenland - Cumulated surface mass balance',
     subtitle: '',
@@ -67,7 +67,7 @@ export const timelines = {
     width: 679,
     height: 1063,
     legend: 'Cumulated surface mass balance of the Greenland ice sheet',
-  } as TimelineMeta,
+  } as TimelineData,
   ppGreenlandSmbTs: {
     title: 'Greenland - Surface mass balance timeseries',
     subtitle: '',
@@ -79,7 +79,7 @@ export const timelines = {
     width: 846,
     height: 1080,
     legend: 'Timeseries of the surface mass balance of the Greenland ice sheet',
-  } as TimelineMeta,
+  } as TimelineData,
   crSst: {
     title: 'World - Sea surface temperature',
     subtitle: '',
@@ -91,7 +91,7 @@ export const timelines = {
     width: 1100,
     height: 759,
     legend: "Daily surface temperature of the world's oceans",
-  } as TimelineMeta,
+  } as TimelineData,
   crSstAnom: {
     title: 'World - Sea surface temperature anomaly',
     subtitle: '',
@@ -104,7 +104,7 @@ export const timelines = {
     height: 764,
     legend:
       "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
-  } as TimelineMeta,
+  } as TimelineData,
   crT2: {
     title: 'World - Air temperature at 2 meters',
     subtitle: '',
@@ -116,7 +116,7 @@ export const timelines = {
     width: 1024,
     height: 742,
     legend: 'Daily worldwide air temperature at 2 meters of altitude',
-  } as TimelineMeta,
+  } as TimelineData,
   crT2Anom: {
     title: 'World - Air temperature anomaly at 2 meters',
     subtitle: '',
@@ -129,5 +129,5 @@ export const timelines = {
     height: 741,
     legend:
       'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
-  } as TimelineMeta,
+  } as TimelineData,
 };

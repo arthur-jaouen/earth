@@ -1,11 +1,11 @@
-import { Categories } from './categories';
-import { Sources } from './sources';
+import { CategoryTable } from './categories';
+import { SourceTable } from './sources';
 
-export type ImageMeta = {
+export type PictureData = {
   title: string;
   subtitle: string;
-  source: keyof Sources;
-  category: keyof Categories;
+  source: keyof SourceTable;
+  category: keyof CategoryTable;
   url: string;
   alt: string;
   width: number;
@@ -14,9 +14,9 @@ export type ImageMeta = {
   cors?: boolean;
 };
 
-export type Images = typeof images;
+export type PictureTable = typeof pictures;
 
-export const images = {
+export const pictures = {
   kilaueaTilt2d: {
     title: 'Kilauea - Tilt past 2 days',
     subtitle: 'Summit Area',
@@ -29,7 +29,7 @@ export const images = {
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
     tries: 10,
     validity: 600,
-  } as ImageMeta,
+  } as PictureData,
   kilaueaTilt1w: {
     title: 'Kilauea - Tilt past week',
     subtitle: 'Summit Area',
@@ -41,7 +41,7 @@ export const images = {
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past week',
     validity: 3600,
-  } as ImageMeta,
+  } as PictureData,
   kilaueaTilt1m: {
     title: 'Kilauea - Tilt past month',
     subtitle: 'Summit Area',
@@ -53,7 +53,7 @@ export const images = {
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past month',
     validity: 4 * 3600,
-  } as ImageMeta,
+  } as PictureData,
   kilaueaTiltSdh1m: {
     title: 'Kilauea - Tilt SDH station past month',
     subtitle: 'Summit Area',
@@ -65,7 +65,7 @@ export const images = {
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
     validity: 4 * 3600,
-  } as ImageMeta,
+  } as PictureData,
   kilaueaGps1y: {
     title: 'Kilauea - GPS past year',
     subtitle: 'Summit Area',
@@ -77,7 +77,7 @@ export const images = {
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past year',
     validity: 24 * 3600,
-  } as ImageMeta,
+  } as PictureData,
   kilaueaGps5y: {
     title: 'Kilauea - GPS past 5 years',
     subtitle: 'Summit Area',
@@ -89,7 +89,7 @@ export const images = {
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past 5 years',
     validity: 24 * 3600,
-  } as ImageMeta,
+  } as PictureData,
   nsidcArcticIceCon: {
     title: 'Arctic - Sea ice concentration',
     subtitle: '',
@@ -101,7 +101,7 @@ export const images = {
     height: 500,
     legend: 'Daily arctic sea ice concentration map',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
   nsidcArcticIceTime: {
     title: 'Arctic - Sea ice area timeseries',
     subtitle: '',
@@ -113,7 +113,7 @@ export const images = {
     height: 840,
     legend: 'Daily arctic sea ice extent timeseries',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
   nsidcAntarcticIceCon: {
     title: 'Antarctic - Sea ice concentration',
     subtitle: '',
@@ -125,7 +125,7 @@ export const images = {
     height: 500,
     legend: 'Daily arctic sea ice concentration map',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
   nsidcAntarcticIceTime: {
     title: 'Antarctic - Sea ice area timeseries',
     subtitle: '',
@@ -137,7 +137,7 @@ export const images = {
     height: 840,
     legend: 'Daily arctic sea ice extent timeseries',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
   greenlandMeltArea: {
     title: 'Greenland - Melt area',
     subtitle: '',
@@ -149,7 +149,7 @@ export const images = {
     height: 1800,
     legend: 'Daily Greenland melt area',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
   greenlandMeltDays: {
     title: 'Greenland - Cumulated melt days',
     subtitle: '',
@@ -161,5 +161,5 @@ export const images = {
     height: 1800,
     legend: 'Cumulated melt days of the Greenland ice sheet',
     cors: true,
-  } as ImageMeta,
+  } as PictureData,
 };

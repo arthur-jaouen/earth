@@ -21,10 +21,6 @@ export const CardSubtitle: FunctionComponent<PropsWithChildren> = ({ children })
   <h4 className="card-subtitle">{children}</h4>
 );
 
-export const CardImage: FunctionComponent<PropsWithChildren> = ({ children }) => (
-  <div className="card-image">{children}</div>
-);
-
 export type CardSourceProps = {
   url: string;
   name: string;
