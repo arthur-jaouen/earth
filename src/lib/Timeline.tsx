@@ -32,6 +32,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
   duration = 1,
   unit = 'day',
   tries = 10,
+  validity = 365 * 24 * 3600,
   ...props
 }) => {
   const dispatch = useDispatch<Dispatch>();
@@ -51,7 +52,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
 
   return (
     <div className={'timeline timeline-' + state}>
-      {state === 'loading' ? (
+      {state === 'loading' || state === 'pending' ? (
         <Loading style={{ aspectRatio }} />
       ) : state === 'error' ? (
         <NotFound style={{ aspectRatio }} />
@@ -61,6 +62,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
           url={getTimelineImageUrl(template, date)}
           width={width}
           height={height}
+          validity={validity}
           {...props}
         />
       ) : null}
@@ -70,7 +72,7 @@ export const Timeline: FunctionComponent<TimelineProps> = ({
         max={0}
         value={offset || 0}
         onChange={(event) =>
-          dispatch(loadTimelineOffset(id, template, event.target.valueAsNumber, duration, unit))
+          dispatch(loadTimelineOffset(id, event.target.valueAsNumber, duration, unit))
         }
       />
     </div>

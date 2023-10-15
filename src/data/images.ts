@@ -28,6 +28,7 @@ export const images = {
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
     tries: 10,
+    validity: 600,
   } as ImageMeta,
   kilaueaTilt1w: {
     title: 'Kilauea - Tilt past week',
@@ -39,6 +40,7 @@ export const images = {
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past week',
+    validity: 3600,
   } as ImageMeta,
   kilaueaTilt1m: {
     title: 'Kilauea - Tilt past month',
@@ -50,6 +52,7 @@ export const images = {
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past month',
+    validity: 4 * 3600,
   } as ImageMeta,
   kilaueaTiltSdh1m: {
     title: 'Kilauea - Tilt SDH station past month',
@@ -61,6 +64,7 @@ export const images = {
     width: 900,
     height: 300,
     legend: 'Electronic tilt at the Kilauea summit area for the past 2 days',
+    validity: 4 * 3600,
   } as ImageMeta,
   kilaueaGps1y: {
     title: 'Kilauea - GPS past year',
@@ -72,6 +76,7 @@ export const images = {
     width: 900,
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past year',
+    validity: 24 * 3600,
   } as ImageMeta,
   kilaueaGps5y: {
     title: 'Kilauea - GPS past 5 years',
@@ -83,6 +88,7 @@ export const images = {
     width: 900,
     height: 300,
     legend: 'GPS signal at the Kilauea summit area for the past 5 years',
+    validity: 24 * 3600,
   } as ImageMeta,
   nsidcArcticIceCon: {
     title: 'Arctic - Sea ice concentration',

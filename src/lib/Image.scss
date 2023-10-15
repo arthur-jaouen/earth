@@ -27,8 +27,13 @@
     z-index: 1;
   }
 
-  &.image-pending > img,
-  &.image-loading > img {
+  > img {
     position: absolute;
+  }
+
+  &.image-pending > img,
+  &.image-caching > img,
+  &.image-success > img {
+    z-index: 1;
   }
 }

@@ -1,4 +1,4 @@
-import { FunctionComponent, HTMLProps, useCallback, useEffect } from 'react';
+import { FunctionComponent, HTMLProps, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   loadImage,
@@ -7,11 +7,11 @@ import {
   setImageSuccess,
   useImage,
 } from '../store/Image';
+import { Dispatch } from '../store/Store';
 import { Loading } from './Loading';
 import { NotFound } from './NotFound';
 import { useIsVisible } from './Visible';
 
-import { Dispatch } from '../store/Store';
 import './Image.scss';
 
 export type ImageProps = HTMLProps<HTMLImageElement> & {
@@ -22,6 +22,7 @@ export type ImageProps = HTMLProps<HTMLImageElement> & {
   height: number;
   legend?: string;
   cors?: boolean;
+  validity?: number;
 };
 
 export const Image: FunctionComponent<ImageProps> = ({
@@ -32,46 +33,56 @@ export const Image: FunctionComponent<ImageProps> = ({
   height,
   legend,
   cors,
+  validity = 365 * 24 * 3600,
   ...props
 }) => {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
   const { state, data } = useImage(id);
+  const currentSrc = cors ? url : data;
+  const [prevSrc, setPrevSrc] = useState(currentSrc);
 
   useEffect(() => {
     if (visible && state === 'pending') {
       if (cors) {
-        dispatch(setImageLoading({ id, data: url }));
+        dispatch(setImageLoading({ id }));
       } else {
-        dispatch(loadImage(id, url));
+        dispatch(loadImage(id, url, validity));
       }
     }
-  }, [dispatch, visible, state, id, url, cors]);
+  }, [dispatch, visible, state, id, url, validity, cors]);
 
-  const aspectRatio = height && width ? width / height : undefined;
-
-  const onLoad = useCallback(() => dispatch(setImageSuccess({ id, data })), [dispatch, id, data]);
+  const onLoad = useCallback(() => dispatch(setImageSuccess({ id })), [dispatch, id]);
   const onError = useCallback(
     () => dispatch(setImageError({ id, error: 'Error while loading image' })),
     [dispatch, id],
   );
 
+  useEffect(() => {
+    if (currentSrc) {
+      setPrevSrc(currentSrc);
+    }
+  }, [currentSrc]);
+
+  const src = currentSrc || prevSrc;
+  const aspectRatio = height && width ? width / height : undefined;
+
   return (
     <div className={'image image-' + state}>
-      {state === 'loading' || state === 'success' ? (
+      {state === 'error' ? (
+        <NotFound style={{ aspectRatio }} />
+      ) : (
+        <Loading style={{ aspectRatio }} />
+      )}
+      {src ? (
         <img
-          src={data}
+          src={src}
           alt={alt}
-          onLoad={state === 'loading' && data ? onLoad : undefined}
-          onError={state === 'loading' && data ? onError : undefined}
+          onLoad={cors ? onLoad : undefined}
+          onError={cors ? onError : undefined}
           style={{ aspectRatio }}
           {...props}
         />
-      ) : null}
-      {state === 'pending' || state === 'loading' ? (
-        <Loading style={{ aspectRatio }} />
-      ) : state === 'error' ? (
-        <NotFound style={{ aspectRatio }} />
       ) : null}
       {legend ? <legend>{legend}</legend> : null}
     </div>

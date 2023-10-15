@@ -1,10 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import { images } from '../data/images';
+import { addBlob, getBlob } from './Db';
 import { Dispatch, State } from './Store';
 
 export type ImageItem = {
-  state: 'pending' | 'loading' | 'success' | 'error';
+  state: 'pending' | 'caching' | 'loading' | 'success' | 'error';
   data?: string;
   error?: unknown;
 };
@@ -19,81 +21,98 @@ export const ImageSlice = createSlice({
   name: 'images',
   initialState,
   reducers: {
+    setImagePending(state: ImageState, { payload: { id } }: PayloadAction<{ id: string }>) {
+      state[id] = {
+        state: 'pending',
+      };
+    },
+
+    setImageCaching(state: ImageState, { payload: { id } }: PayloadAction<{ id: string }>) {
+      state[id] = {
+        state: 'caching',
+      };
+    },
+
     setImageLoading(
       state: ImageState,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
-      const image = state[id];
-
-      if (image) {
-        image.state = 'loading';
-        image.data = data;
-        image.error = undefined;
-      } else {
-        state[id] = {
-          state: 'loading',
-        };
-      }
+      state[id] = {
+        state: 'loading',
+        data,
+      };
     },
 
     setImageSuccess(
       state: ImageState,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
-      const image = state[id];
-
-      if (image) {
-        image.state = 'success';
-        image.data = data;
-        image.error = undefined;
-      } else {
-        state[id] = {
-          state: 'success',
-          data,
-        };
-      }
+      state[id] = {
+        state: 'success',
+        data,
+      };
     },
 
     setImageError(
       state: ImageState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
-      const image = state[id];
-
-      if (image) {
-        image.state = 'error';
-        image.data = undefined;
-        image.error = error;
-      } else {
-        state[id] = {
-          state: 'error',
-          error,
-        };
-      }
+      state[id] = {
+        state: 'error',
+        error,
+      };
     },
   },
 });
 
-export const { setImageLoading, setImageSuccess, setImageError } = ImageSlice.actions;
+export const { setImagePending, setImageCaching, setImageLoading, setImageSuccess, setImageError } =
+  ImageSlice.actions;
 
 export const useImage = (id: string) => useSelector((state: State) => state.images[id]);
 
 export const loadImage =
-  (id: string, url: string) =>
+  (id: string, url: string, validity: number) =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
     const image = getState().images[id];
 
-    if (image && image.state !== 'error' && image.state !== 'pending') {
+    if (image.state !== 'error' && image.state !== 'pending') {
       return;
     }
 
-    dispatch(setImageLoading({ id }));
+    dispatch(setImageCaching({ id }));
+
+    try {
+      const cached = await getBlob(id);
+
+      if (cached) {
+        const data = URL.createObjectURL(cached.blob);
+
+        if (dayjs().isBefore(dayjs(cached.date).add(validity, 'second'))) {
+          dispatch(setImageSuccess({ id, data }));
+
+          return;
+        } else {
+          dispatch(setImageLoading({ id, data }));
+        }
+      } else {
+        dispatch(setImageLoading({ id }));
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
     try {
       const response = await fetch(url);
-      const data = URL.createObjectURL(await response.blob());
+      // TODO const date = new Date(response.headers.get('Date') as string);
+      const date = new Date();
+      const blob = await response.blob();
+      const data = URL.createObjectURL(blob);
 
       dispatch(setImageSuccess({ id, data }));
+
+      setTimeout(async () => {
+        await addBlob(id, blob, date);
+      });
     } catch (error) {
       console.error(error);
 
