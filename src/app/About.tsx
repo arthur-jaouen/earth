@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent } from 'react';
 
-import { authors } from '../data/authors';
-import { sources } from '../data/sources';
+import { authors } from '../model/AuthorModel';
+import { sources } from '../model/SourceModel';
 import './About.scss';
 
 export const About: FunctionComponent = () => (

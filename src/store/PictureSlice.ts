@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { pictures } from '../data/pictures';
+import { PictureModel, pictures } from '../model/PictureModel';
 import { addBlob, getBlob } from './Db';
 import { Dispatch, State } from './Store';
 
@@ -11,9 +11,9 @@ export type PictureState = {
   error?: unknown;
 };
 
-export type PictureStates = { [id: string]: PictureState };
+export type PictureSliceState = { [id: string]: PictureState };
 
-const initialState: PictureStates = Object.fromEntries(
+const initialState: PictureSliceState = Object.fromEntries(
   Object.keys(pictures).map((id) => [id, { state: 'pending' }]),
 );
 
@@ -21,14 +21,17 @@ export const PictureSlice = createSlice({
   name: 'pictures',
   initialState,
   reducers: {
-    setPicturePending(state: PictureStates, { payload: { id } }: PayloadAction<{ id: string }>) {
+    setPicturePending(
+      state: PictureSliceState,
+      { payload: { id } }: PayloadAction<{ id: string }>,
+    ) {
       state[id] = {
         state: 'pending',
       };
     },
 
     setPictureLoading(
-      state: PictureStates,
+      state: PictureSliceState,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
       state[id] = {
@@ -38,7 +41,7 @@ export const PictureSlice = createSlice({
     },
 
     setPictureSuccess(
-      state: PictureStates,
+      state: PictureSliceState,
       { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
     ) {
       state[id] = {
@@ -48,7 +51,7 @@ export const PictureSlice = createSlice({
     },
 
     setPictureError(
-      state: PictureStates,
+      state: PictureSliceState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
       state[id] = {
@@ -65,11 +68,11 @@ export const { setPicturePending, setPictureLoading, setPictureSuccess, setPictu
 export const usePicture = (id: string) => useSelector((state: State) => state.pictures[id]);
 
 export const loadPicture =
-  (id: string, url: string, validity: number) =>
+  (id: string, picture: PictureModel) =>
   async (dispatch: Dispatch, getState: () => State): Promise<void> => {
-    const picture = getState().pictures[id];
+    const { state } = getState().pictures[id];
 
-    if (picture.state !== 'error' && picture.state !== 'pending') {
+    if (state !== 'error' && state !== 'pending') {
       return;
     }
 
@@ -79,7 +82,7 @@ export const loadPicture =
       if (cached) {
         const data = URL.createObjectURL(cached.blob);
 
-        if (dayjs(new Date()).isBefore(dayjs(cached.date).add(validity, 'second'))) {
+        if (dayjs(new Date()).isBefore(dayjs(cached.date).add(picture.validity, 'second'))) {
           dispatch(setPictureSuccess({ id, data }));
 
           return;
@@ -94,7 +97,7 @@ export const loadPicture =
     }
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(picture.url);
       // TODO const date = new Date(response.headers.get('Date') as string);
       const date = new Date();
       const blob = await response.blob();

@@ -1,7 +1,7 @@
 import { GiIceCube, GiVolcano, GiWaveCrest, GiWhirlwind } from 'react-icons/gi';
 import { IconType } from 'react-icons/lib';
 
-export type CategoryData = {
+export type CategoryModel = {
   name: string;
   Icon: IconType;
 };
@@ -12,17 +12,17 @@ export const categories = {
   volcanoes: {
     name: 'Volcanoes',
     Icon: GiVolcano,
-  } as CategoryData,
+  } as CategoryModel,
   oceans: {
     name: 'Oceans',
     Icon: GiWaveCrest,
-  } as CategoryData,
+  } as CategoryModel,
   ice: {
     name: 'Ice',
     Icon: GiIceCube,
-  } as CategoryData,
+  } as CategoryModel,
   atmosphere: {
     name: 'Atmosphere',
     Icon: GiWhirlwind,
-  } as CategoryData,
+  } as CategoryModel,
 };
