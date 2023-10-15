@@ -6,7 +6,7 @@ import { addBlob, getBlob } from './Db';
 import { Dispatch, State } from './Store';
 
 export type ImageItem = {
-  state: 'pending' | 'caching' | 'loading' | 'success' | 'error';
+  state: 'pending' | 'loading' | 'success' | 'error';
   data?: string;
   error?: unknown;
 };
@@ -24,12 +24,6 @@ export const ImageSlice = createSlice({
     setImagePending(state: ImageState, { payload: { id } }: PayloadAction<{ id: string }>) {
       state[id] = {
         state: 'pending',
-      };
-    },
-
-    setImageCaching(state: ImageState, { payload: { id } }: PayloadAction<{ id: string }>) {
-      state[id] = {
-        state: 'caching',
       };
     },
 
@@ -65,7 +59,7 @@ export const ImageSlice = createSlice({
   },
 });
 
-export const { setImagePending, setImageCaching, setImageLoading, setImageSuccess, setImageError } =
+export const { setImagePending, setImageLoading, setImageSuccess, setImageError } =
   ImageSlice.actions;
 
 export const useImage = (id: string) => useSelector((state: State) => state.images[id]);
@@ -79,15 +73,13 @@ export const loadImage =
       return;
     }
 
-    dispatch(setImageCaching({ id }));
-
     try {
       const cached = await getBlob(id);
 
       if (cached) {
         const data = URL.createObjectURL(cached.blob);
 
-        if (dayjs().isBefore(dayjs(cached.date).add(validity, 'second'))) {
+        if (dayjs(new Date()).isBefore(dayjs(cached.date).add(validity, 'second'))) {
           dispatch(setImageSuccess({ id, data }));
 
           return;

@@ -39,7 +39,7 @@ export const Image: FunctionComponent<ImageProps> = ({
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
   const { state, data } = useImage(id);
-  const currentSrc = cors ? url : data;
+  const currentSrc = visible ? (cors ? url : data) : undefined;
   const [prevSrc, setPrevSrc] = useState(currentSrc);
 
   useEffect(() => {
