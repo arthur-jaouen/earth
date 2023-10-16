@@ -1,12 +1,6 @@
-export type AuthorModel = {
-  name: string;
-  description: string;
-  website: string;
-};
+import { AuthorModel } from './AuthorModel';
 
-export type AuthorTable = typeof authors;
-
-export const authors = {
+export const Authors = {
   cr: {
     name: 'Climate Reanalyzer',
     description: '',

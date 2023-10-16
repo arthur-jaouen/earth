@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { sources } from '../model/SourceModel';
-import { TimelineModel } from '../model/TimelineModel';
-import { Dispatch } from '../store/Store';
-import { useTimeline } from '../store/TimelineSlice';
-import { Card, CardSource, CardSubtitle, CardTitle } from './Card';
-import { Loading } from './Loading';
-import { NotFound } from './NotFound';
-import { Picture } from './Picture';
-import { Range } from './Range';
-import { useIsVisible } from './Visible';
+import { Dispatch } from '../app/Store';
+import { Card, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
+import { Loading } from '../lib/Loading';
+import { NotFound } from '../lib/NotFound';
+import { Range } from '../lib/Range';
+import { useIsVisible } from '../lib/Visible';
+import { Picture } from '../pictures/Picture';
+import { Sources } from '../sources/Sources';
+import { TimelineModel } from './TimelineModel';
+import { useTimeline } from './TimelineSlice';
 
 import './Timeline.scss';
 
@@ -65,7 +65,7 @@ export const TimelineCard: FunctionComponent<TimelineCardProps> = ({ id, timelin
     <CardTitle>{timeline.title}</CardTitle>
     <CardSubtitle>
       {timeline.subtitle}&nbsp;
-      <CardSource name={sources[timeline.source].name} url={sources[timeline.source].url} />
+      <CardSource name={Sources[timeline.source].name} url={Sources[timeline.source].url} />
     </CardSubtitle>
     <Timeline id={id} timeline={timeline} />
   </Card>

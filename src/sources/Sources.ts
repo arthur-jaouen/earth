@@ -1,15 +1,6 @@
-import { AuthorTable } from './AuthorModel';
+import { SourceModel } from './SourceModel';
 
-export type SourceModel = {
-  name: string;
-  author: keyof AuthorTable;
-  url: string;
-  description: string;
-};
-
-export type SourceTable = typeof sources;
-
-export const sources = {
+export const Sources = {
   crSst: {
     name: 'Climate Reanalyzer',
     author: 'cr',

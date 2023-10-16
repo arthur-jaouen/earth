@@ -1,18 +1,13 @@
 import { FunctionComponent, useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { PictureModel } from '../model/PictureModel';
-import { sources } from '../model/SourceModel';
-import {
-  setPictureError,
-  setPictureLoading,
-  setPictureSuccess,
-  usePicture,
-} from '../store/PictureSlice';
-import { Dispatch } from '../store/Store';
-import { Card, CardSource, CardSubtitle, CardTitle } from './Card';
-import { Loading } from './Loading';
-import { NotFound } from './NotFound';
-import { useIsVisible } from './Visible';
+import { Dispatch } from '../app/Store';
+import { Card, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
+import { Loading } from '../lib/Loading';
+import { NotFound } from '../lib/NotFound';
+import { useIsVisible } from '../lib/Visible';
+import { Sources } from '../sources/Sources';
+import { PictureModel } from './PictureModel';
+import { setPictureError, setPictureLoading, setPictureSuccess, usePicture } from './PictureSlice';
 
 import './Picture.scss';
 
@@ -83,7 +78,7 @@ export const PictureCard: FunctionComponent<PictureCardProps> = ({ id, picture }
     <CardTitle>{picture.title}</CardTitle>
     <CardSubtitle>
       {picture.subtitle}&nbsp;
-      <CardSource name={sources[picture.source].name} url={sources[picture.source].url} />
+      <CardSource name={Sources[picture.source].name} url={Sources[picture.source].url} />
     </CardSubtitle>
     <Picture id={id} picture={picture} />
   </Card>

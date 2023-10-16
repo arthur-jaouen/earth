@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
-import { pictures } from '../model/PictureModel';
-import { State } from './Store';
+import { State } from '../app/Store';
+import { Pictures } from './Pictures';
 
 export type PictureState = {
   state: 'pending' | 'loading' | 'success' | 'error';
@@ -12,7 +12,7 @@ export type PictureState = {
 export type PictureSliceState = { [id: string]: PictureState };
 
 const initialState: PictureSliceState = Object.fromEntries(
-  Object.keys(pictures).map((id) => [id, { state: 'pending' }]),
+  Object.keys(Pictures).map((id) => [id, { state: 'pending' }]),
 );
 
 export const PictureSlice = createSlice({
