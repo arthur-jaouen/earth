@@ -1,18 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { pictures } from '../model/PictureModel';
-import { State } from './Store';
+import { Pictures } from './PictureTable';
 
 export type PictureState = {
   state: 'pending' | 'loading' | 'success' | 'error';
-  data?: string;
+  blob?: string;
   error?: unknown;
 };
 
 export type PictureSliceState = { [id: string]: PictureState };
 
 const initialState: PictureSliceState = Object.fromEntries(
-  Object.keys(pictures).map((id) => [id, { state: 'pending' }]),
+  Object.keys(Pictures).map((id) => [id, { state: 'pending' }]),
 );
 
 export const PictureSlice = createSlice({
@@ -23,6 +21,12 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id } }: PayloadAction<{ id: string }>,
     ) {
+      const oldBlob = state[id]?.blob;
+
+      if (oldBlob) {
+        URL.revokeObjectURL(oldBlob);
+      }
+
       state[id] = {
         state: 'pending',
       };
@@ -30,21 +34,33 @@ export const PictureSlice = createSlice({
 
     setPictureLoading(
       state: PictureSliceState,
-      { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
+      { payload: { id, blob } }: PayloadAction<{ id: string; blob?: string }>,
     ) {
+      const oldBlob = state[id]?.blob;
+
+      if (oldBlob && oldBlob != blob) {
+        URL.revokeObjectURL(oldBlob);
+      }
+
       state[id] = {
         state: 'loading',
-        data,
+        blob: blob,
       };
     },
 
     setPictureSuccess(
       state: PictureSliceState,
-      { payload: { id, data } }: PayloadAction<{ id: string; data?: string }>,
+      { payload: { id, blob } }: PayloadAction<{ id: string; blob?: string }>,
     ) {
+      const oldBlob = state[id]?.blob;
+
+      if (oldBlob && oldBlob != blob) {
+        URL.revokeObjectURL(oldBlob);
+      }
+
       state[id] = {
         state: 'success',
-        data,
+        blob: blob,
       };
     },
 
@@ -52,6 +68,12 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
+      const oldBlob = state[id]?.blob;
+
+      if (oldBlob) {
+        URL.revokeObjectURL(oldBlob);
+      }
+
       state[id] = {
         state: 'error',
         error,
@@ -62,5 +84,3 @@ export const PictureSlice = createSlice({
 
 export const { setPicturePending, setPictureLoading, setPictureSuccess, setPictureError } =
   PictureSlice.actions;
-
-export const usePicture = (id: string) => useSelector((state: State) => state.pictures[id]);

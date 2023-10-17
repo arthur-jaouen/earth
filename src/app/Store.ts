@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { PictureSlice } from './PictureSlice';
-import { TimelineSlice } from './TimelineSlice';
+import { PictureSlice } from '../pictures/PictureSlice';
+import { TimelineSlice } from '../timelines/TimelineSlice';
 
 export const Store = configureStore({
   middleware: (getDefaultMiddleware) =>

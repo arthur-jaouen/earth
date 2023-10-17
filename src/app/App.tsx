@@ -4,10 +4,10 @@ import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import { VisibleListener } from '../lib/Visible';
-import { Store } from '../store/Store';
 import { About } from './About';
 import { Header } from './Header';
 import { Main } from './Main';
+import { Store } from './Store';
 
 export const App: FunctionComponent = () => (
   <div className="app">

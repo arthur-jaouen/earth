@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent } from 'react';
+import { Authors } from '../authors/AuthorTable';
+import { Sources } from '../sources/SourceTable';
 
-import { authors } from '../model/AuthorModel';
-import { sources } from '../model/SourceModel';
 import './About.scss';
 
 export const About: FunctionComponent = () => (
@@ -27,7 +27,7 @@ export const About: FunctionComponent = () => (
       <li>Add more data</li>
     </ul>
     <h2>Sources</h2>
-    {Object.entries(authors).map(([key, author]) => (
+    {Object.entries(Authors).map(([key, author]) => (
       <Fragment key={key}>
         <h3>{author.name}</h3>
         <p>
@@ -37,7 +37,7 @@ export const About: FunctionComponent = () => (
           &nbsp;
           {author.description}
         </p>
-        {Object.entries(sources)
+        {Object.entries(Sources)
           .filter(([, source]) => source.author === key)
           .map(([key, source]) => (
             <p key={key}>

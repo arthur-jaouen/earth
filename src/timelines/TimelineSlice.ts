@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
-import { timelines } from '../model/TimelineModel';
-import { State } from './Store';
+import { Timelines } from './TimelineTable';
 
 export type TimelineState = {
   state: 'pending' | 'loading' | 'success' | 'error';
@@ -13,7 +11,7 @@ export type TimelineState = {
 export type TimelineSliceState = { [id: string]: TimelineState };
 
 const initialState: TimelineSliceState = Object.fromEntries(
-  Object.keys(timelines).map((id) => [id, { state: 'pending' }]),
+  Object.keys(Timelines).map((id) => [id, { state: 'pending' }]),
 );
 
 export const TimelineSlice = createSlice({
@@ -63,5 +61,3 @@ export const TimelineSlice = createSlice({
 
 export const { setTimelineLoading, setTimelineSuccess, setTimelineError, setTimelineOffset } =
   TimelineSlice.actions;
-
-export const useTimeline = (id: string) => useSelector((state: State) => state.timelines[id]);
