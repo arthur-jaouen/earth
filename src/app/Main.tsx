@@ -1,9 +1,9 @@
 import { FunctionComponent } from 'react';
 import { useParams } from 'react-router-dom';
-import { PictureCard } from '../pictures/Picture';
-import { Pictures } from '../pictures/Pictures';
-import { TimelineCard } from '../timelines/Timeline';
-import { Timelines } from '../timelines/Timelines';
+import { PictureCard } from '../pictures/PictureCard';
+import { Pictures } from '../pictures/PictureTable';
+import { TimelineCard } from '../timelines/TimelineCard';
+import { Timelines } from '../timelines/TimelineTable';
 
 import './Main.scss';
 
@@ -12,15 +12,15 @@ export const Main: FunctionComponent = () => {
 
   return (
     <main className="main">
-      {Object.entries(Pictures)
-        .filter(([, picture]) => !params.category || params.category === picture.category)
-        .map(([id, picture]) => (
-          <PictureCard key={id} id={id} picture={picture} />
+      {Object.values(Pictures)
+        .filter((picture) => !params.category || params.category === picture.category)
+        .map((picture) => (
+          <PictureCard key={picture.id} picture={picture} />
         ))}
-      {Object.entries(Timelines)
-        .filter(([, timeline]) => !params.category || params.category === timeline.category)
-        .map(([id, timeline]) => (
-          <TimelineCard key={id} id={id} timeline={timeline} />
+      {Object.values(Timelines)
+        .filter((timeline) => !params.category || params.category === timeline.category)
+        .map((timeline) => (
+          <TimelineCard key={timeline.id} timeline={timeline} />
         ))}
     </main>
   );

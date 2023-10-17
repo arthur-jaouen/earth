@@ -1,11 +1,11 @@
-import { AuthorTable } from '../authors/AuthorModel';
-import { Sources } from './Sources';
+import { AuthorTable } from '../authors/AuthorTable';
 
-export type SourceModel = {
-  name: string;
-  author: keyof AuthorTable;
-  url: string;
-  description: string;
-};
-
-export type SourceTable = typeof Sources;
+export class SourceModel {
+  constructor(
+    public id: string,
+    public name: string,
+    public author: keyof AuthorTable,
+    public url: string,
+    public description: string,
+  ) {}
+}

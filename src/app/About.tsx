@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from 'react';
-import { Authors } from '../authors/Authors';
-import { Sources } from '../sources/Sources';
+import { Authors } from '../authors/AuthorTable';
+import { Sources } from '../sources/SourceTable';
 
 import './About.scss';
 

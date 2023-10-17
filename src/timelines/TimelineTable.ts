@@ -1,7 +1,11 @@
+import { createTable } from '../lib/Table';
 import { TimelineModel } from './TimelineModel';
 
-export const Timelines = {
-  ppArcticThickness: new TimelineModel(
+export type TimelineTable = typeof Timelines;
+
+export const Timelines = createTable([
+  new TimelineModel(
+    'ppArcticThickness',
     'Arctic - Daily sea ice thickness',
     '',
     'ppArctic',
@@ -12,7 +16,8 @@ export const Timelines = {
     1218,
     'Daily thickness of the arctic sea ice',
   ),
-  ppArcticVolume: new TimelineModel(
+  new TimelineModel(
+    'ppArcticVolume',
     'Arctic - Sea ice volume timeseries',
     '',
     'ppArctic',
@@ -23,7 +28,8 @@ export const Timelines = {
     904,
     'Timeseries of the total volume of arctic sea ice',
   ),
-  ppGreenlandSmb: new TimelineModel(
+  new TimelineModel(
+    'ppGreenlandSmb',
     'Greenland - Surface mass balance',
     '',
     'ppGreenland',
@@ -34,7 +40,8 @@ export const Timelines = {
     1063,
     'Daily surface mass balance of the Greenland ice sheet',
   ),
-  ppGreenlandCumSmb: new TimelineModel(
+  new TimelineModel(
+    'ppGreenlandCumSmb',
     'Greenland - Cumulated surface mass balance',
     '',
     'ppGreenland',
@@ -45,7 +52,8 @@ export const Timelines = {
     1063,
     'Cumulated surface mass balance of the Greenland ice sheet',
   ),
-  ppGreenlandSmbTs: new TimelineModel(
+  new TimelineModel(
+    'ppGreenlandSmbTs',
     'Greenland - Surface mass balance timeseries',
     '',
     'ppGreenland',
@@ -56,7 +64,8 @@ export const Timelines = {
     1080,
     'Timeseries of the surface mass balance of the Greenland ice sheet',
   ),
-  crSst: new TimelineModel(
+  new TimelineModel(
+    'crSst',
     'World - Sea surface temperature',
     '',
     'crSst',
@@ -67,7 +76,8 @@ export const Timelines = {
     759,
     "Daily surface temperature of the world's oceans",
   ),
-  crSstAnom: new TimelineModel(
+  new TimelineModel(
+    'crSstAnom',
     'World - Sea surface temperature anomaly',
     '',
     'crSst',
@@ -78,7 +88,8 @@ export const Timelines = {
     764,
     "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
   ),
-  crT2: new TimelineModel(
+  new TimelineModel(
+    'crT2',
     'World - Air temperature at 2 meters',
     '',
     'crT2',
@@ -89,7 +100,8 @@ export const Timelines = {
     742,
     'Daily worldwide air temperature at 2 meters of altitude',
   ),
-  crT2Anom: new TimelineModel(
+  new TimelineModel(
+    'crT2Anom',
     'World - Air temperature anomaly at 2 meters',
     '',
     'crT2',
@@ -100,4 +112,4 @@ export const Timelines = {
     741,
     'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
   ),
-};
+]);

@@ -1,9 +1,9 @@
 import { IconType } from 'react-icons/lib';
-import { Categories } from './Categories';
 
-export type CategoryModel = {
-  name: string;
-  Icon: IconType;
-};
-
-export type CategoryTable = typeof Categories;
+export class CategoryModel {
+  constructor(
+    public id: string,
+    public name: string,
+    public Icon: IconType,
+  ) {}
+}

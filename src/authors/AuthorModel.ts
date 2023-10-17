@@ -1,9 +1,8 @@
-import { Authors } from './Authors';
-
-export type AuthorModel = {
-  name: string;
-  description: string;
-  website: string;
-};
-
-export type AuthorTable = typeof Authors;
+export class AuthorModel {
+  constructor(
+    public id: string,
+    public name: string,
+    public description: string,
+    public website: string,
+  ) {}
+}

@@ -1,7 +1,11 @@
+import { createTable } from '../lib/Table';
 import { PictureModel } from './PictureModel';
 
-export const Pictures = {
-  kilaueaTilt2d: new PictureModel(
+export type PictureTable = typeof Pictures;
+
+export const Pictures = createTable([
+  new PictureModel(
+    'kilaueaTilt2d',
     'Kilauea - Tilt past 2 days',
     'Summit Area',
     'kilaueaMonitoring',
@@ -13,7 +17,8 @@ export const Pictures = {
     'Electronic tilt at the Kilauea summit area for the past 2 days',
     600,
   ),
-  kilaueaTilt1w: new PictureModel(
+  new PictureModel(
+    'kilaueaTilt1w',
     'Kilauea - Tilt past week',
     'Summit Area',
     'kilaueaMonitoring',
@@ -25,7 +30,8 @@ export const Pictures = {
     'Electronic tilt at the Kilauea summit area for the past week',
     3600,
   ),
-  kilaueaTilt1m: new PictureModel(
+  new PictureModel(
+    'kilaueaTilt1m',
     'Kilauea - Tilt past month',
     'Summit Area',
     'kilaueaMonitoring',
@@ -37,7 +43,8 @@ export const Pictures = {
     'Electronic tilt at the Kilauea summit area for the past month',
     4 * 3600,
   ),
-  kilaueaTiltSdh1m: new PictureModel(
+  new PictureModel(
+    'kilaueaTiltSdh1m',
     'Kilauea - Tilt SDH station past month',
     'Summit Area',
     'kilaueaMonitoring',
@@ -49,7 +56,8 @@ export const Pictures = {
     'Electronic tilt at the Kilauea summit area for the past 2 days',
     4 * 3600,
   ),
-  kilaueaGps1y: new PictureModel(
+  new PictureModel(
+    'kilaueaGps1y',
     'Kilauea - GPS past year',
     'Summit Area',
     'kilaueaMonitoring',
@@ -61,7 +69,8 @@ export const Pictures = {
     'GPS signal at the Kilauea summit area for the past year',
     24 * 3600,
   ),
-  kilaueaGps5y: new PictureModel(
+  new PictureModel(
+    'kilaueaGps5y',
     'Kilauea - GPS past 5 years',
     'Summit Area',
     'kilaueaMonitoring',
@@ -73,7 +82,8 @@ export const Pictures = {
     'GPS signal at the Kilauea summit area for the past 5 years',
     24 * 3600,
   ),
-  nsidcArcticIceCon: new PictureModel(
+  new PictureModel(
+    'nsidcArcticIceCon',
     'Arctic - Sea ice concentration',
     '',
     'nsidcArctic',
@@ -86,7 +96,8 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-  nsidcArcticIceTime: new PictureModel(
+  new PictureModel(
+    'nsidcArcticIceTime',
     'Arctic - Sea ice area timeseries',
     '',
     'nsidcArctic',
@@ -99,7 +110,8 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-  nsidcAntarcticIceCon: new PictureModel(
+  new PictureModel(
+    'nsidcAntarcticIceCon',
     'Antarctic - Sea ice concentration',
     '',
     'nsidcArctic',
@@ -112,7 +124,8 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-  nsidcAntarcticIceTime: new PictureModel(
+  new PictureModel(
+    'nsidcAntarcticIceTime',
     'Antarctic - Sea ice area timeseries',
     '',
     'nsidcArctic',
@@ -125,7 +138,8 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-  nsidcGreenlandMeltArea: new PictureModel(
+  new PictureModel(
+    'nsidcGreenlandMeltArea',
     'Greenland - Melt area',
     '',
     'nsidcGreenland',
@@ -138,7 +152,8 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-  nsidcGreenlandMeltDays: new PictureModel(
+  new PictureModel(
+    'nsidcGreenlandMeltDays',
     'Greenland - Cumulated melt days',
     '',
     'nsidcGreenland',
@@ -151,4 +166,4 @@ export const Pictures = {
     24 * 3600,
     true,
   ),
-};
+]);

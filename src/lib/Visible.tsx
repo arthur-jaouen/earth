@@ -130,6 +130,8 @@ export const VisibleProvider: FunctionComponent<VisibleProviderProps> = ({ elem,
         };
       }
     }
+
+    return;
   }, [elem, visible]);
 
   return <VisibleContext.Provider value={visible}>{children}</VisibleContext.Provider>;

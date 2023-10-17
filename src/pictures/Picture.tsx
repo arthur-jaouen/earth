@@ -1,51 +1,17 @@
-import { FunctionComponent, useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from '../app/Store';
-import { Card, CardSource, CardSubtitle, CardTitle } from '../lib/Card';
+import { FunctionComponent } from 'react';
 import { Loading } from '../lib/Loading';
 import { NotFound } from '../lib/NotFound';
-import { useIsVisible } from '../lib/Visible';
-import { Sources } from '../sources/Sources';
+import { usePicture, useRawPicture } from './PictureLogic';
 import { PictureModel } from './PictureModel';
-import { setPictureError, setPictureLoading, setPictureSuccess, usePicture } from './PictureSlice';
 
 import './Picture.scss';
 
 export type PictureProps = {
-  id: string;
   picture: PictureModel;
 };
 
-export const Picture: FunctionComponent<PictureProps> = ({ id, picture }) => {
-  const dispatch = useDispatch<Dispatch>();
-  const visible = useIsVisible();
-  const { state, data } = usePicture(id);
-  const currentSrc = visible ? (picture.cors ? picture.url : data) : undefined;
-  const [prevSrc, setPrevSrc] = useState(currentSrc);
-
-  useEffect(() => {
-    if (visible && state === 'pending') {
-      if (picture.cors) {
-        dispatch(setPictureLoading({ id }));
-      } else {
-        dispatch(picture.loadData(id));
-      }
-    }
-  }, [dispatch, visible, state, id, picture]);
-
-  const onLoad = useCallback(() => dispatch(setPictureSuccess({ id })), [dispatch, id]);
-  const onError = useCallback(
-    () => dispatch(setPictureError({ id, error: 'Error while loading picture' })),
-    [dispatch, id],
-  );
-
-  useEffect(() => {
-    if (currentSrc) {
-      setPrevSrc(currentSrc);
-    }
-  }, [currentSrc]);
-
-  const src = currentSrc || prevSrc;
+export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
+  const { state, blob } = usePicture(picture);
 
   return (
     <div className={'picture picture-' + state}>
@@ -54,12 +20,30 @@ export const Picture: FunctionComponent<PictureProps> = ({ id, picture }) => {
       ) : (
         <Loading style={{ aspectRatio: picture.aspectRatio }} />
       )}
-      {src ? (
+      {blob ? (
+        <img src={blob} alt={picture.alt} style={{ aspectRatio: picture.aspectRatio }} />
+      ) : null}
+      <legend>{picture.legend}</legend>
+    </div>
+  );
+};
+
+export const RawPicture: FunctionComponent<PictureProps> = ({ picture }) => {
+  const { state, url, setLoaded, setError } = useRawPicture(picture);
+
+  return (
+    <div className={'picture picture-' + state}>
+      {state === 'error' ? (
+        <NotFound style={{ aspectRatio: picture.aspectRatio }} />
+      ) : (
+        <Loading style={{ aspectRatio: picture.aspectRatio }} />
+      )}
+      {url ? (
         <img
-          src={src}
+          src={url}
           alt={picture.alt}
-          onLoad={picture.cors ? onLoad : undefined}
-          onError={picture.cors ? onError : undefined}
+          onLoad={setLoaded}
+          onError={setError}
           style={{ aspectRatio: picture.aspectRatio }}
         />
       ) : null}
@@ -67,19 +51,3 @@ export const Picture: FunctionComponent<PictureProps> = ({ id, picture }) => {
     </div>
   );
 };
-
-export type PictureCardProps = {
-  id: string;
-  picture: PictureModel;
-};
-
-export const PictureCard: FunctionComponent<PictureCardProps> = ({ id, picture }) => (
-  <Card>
-    <CardTitle>{picture.title}</CardTitle>
-    <CardSubtitle>
-      {picture.subtitle}&nbsp;
-      <CardSource name={Sources[picture.source].name} url={Sources[picture.source].url} />
-    </CardSubtitle>
-    <Picture id={id} picture={picture} />
-  </Card>
-);
