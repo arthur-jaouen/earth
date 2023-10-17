@@ -5,6 +5,30 @@ export type TimelineTable = typeof Timelines;
 
 export const Timelines = createTable([
   new TimelineModel(
+    'nsidcArcticIceCon',
+    'Arctic - Sea ice concentration',
+    '',
+    'nsidcArctic',
+    'ice',
+    '[https://noaadata.apps.nsidc.org/NOAA/G02135/north/daily/images/]YYYY[/]MM[_]MMM[/N_]YYYYMMDD[_conc_v3.0.png]',
+    'Arctic - Sea ice concentration',
+    420,
+    500,
+    'Daily arctic sea ice concentration map',
+  ),
+  new TimelineModel(
+    'nsidcAntarcticIceCon',
+    'Antarctic - Sea ice concentration',
+    '',
+    'nsidcArctic',
+    'ice',
+    '[https://noaadata.apps.nsidc.org/NOAA/G02135/south/daily/images/]YYYY[/]MM[_]MMM[/S_]YYYYMMDD[_conc_v3.0.png]',
+    'Antarctic - Sea ice concentration',
+    420,
+    500,
+    'Daily arctic sea ice concentration map',
+  ),
+  new TimelineModel(
     'ppArcticThickness',
     'Arctic - Daily sea ice thickness',
     '',
