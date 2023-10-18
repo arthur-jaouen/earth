@@ -13,7 +13,7 @@ export const Entity: FunctionComponent<EntityProps> = ({ entity }) => {
   switch (entity.type) {
     case EntityType.Picture:
       return Pictures[entity.id].raw ? (
-        <RawPicture picture={Pictures[entity.id]} />
+        <RawPicture picture={Pictures[entity.id]} state="success" url={Pictures[entity.id].url} />
       ) : (
         <Picture picture={Pictures[entity.id]} />
       );
