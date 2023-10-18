@@ -7,7 +7,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'nsidcArcticIceCon',
     'Arctic - Sea ice concentration',
-    '',
+    undefined,
     'nsidcArctic',
     'ice',
     '[https://noaadata.apps.nsidc.org/NOAA/G02135/north/daily/images/]YYYY[/]MM[_]MMM[/N_]YYYYMMDD[_conc_v3.0.png]',
@@ -19,7 +19,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'nsidcAntarcticIceCon',
     'Antarctic - Sea ice concentration',
-    '',
+    undefined,
     'nsidcArctic',
     'ice',
     '[https://noaadata.apps.nsidc.org/NOAA/G02135/south/daily/images/]YYYY[/]MM[_]MMM[/S_]YYYYMMDD[_conc_v3.0.png]',
@@ -31,7 +31,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'ppArcticThickness',
     'Arctic - Daily sea ice thickness',
-    '',
+    undefined,
     'ppArctic',
     'ice',
     '[http://polarportal.dk/fileadmin/polarportal/sea/CICE_map_thick_LA_EN_]YYYYMMDD[.png]',
@@ -43,7 +43,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'ppArcticVolume',
     'Arctic - Sea ice volume timeseries',
-    '',
+    undefined,
     'ppArctic',
     'ice',
     '[http://polarportal.dk/fileadmin/polarportal/sea/CICE_curve_thick_LA_EN_]YYYYMMDD[.png]',
@@ -55,7 +55,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'ppGreenlandSmb',
     'Greenland - Surface mass balance',
-    '',
+    undefined,
     'ppGreenland',
     'ice',
     '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_day_EN_]YYYYMMDD[.png]',
@@ -67,7 +67,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'ppGreenlandCumSmb',
     'Greenland - Cumulated surface mass balance',
-    '',
+    undefined,
     'ppGreenland',
     'ice',
     '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_map_LA_acc_EN_]YYYYMMDD[.png]',
@@ -79,7 +79,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'ppGreenlandSmbTs',
     'Greenland - Surface mass balance timeseries',
-    '',
+    undefined,
     'ppGreenland',
     'ice',
     '[http://polarportal.dk/fileadmin/polarportal/surface/SMB_curves_LA_EN_]YYYYMMDD[.png]',
@@ -91,7 +91,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'crSst',
     'World - Sea surface temperature',
-    '',
+    undefined,
     'crSst',
     'oceans',
     '[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]',
@@ -103,7 +103,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'crSstAnom',
     'World - Sea surface temperature anomaly',
-    '',
+    undefined,
     'crSst',
     'oceans',
     '[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]',
@@ -115,7 +115,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'crT2',
     'World - Air temperature at 2 meters',
-    '',
+    undefined,
     'crT2',
     'atmosphere',
     '[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2/world-wt/]YYYY[/t2_world-wt_]YYYY[_d]DOY[.png]',
@@ -127,7 +127,7 @@ export const Timelines = createTable([
   new TimelineModel(
     'crT2Anom',
     'World - Air temperature anomaly at 2 meters',
-    '',
+    undefined,
     'crT2',
     'atmosphere',
     '[https://climatereanalyzer.org/clim/t2_daily/clim_frames/t2anom/world-wt/]YYYY[/t2anom_world-wt_]YYYY[_d]DOY[.png]',

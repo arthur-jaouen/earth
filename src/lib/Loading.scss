@@ -2,11 +2,9 @@
 
 .loading {
   z-index: 1;
-  pointer-events: none;
-  background-color: $overlay-color;
 
   svg path {
-    color: $shadow-color;
+    color: $turquoise-base;
     animation: 2s linear infinite spin;
     transform-origin: 16px 16px;
   }

@@ -9,17 +9,17 @@ import './Header.scss';
 export const Header: FunctionComponent = () => (
   <header className="header">
     <Menu>
-      <MenuLink className="header-logo" href="#" Icon={BsGlobe} />
+      <MenuLink className="header-logo" href="#" I={BsGlobe} />
 
       {Object.entries(Categories).map(([key, { Icon, name }]) => (
-        <MenuLink key={key} className={'header-' + key} href={'#' + key} Icon={Icon}>
+        <MenuLink key={key} className={'header-' + key} href={'#' + key} I={Icon}>
           {name}
         </MenuLink>
       ))}
 
       <MenuSearch />
 
-      <MenuLink className="header-about" href="#about" Icon={FaCircleInfo}>
+      <MenuLink className="header-about" href="#about" I={FaCircleInfo}>
         About
       </MenuLink>
     </Menu>

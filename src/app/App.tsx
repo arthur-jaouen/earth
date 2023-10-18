@@ -3,6 +3,8 @@ import './App.scss';
 import { FunctionComponent } from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Routes } from 'react-router-dom';
+import { Category } from '../categories/Category';
+import { CategoryDetail } from '../categories/CategoryDetail';
 import { VisibleListener } from '../lib/Visible';
 import { About } from './About';
 import { Header } from './Header';
@@ -18,7 +20,8 @@ export const App: FunctionComponent = () => (
           <Routes>
             <Route path="/" Component={Main} />
             <Route path="/about" Component={About} />
-            <Route path="/:category/:id?" Component={Main} />
+            <Route path="/:category" Component={Category} />
+            <Route path="/:category/:id" Component={CategoryDetail} />
           </Routes>
         </HashRouter>
       </VisibleListener>

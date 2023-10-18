@@ -1,0 +1,14 @@
+@import '../common.scss';
+
+.category-detail {
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: calc(100vh - 2.6rem);
+  padding: 0.8rem;
+  box-sizing: border-box;
+
+  .card {
+    max-height: 100%;
+    height: 100%;
+  }
+}

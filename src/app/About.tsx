@@ -1,7 +1,7 @@
 import { Fragment, FunctionComponent } from 'react';
 import { Authors } from '../authors/AuthorTable';
+import { Link } from '../lib/Link';
 import { Sources } from '../sources/SourceTable';
-
 import './About.scss';
 
 export const About: FunctionComponent = () => (
@@ -9,15 +9,13 @@ export const About: FunctionComponent = () => (
     <h2>Contact</h2>
     <p>
       You can contact me at this address:&nbsp;
-      <a href="mailto:arthur.jaouen@gmail.com" target="_blank" rel="noreferrer">
-        arthur.jaouen@gmail.com
-      </a>
+      <Link href="mailto:arthur.jaouen@gmail.com">arthur.jaouen@gmail.com</Link>
     </p>
     <p>
       The source code is available on Github:&nbsp;
-      <a href="https://github.com/arthur-jaouen/earth" target="_blank" rel="noreferrer">
+      <Link href="https://github.com/arthur-jaouen/earth">
         https://github.com/arthur-jaouen/earth
-      </a>
+      </Link>
     </p>
     <h2>Roadmap</h2>
     <ul>
@@ -31,9 +29,7 @@ export const About: FunctionComponent = () => (
       <Fragment key={key}>
         <h3>{author.name}</h3>
         <p>
-          <a href={author.website} target="_blank" rel="noreferrer">
-            Website
-          </a>
+          <Link href={author.website}>Website</Link>
           &nbsp;
           {author.description}
         </p>
@@ -41,9 +37,7 @@ export const About: FunctionComponent = () => (
           .filter(([, source]) => source.author === key)
           .map(([key, source]) => (
             <p key={key}>
-              <a href={source.url} target="_blank" rel="noreferrer">
-                {source.url}
-              </a>
+              <Link href={source.url}>{source.url}</Link>
             </p>
           ))}
       </Fragment>

@@ -14,13 +14,14 @@ export type TimelineProps = {
 
 export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
   const { state, picture, offset, changeOffset } = useTimeline(timeline);
+  const style = { aspectRatio: picture.aspectRatio };
 
   return (
     <div className={'timeline timeline-' + state}>
       {state === 'loading' || state === 'pending' ? (
-        <Loading style={{ aspectRatio: timeline.aspectRatio }} />
+        <Loading style={style} />
       ) : state === 'error' ? (
-        <NotFound style={{ aspectRatio: timeline.aspectRatio }} />
+        <NotFound style={style} />
       ) : state === 'success' ? (
         <Picture picture={picture} />
       ) : null}

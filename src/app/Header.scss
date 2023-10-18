@@ -9,9 +9,10 @@
   top: 0;
   z-index: 2;
   color: $secondary-color;
-  background-color: $accent-color;
+  background-color: $marine-dark;
   text-transform: uppercase;
   overflow: auto;
+  box-shadow: 0.1rem 0.1rem 0.5rem $shadow-color;
 
   .menu {
     width: 100%;
@@ -21,19 +22,14 @@
     font-size: 1.4rem;
   }
 
-  a,
-  button {
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: $accent-light-color;
-    }
-  }
-
   @include phone {
     .menu-link {
       .icon {
         margin-right: 0;
+      }
+
+      .menu-link {
+        padding: 0.4rem 0.6rem;
       }
 
       .menu-link-item {
