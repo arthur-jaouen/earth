@@ -1,0 +1,14 @@
+@import '../common.scss';
+
+.link {
+  display: inline-flex;
+  flex-direction: row;
+  text-decoration: none;
+  color: $turquoise-dark;
+  align-items: center;
+  gap: 0.2em;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

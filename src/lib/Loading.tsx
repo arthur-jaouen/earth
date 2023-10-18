@@ -1,6 +1,7 @@
 import { FunctionComponent, SVGAttributes } from 'react';
 
 import './Loading.scss';
+import { cls } from './Utils';
 
 export type LoadingProps = SVGAttributes<SVGElement> & {
   title?: string;
@@ -8,7 +9,7 @@ export type LoadingProps = SVGAttributes<SVGElement> & {
 
 export const Loading: FunctionComponent<LoadingProps> = ({ className, title, ...props }) => (
   <svg
-    className={className ? className + ' loading' : 'loading'}
+    className={cls('loading', className)}
     stroke="currentColor"
     fill="transparent"
     strokeWidth="2"

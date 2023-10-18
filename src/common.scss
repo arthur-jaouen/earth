@@ -1,10 +1,16 @@
 $primary-color: #000000;
 $secondary-color: #ffffff;
-$accent-color: #012a23;
-$accent-light-color: #718d8a;
-$background-color: #d7dedc;
-$shadow-color: #bababa;
-$overlay-color: #ffffffaa;
+
+$turquoise-light: #96bdc0;
+$turquoise-base: #6e999a;
+$turquoise-dark: #2c5e5f;
+
+$marine-lighter: #e9eef4;
+$marine-light: #62738a;
+$marine-base: #4b586b;
+$marine-dark: #2a3442;
+
+$shadow-color: #534d4d66;
 
 @mixin tablet {
   @media screen and (max-width: 1023px) {

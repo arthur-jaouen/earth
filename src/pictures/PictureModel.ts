@@ -5,7 +5,7 @@ export class PictureModel {
   constructor(
     public id: string,
     public title: string,
-    public subtitle: string,
+    public subtitle: string | undefined,
     public source: keyof SourceTable,
     public category: keyof CategoryTable,
     public url: string,

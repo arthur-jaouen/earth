@@ -2,39 +2,49 @@
 
 .menu {
   display: flex;
+}
 
-  .menu-link {
-    padding: 0.4rem 0.8rem;
+.link.menu-link {
+  padding: 0.6rem 1rem;
+  white-space: nowrap;
+  color: inherit;
+  transition: background-color 0.2s;
+
+  &:hover {
     text-decoration: none;
-    white-space: nowrap;
-    cursor: pointer;
+    background-color: $marine-light;
   }
+}
+
+.menu-search {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin: 0.4rem 0.8rem;
+  background-color: $marine-base;
+  border-radius: 0.3rem;
 
   .icon {
-    margin-right: 0.4rem;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  .icon,
-  .menu-link-item {
     vertical-align: middle;
   }
 
-  .menu-search {
-    padding: 0;
-    display: flex;
+  input {
+    padding-left: 0.8rem;
     flex-grow: 1;
     flex-shrink: 1;
-    flex-direction: row;
+    width: 0;
+    border-radius: 0.3rem;
+  }
 
-    input {
-      padding: 0.4rem 0.8rem;
-      flex-grow: 1;
-      flex-shrink: 1;
-      width: 0;
+  button {
+    padding: 0 0.8rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $marine-light;
     }
   }
 }

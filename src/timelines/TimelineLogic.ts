@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getBlob } from '../app/Db';
 import { Dispatch, State } from '../app/Store';
 import { useIsVisible } from '../lib/Visible';
 import { PictureModel } from '../pictures/PictureModel';
@@ -47,6 +48,12 @@ export async function getLatestDate(timeline: TimelineModel): Promise<string> {
   for (let count = 0; count < timeline.tries; count++) {
     try {
       const date = start.subtract(count * timeline.duration, timeline.unit).toISOString();
+      const cached = await getBlob(timeline.getPictureId(date));
+
+      if (cached) {
+        return date;
+      }
+
       const response = await fetch(timeline.getPictureUrl(date), { method: 'HEAD' });
 
       if (response.status === 200) {

@@ -85,7 +85,7 @@ export const Pictures = createTable([
   new PictureModel(
     'nsidcArcticIceTime',
     'Arctic - Sea ice area timeseries',
-    '',
+    undefined,
     'nsidcArctic',
     'ice',
     'https://nsidc.org/data/seaice_index/images/daily_images/N_iqr_timeseries.png',
@@ -99,7 +99,7 @@ export const Pictures = createTable([
   new PictureModel(
     'nsidcAntarcticIceTime',
     'Antarctic - Sea ice area timeseries',
-    '',
+    undefined,
     'nsidcArctic',
     'ice',
     'https://nsidc.org/data/seaice_index/images/daily_images/S_iqr_timeseries.png',
@@ -113,7 +113,7 @@ export const Pictures = createTable([
   new PictureModel(
     'nsidcGreenlandMeltArea',
     'Greenland - Melt area',
-    '',
+    undefined,
     'nsidcGreenland',
     'ice',
     'https://nsidc.org/greenland-today/images/greenland_daily_melt.png',
@@ -127,7 +127,7 @@ export const Pictures = createTable([
   new PictureModel(
     'nsidcGreenlandMeltDays',
     'Greenland - Cumulated melt days',
-    '',
+    undefined,
     'nsidcGreenland',
     'ice',
     'https://nsidc.org/greenland-today/images/greenland_cumulative_melt.png',

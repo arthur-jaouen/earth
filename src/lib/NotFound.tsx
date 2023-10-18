@@ -1,6 +1,7 @@
 import { FunctionComponent, SVGAttributes } from 'react';
 
 import './NotFound.scss';
+import { cls } from './Utils';
 
 export type NotFoundProps = SVGAttributes<SVGElement> & {
   className?: string;
@@ -9,7 +10,7 @@ export type NotFoundProps = SVGAttributes<SVGElement> & {
 
 export const NotFound: FunctionComponent<NotFoundProps> = ({ className, title, ...props }) => (
   <svg
-    className={className ? className + ' not-found' : 'not-found'}
+    className={cls('not-found', className)}
     stroke="currentColor"
     fill="transparent"
     strokeWidth="2"
