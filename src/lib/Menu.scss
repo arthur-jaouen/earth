@@ -9,6 +9,7 @@
   white-space: nowrap;
   color: inherit;
   transition: background-color 0.2s;
+  gap: 0.4em;
 
   &:hover {
     text-decoration: none;
@@ -21,7 +22,7 @@
   flex-direction: row;
   flex-grow: 1;
   flex-shrink: 1;
-  margin: 0.4rem 0.8rem;
+  margin: 0.4rem 1rem;
   background-color: $marine-base;
   border-radius: 0.3rem;
 

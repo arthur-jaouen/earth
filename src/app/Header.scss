@@ -23,18 +23,16 @@
   }
 
   @include phone {
+    .menu-link-item {
+      display: none;
+    }
+
     .menu-link {
-      .icon {
-        margin-right: 0;
-      }
+      padding: 0.6rem;
+    }
 
-      .menu-link {
-        padding: 0.4rem 0.6rem;
-      }
-
-      .menu-link-item {
-        display: none;
-      }
+    .menu-search {
+      margin: 0.4rem 0.6rem;
     }
   }
 }
