@@ -14,7 +14,6 @@ export class PictureModel {
     public height: number,
     public legend: string,
     public validity: number,
-    public raw: boolean = false,
   ) {}
 
   get aspectRatio(): number {

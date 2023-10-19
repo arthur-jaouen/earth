@@ -13,25 +13,14 @@ export type PictureProps = {
 
 export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
   const { state, blob } = usePicture(picture);
-
-  return <RawPicture picture={picture} state={state} url={blob} />;
-};
-
-export type RawPictureProps = {
-  picture: PictureModel;
-  state: string;
-  url?: string;
-};
-
-export const RawPicture: FunctionComponent<RawPictureProps> = ({ picture, state, url }) => {
   const style = { aspectRatio: picture.aspectRatio };
 
   return (
     <div className={'picture picture-' + state}>
       {state === 'error' ? <NotFound style={style} /> : <Loading style={style} />}
-      {url ? (
+      {blob ? (
         <svg style={style} className="picture-image">
-          <image href={url} width="100%" height="100%" />
+          <image href={blob} width="100%" height="100%" />
         </svg>
       ) : null}
       <legend>
