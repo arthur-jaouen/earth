@@ -14,20 +14,13 @@ export type TimelineProps = {
 
 export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
   const { state, picture, offset, changeOffset } = useTimeline(timeline)
-  const style = { aspectRatio: picture.aspectRatio }
+  const style = { aspectRatio: timeline.aspectRatio }
 
   return (
     <div className={'timeline timeline-' + state}>
-      {state === 'loading' || state === 'pending' ? (
-        <Loading style={style} />
-      ) : state === 'error' ? (
-        <NotFound style={style} />
-      ) : state === 'success' ? (
-        <>
-          <Picture picture={picture} />
-          <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
-        </>
-      ) : null}
+      {state === 'error' ? <NotFound style={style} /> : !picture ? <Loading style={style} /> : null}
+      {picture ? <Picture picture={picture} /> : null}
+      {picture ? <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} /> : null}
     </div>
   )
 }

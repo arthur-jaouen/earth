@@ -20,10 +20,14 @@ export const TimelineSlice = createSlice({
   reducers: {
     setTimelineLoading(
       state: TimelineSliceState,
-      { payload: { id } }: PayloadAction<{ id: string }>,
+      {
+        payload: { id, latest, offset },
+      }: PayloadAction<{ id: string; latest?: string; offset?: number }>,
     ) {
       state[id] = {
         state: 'loading',
+        latest,
+        offset,
       }
     },
 

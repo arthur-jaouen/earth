@@ -33,8 +33,6 @@ export const MenuLink: FunctionComponent<MenuLinkProps> = ({
     href.length > 1 &&
     location.pathname.startsWith(`/${href.substring(1)}`)
 
-  console.log(active, location.pathname, `/${href}`)
-
   return (
     <Link
       className={cls('menu-link', active && 'menu-link-active', className)}

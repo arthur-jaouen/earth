@@ -17,4 +17,8 @@
   > input[type='range'] {
     margin: 0.2rem 0.8rem;
   }
+
+  &.timeline-loading > .picture > .picture-image {
+    z-index: 0;
+  }
 }

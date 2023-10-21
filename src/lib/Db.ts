@@ -27,6 +27,7 @@ export const createDb = (): Promise<IDBDatabase> =>
       pictures.createIndex('blob', 'blob', { unique: false })
       pictures.createIndex('date', 'date', { unique: false })
 
+      timelines.createIndex('template', 'template', { unique: false })
       timelines.createIndex('latest', 'latest', { unique: false })
     }
   })

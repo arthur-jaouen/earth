@@ -56,7 +56,7 @@ export function refreshPicture(picture: PictureModel, cachedBlob?: string) {
 
 export async function cachedPicture(
   picture: PictureModel,
-): Promise<{ blob?: string; valid: boolean }> {
+): Promise<{ valid: boolean; blob?: string }> {
   const cached = await get<{ url: string; blob: Blob; date: Date }>('pictures', picture.id)
 
   if (!cached || cached.url !== picture.url) {

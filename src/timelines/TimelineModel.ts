@@ -24,6 +24,12 @@ export class TimelineModel {
     return this.width / this.height
   }
 
+  getDate(latest: string, offset: number): string {
+    return dayjs(latest)
+      .add(offset * this.duration, this.unit)
+      .toISOString()
+  }
+
   getPictureId(date: string): string {
     return `${this.id}_${date}`
   }
