@@ -20,16 +20,16 @@ export function useTimeline(
 ): TimelineState & { picture: PictureModel; changeOffset: (offset: number) => void } {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
-  const timelineState = useSelector((state: State) => state.timelines[timeline.id]);
+  const { state, latest, offset } = useSelector((state: State) => state.timelines[timeline.id]);
 
   useEffect(() => {
-    if (visible) {
+    if (visible && state === 'pending') {
       dispatch(loadTimeline(timeline));
     }
-  }, [dispatch, visible, timeline]);
+  }, [dispatch, visible, state, timeline]);
 
-  const date = dayjs(timelineState.latest!)
-    .add((timelineState.offset || 0) * timeline.duration, timeline.unit)
+  const date = dayjs(latest!)
+    .add((offset || 0) * timeline.duration, timeline.unit)
     .toISOString();
 
   const picture = useMemo(() => timeline.getPictureModel(date), [timeline, date]);
@@ -39,7 +39,7 @@ export function useTimeline(
     [dispatch, timeline],
   );
 
-  return { ...timelineState, picture, changeOffset };
+  return { state, latest, offset, picture, changeOffset };
 }
 
 export async function getLatestDate(timeline: TimelineModel): Promise<string> {
