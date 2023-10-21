@@ -97,7 +97,7 @@ export const Timelines = createTable([
     '[https://climatereanalyzer.org/clim/sst_daily/maps/sst/world-wt3/]YYYY[/sst_world-wt3_]YYYY[_d]DOY[.png]',
     'World - Sea surface temperature',
     1100,
-    759,
+    796,
     "Daily surface temperature of the world's oceans",
   ),
   new TimelineModel(
@@ -109,7 +109,7 @@ export const Timelines = createTable([
     '[https://climatereanalyzer.org/clim/sst_daily/maps/sstanom/world-wt3/]YYYY[/sstanom_world-wt3_]YYYY[_d]DOY[.png]',
     'World - Sea surface temperature anomaly',
     1100,
-    764,
+    794,
     "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
   ),
   new TimelineModel(
