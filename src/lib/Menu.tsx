@@ -1,6 +1,7 @@
 import { AnchorHTMLAttributes, FunctionComponent, PropsWithChildren } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { IconType } from 'react-icons/lib';
+import { useLocation } from 'react-router-dom';
 import { Icon } from './Icon';
 import { Link } from './Link';
 import { cls } from './Utils';
@@ -22,14 +23,26 @@ export type MenuLinkProps = PropsWithChildren<
 export const MenuLink: FunctionComponent<MenuLinkProps> = ({
   I,
   className,
+  href,
   children,
   ...props
-}) => (
-  <Link className={cls('menu-link', className)} {...props}>
-    {I ? <Icon I={I} /> : null}
-    {children ? <span className="menu-link-item">{children}</span> : null}
-  </Link>
-);
+}) => {
+  const location = useLocation();
+  const active = href?.startsWith('#') && location.pathname == `/${href.substring(1)}`;
+
+  console.log(active, location.pathname, `/${href}`);
+
+  return (
+    <Link
+      className={cls('menu-link', active && 'menu-link-active', className)}
+      href={href}
+      {...props}
+    >
+      {I ? <Icon I={I} /> : null}
+      {children ? <span className="menu-link-item">{children}</span> : null}
+    </Link>
+  );
+};
 
 export const MenuSearch: FunctionComponent = () => (
   <form className="menu-search" action="#search" method="GET">

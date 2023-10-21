@@ -5,7 +5,7 @@ import { cls } from './Utils';
 
 import './Link.scss';
 
-export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {}
+export type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export const Link: FunctionComponent<LinkProps> = ({ className, href, children, ...props }) => {
   const isExternal = !href?.startsWith('#');

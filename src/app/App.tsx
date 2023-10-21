@@ -13,8 +13,8 @@ import { Store } from './Store';
 export const App: FunctionComponent = () => (
   <div className="app">
     <Provider store={Store}>
-      <Header />
       <HashRouter>
+        <Header />
         <Routes>
           <Route path="/" Component={Main} />
           <Route path="/about" Component={About} />
