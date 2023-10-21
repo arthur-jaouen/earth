@@ -28,7 +28,10 @@ export const MenuLink: FunctionComponent<MenuLinkProps> = ({
   ...props
 }) => {
   const location = useLocation();
-  const active = href?.startsWith('#') && location.pathname == `/${href.substring(1)}`;
+  const active =
+    href?.startsWith('#') &&
+    href.length > 1 &&
+    location.pathname.startsWith(`/${href.substring(1)}`);
 
   console.log(active, location.pathname, `/${href}`);
 
