@@ -1,3 +1,3 @@
 export type TagModel = {
-  name: string;
-};
+  name: string
+}

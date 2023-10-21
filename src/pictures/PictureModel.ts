@@ -1,5 +1,5 @@
-import { CategoryTable } from '../categories/CategoryTable';
-import { SourceTable } from '../sources/SourceTable';
+import { CategoryTable } from '../categories/CategoryTable'
+import { SourceTable } from '../sources/SourceTable'
 
 export class PictureModel {
   constructor(
@@ -18,6 +18,6 @@ export class PictureModel {
   ) {}
 
   get aspectRatio(): number {
-    return this.width / this.height;
+    return this.width / this.height
   }
 }

@@ -1,27 +1,27 @@
-import { PluginFunc } from 'dayjs';
+import { PluginFunc } from 'dayjs'
 
-const FORMAT_DEFAULT = 'YYYY-MM-DDTHH:mm:ssZ';
+const FORMAT_DEFAULT = 'YYYY-MM-DDTHH:mm:ssZ'
 
 export const DayOfYear: PluginFunc = (_, DayJs) => {
-  const oldFormat = DayJs.prototype.format;
+  const oldFormat = DayJs.prototype.format
 
   DayJs.prototype.format = function (formatStr) {
     if (!this.isValid()) {
-      return oldFormat.bind(this)(formatStr);
+      return oldFormat.bind(this)(formatStr)
     }
 
-    const str = formatStr || FORMAT_DEFAULT;
+    const str = formatStr || FORMAT_DEFAULT
     const result = str.replace(/\[([^\]]+)]|DOY/g, (match) => {
       switch (match) {
         case 'DOY':
           return (
             Math.floor((this.startOf('day').unix() - this.startOf('year').unix()) / 86_400) + 1
-          ).toString();
+          ).toString()
         default:
-          return match;
+          return match
       }
-    });
+    })
 
-    return oldFormat.bind(this)(result);
-  };
-};
+    return oldFormat.bind(this)(result)
+  }
+}

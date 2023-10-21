@@ -1,7 +1,7 @@
-import { createTable } from '../lib/Table';
-import { Pictures } from '../pictures/PictureTable';
-import { Timelines } from '../timelines/TimelineTable';
-import { EntityModel, EntityType } from './EntityModel';
+import { createTable } from '../lib/Table'
+import { Pictures } from '../pictures/PictureTable'
+import { Timelines } from '../timelines/TimelineTable'
+import { EntityModel, EntityType } from './EntityModel'
 
 export const Entities = createTable([
   ...Object.values(Pictures).map(
@@ -10,4 +10,4 @@ export const Entities = createTable([
   ...Object.values(Timelines).map(
     (e) => new EntityModel(e.id, EntityType.Timeline, e.source, e.category, e.title, e.subtitle),
   ),
-]);
+])

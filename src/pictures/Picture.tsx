@@ -1,19 +1,19 @@
-import { FunctionComponent } from 'react';
-import { Link } from '../lib/Link';
-import { Loading } from '../lib/Loading';
-import { NotFound } from '../lib/NotFound';
-import { usePicture } from './PictureLogic';
-import { PictureModel } from './PictureModel';
+import { FunctionComponent } from 'react'
+import { Link } from '../lib/Link'
+import { Loading } from '../lib/Loading'
+import { NotFound } from '../lib/NotFound'
+import { usePicture } from './PictureLogic'
+import { PictureModel } from './PictureModel'
 
-import './Picture.scss';
+import './Picture.scss'
 
 export type PictureProps = {
-  picture: PictureModel;
-};
+  picture: PictureModel
+}
 
 export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
-  const { state, blob } = usePicture(picture);
-  const style = { aspectRatio: picture.aspectRatio };
+  const { state, blob } = usePicture(picture)
+  const style = { aspectRatio: picture.aspectRatio }
 
   return (
     <div className={'picture picture-' + state}>
@@ -27,5 +27,5 @@ export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
         <Link href={picture.original || picture.url}>Original image</Link> {picture.legend}
       </legend>
     </div>
-  );
-};
+  )
+}

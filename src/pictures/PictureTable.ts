@@ -1,7 +1,7 @@
-import { createTable } from '../lib/Table';
-import { PictureModel } from './PictureModel';
+import { createTable } from '../lib/Table'
+import { PictureModel } from './PictureModel'
 
-export type PictureTable = typeof Pictures;
+export type PictureTable = typeof Pictures
 
 export const Pictures = createTable([
   new PictureModel(
@@ -144,4 +144,4 @@ export const Pictures = createTable([
     'Cumulated melt days of the Greenland ice sheet',
     24 * 3600,
   ),
-]);
+])

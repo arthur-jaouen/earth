@@ -1,7 +1,7 @@
-import { createTable } from '../lib/Table';
-import { SourceModel } from './SourceModel';
+import { createTable } from '../lib/Table'
+import { SourceModel } from './SourceModel'
 
-export type SourceTable = typeof Sources;
+export type SourceTable = typeof Sources
 
 export const Sources = createTable([
   new SourceModel(
@@ -41,4 +41,4 @@ export const Sources = createTable([
     'http://polarportal.dk/en/greenland/surface-conditions/',
     '',
   ),
-]);
+])

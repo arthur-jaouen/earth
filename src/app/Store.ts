@@ -1,6 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { PictureSlice } from '../pictures/PictureSlice';
-import { TimelineSlice } from '../timelines/TimelineSlice';
+import { configureStore } from '@reduxjs/toolkit'
+import { PictureSlice } from '../pictures/PictureSlice'
+import { TimelineSlice } from '../timelines/TimelineSlice'
 
 export const Store = configureStore({
   middleware: (getDefaultMiddleware) =>
@@ -11,7 +11,7 @@ export const Store = configureStore({
     [PictureSlice.name]: PictureSlice.reducer,
     [TimelineSlice.name]: TimelineSlice.reducer,
   },
-});
+})
 
-export type State = ReturnType<typeof Store.getState>;
-export type Dispatch = typeof Store.dispatch;
+export type State = ReturnType<typeof Store.getState>
+export type Dispatch = typeof Store.dispatch

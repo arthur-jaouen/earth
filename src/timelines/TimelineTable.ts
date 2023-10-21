@@ -1,7 +1,7 @@
-import { createTable } from '../lib/Table';
-import { TimelineModel } from './TimelineModel';
+import { createTable } from '../lib/Table'
+import { TimelineModel } from './TimelineModel'
 
-export type TimelineTable = typeof Timelines;
+export type TimelineTable = typeof Timelines
 
 export const Timelines = createTable([
   new TimelineModel(
@@ -136,4 +136,4 @@ export const Timelines = createTable([
     741,
     'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
   ),
-]);
+])

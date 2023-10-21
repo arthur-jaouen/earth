@@ -1,5 +1,5 @@
-import { CategoryTable } from '../categories/CategoryTable';
-import { SourceTable } from '../sources/SourceTable';
+import { CategoryTable } from '../categories/CategoryTable'
+import { SourceTable } from '../sources/SourceTable'
 
 export enum EntityType {
   Picture,

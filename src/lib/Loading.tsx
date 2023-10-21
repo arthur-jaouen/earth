@@ -1,9 +1,9 @@
-import { FunctionComponent, SVGAttributes } from 'react';
+import { FunctionComponent, SVGAttributes } from 'react'
 
-import './Loading.scss';
-import { cls } from './Utils';
+import './Loading.scss'
+import { cls } from './Utils'
 
-export type LoadingProps = SVGAttributes<SVGElement>;
+export type LoadingProps = SVGAttributes<SVGElement>
 
 export const Loading: FunctionComponent<LoadingProps> = ({ className, ...props }) => (
   <svg
@@ -17,4 +17,4 @@ export const Loading: FunctionComponent<LoadingProps> = ({ className, ...props }
       <path d="M 16 1 A 15 15 0 1 0 31 16" />
     </svg>
   </svg>
-);
+)
