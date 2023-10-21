@@ -1,18 +1,18 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Timelines } from './TimelineTable';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Timelines } from './TimelineTable'
 
 export type TimelineState = {
-  state: 'pending' | 'loading' | 'success' | 'error';
-  latest?: string;
-  offset?: number;
-  error?: unknown;
-};
+  state: 'pending' | 'loading' | 'success' | 'error'
+  latest?: string
+  offset?: number
+  error?: unknown
+}
 
-export type TimelineSliceState = { [id: string]: TimelineState };
+export type TimelineSliceState = { [id: string]: TimelineState }
 
 const initialState: TimelineSliceState = Object.fromEntries(
   Object.keys(Timelines).map((id) => [id, { state: 'pending' }]),
-);
+)
 
 export const TimelineSlice = createSlice({
   name: 'timelines',
@@ -24,7 +24,7 @@ export const TimelineSlice = createSlice({
     ) {
       state[id] = {
         state: 'loading',
-      };
+      }
     },
 
     setTimelineSuccess(
@@ -37,7 +37,7 @@ export const TimelineSlice = createSlice({
         state: 'success',
         latest,
         offset,
-      };
+      }
     },
 
     setTimelineError(
@@ -47,17 +47,17 @@ export const TimelineSlice = createSlice({
       state[id] = {
         state: 'error',
         error,
-      };
+      }
     },
 
     setTimelineOffset(
       state: TimelineSliceState,
       { payload: { id, offset } }: PayloadAction<{ id: string; offset: number }>,
     ) {
-      state[id].offset = offset;
+      state[id].offset = offset
     },
   },
-});
+})
 
 export const { setTimelineLoading, setTimelineSuccess, setTimelineError, setTimelineOffset } =
-  TimelineSlice.actions;
+  TimelineSlice.actions

@@ -1,14 +1,14 @@
-import { AnchorHTMLAttributes, FunctionComponent } from 'react';
-import { BiLinkExternal } from 'react-icons/bi';
-import { Icon } from './Icon';
-import { cls } from './Utils';
+import { AnchorHTMLAttributes, FunctionComponent } from 'react'
+import { BiLinkExternal } from 'react-icons/bi'
+import { Icon } from './Icon'
+import { cls } from './Utils'
 
-import './Link.scss';
+import './Link.scss'
 
-export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {}
+export type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement>
 
 export const Link: FunctionComponent<LinkProps> = ({ className, href, children, ...props }) => {
-  const isExternal = !href?.startsWith('#');
+  const isExternal = !href?.startsWith('#')
 
   return (
     <a
@@ -20,5 +20,5 @@ export const Link: FunctionComponent<LinkProps> = ({ className, href, children, 
     >
       {children} {isExternal ? <Icon className="link-icon" I={BiLinkExternal} /> : null}
     </a>
-  );
-};
+  )
+}

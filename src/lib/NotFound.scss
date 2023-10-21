@@ -1,7 +1,11 @@
 @import '../common.scss';
 
 .not-found {
-  svg path {
-    color: $turquoise-base;
+  svg {
+    transform: translate(-16px, -16px);
+
+    path {
+      color: $turquoise-base;
+    }
   }
 }

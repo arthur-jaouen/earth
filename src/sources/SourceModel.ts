@@ -1,4 +1,4 @@
-import { AuthorTable } from '../authors/AuthorTable';
+import { AuthorTable } from '../authors/AuthorTable'
 
 export class SourceModel {
   constructor(

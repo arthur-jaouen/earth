@@ -1,7 +1,7 @@
-import dayjs, { ManipulateType } from 'dayjs';
-import { CategoryTable } from '../categories/CategoryTable';
-import { PictureModel } from '../pictures/PictureModel';
-import { SourceTable } from '../sources/SourceTable';
+import dayjs, { ManipulateType } from 'dayjs'
+import { CategoryTable } from '../categories/CategoryTable'
+import { PictureModel } from '../pictures/PictureModel'
+import { SourceTable } from '../sources/SourceTable'
 
 export class TimelineModel {
   constructor(
@@ -21,17 +21,19 @@ export class TimelineModel {
   ) {}
 
   get aspectRatio(): number {
-    return this.width / this.height;
+    return this.width / this.height
   }
 
   getPictureId(date: string): string {
-    return `${this.id}_${date}`;
+    return `${this.id}_${date}`
+  }
+
+  getPictureOriginalUrl(date: string): string {
+    return dayjs(date).format(this.template)
   }
 
   getPictureUrl(date: string): string {
-    const url = dayjs(date).format(this.template);
-
-    return `https://wsrv.nl?url=${url}`;
+    return `https://wsrv.nl?url=${this.getPictureOriginalUrl(date)}`
   }
 
   getPictureModel(date: string): PictureModel {
@@ -42,11 +44,12 @@ export class TimelineModel {
       this.source,
       this.category,
       this.getPictureUrl(date),
+      this.getPictureOriginalUrl(date),
       this.alt,
       this.width,
       this.height,
       this.legend,
       365 * 24 * 3600,
-    );
+    )
   }
 }

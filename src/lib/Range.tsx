@@ -1,13 +1,13 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react'
 
-import './Range.scss';
+import './Range.scss'
 
 export type RangeProps = {
-  min: number;
-  max: number;
-  value: number;
-  onChange: (value: number) => void;
-};
+  min: number
+  max: number
+  value: number
+  onChange: (value: number) => void
+}
 
 export const Range: FunctionComponent<RangeProps> = ({ min, max, value, onChange }) => (
   <div className="range">
@@ -24,4 +24,4 @@ export const Range: FunctionComponent<RangeProps> = ({ min, max, value, onChange
       onChange={(event) => onChange(event.target.valueAsNumber)}
     />
   </div>
-);
+)

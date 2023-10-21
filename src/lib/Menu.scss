@@ -11,6 +11,10 @@
   transition: background-color 0.2s;
   gap: 0.4em;
 
+  &.menu-link-active {
+    background-color: $marine-base;
+  }
+
   &:hover {
     text-decoration: none;
     background-color: $marine-light;
@@ -26,12 +30,8 @@
   background-color: $marine-base;
   border-radius: 0.3rem;
 
-  .icon {
-    vertical-align: middle;
-  }
-
   input {
-    padding-left: 0.8rem;
+    padding-left: 1rem;
     flex-grow: 1;
     flex-shrink: 1;
     width: 0;
@@ -39,10 +39,13 @@
   }
 
   button {
-    padding: 0 0.8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1rem;
     border-radius: 0.3rem;
-    cursor: pointer;
     transition: background-color 0.2s;
+    cursor: pointer;
 
     &:hover {
       background-color: $marine-light;

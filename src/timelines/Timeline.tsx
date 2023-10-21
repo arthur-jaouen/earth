@@ -1,20 +1,20 @@
-import { FunctionComponent } from 'react';
-import { Loading } from '../lib/Loading';
-import { NotFound } from '../lib/NotFound';
-import { Range } from '../lib/Range';
-import { Picture } from '../pictures/Picture';
-import { useTimeline } from './TimelineLogic';
-import { TimelineModel } from './TimelineModel';
+import { FunctionComponent } from 'react'
+import { Loading } from '../lib/Loading'
+import { NotFound } from '../lib/NotFound'
+import { Range } from '../lib/Range'
+import { Picture } from '../pictures/Picture'
+import { useTimeline } from './TimelineLogic'
+import { TimelineModel } from './TimelineModel'
 
-import './Timeline.scss';
+import './Timeline.scss'
 
 export type TimelineProps = {
-  timeline: TimelineModel;
-};
+  timeline: TimelineModel
+}
 
 export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
-  const { state, picture, offset, changeOffset } = useTimeline(timeline);
-  const style = { aspectRatio: picture.aspectRatio };
+  const { state, picture, offset, changeOffset } = useTimeline(timeline)
+  const style = { aspectRatio: picture.aspectRatio }
 
   return (
     <div className={'timeline timeline-' + state}>
@@ -23,9 +23,11 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
       ) : state === 'error' ? (
         <NotFound style={style} />
       ) : state === 'success' ? (
-        <Picture picture={picture} />
+        <>
+          <Picture picture={picture} />
+          <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
+        </>
       ) : null}
-      <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
     </div>
-  );
-};
+  )
+}

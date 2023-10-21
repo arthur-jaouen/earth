@@ -1,11 +1,11 @@
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import HtmlPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'path';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import autoprefixer from 'autoprefixer'
+import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import HtmlPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import path from 'path'
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 const config = (env) => ({
   mode: env.dev ? 'development' : 'production',
@@ -81,6 +81,6 @@ const config = (env) => ({
   devServer: {
     open: true,
   },
-});
+})
 
-export default config;
+export default config

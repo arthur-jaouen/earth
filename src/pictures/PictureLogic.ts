@@ -1,121 +1,86 @@
-import dayjs from 'dayjs';
-import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addBlob, getBlob } from '../app/Db';
-import { Dispatch, State } from '../app/Store';
-import { useIsVisible } from '../lib/Visible';
-import { PictureModel } from './PictureModel';
-import {
-  PictureState,
-  setPictureError,
-  setPictureLoading,
-  setPictureSuccess,
-} from './PictureSlice';
+import dayjs from 'dayjs'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Dispatch, State } from '../app/Store'
+import { get, put } from '../lib/Db'
+import { PictureModel } from './PictureModel'
+import { PictureState, setPictureError, setPictureLoading, setPictureSuccess } from './PictureSlice'
 
 export function usePicture(picture: PictureModel): PictureState {
-  const dispatch = useDispatch<Dispatch>();
-  const visible = useIsVisible();
-  const { state, blob } = useSelector((state: State) => state.pictures[picture.id]);
-  const currentBlob = visible ? blob : undefined;
-  const [prevBlob, setPrevSrc] = useState(currentBlob);
+  const dispatch = useDispatch<Dispatch>()
+  const { state, blob } = useSelector((state: State) => state.pictures[picture.id])
+  const [prevBlob, setPrevSrc] = useState(blob)
 
   useEffect(() => {
-    if (visible && state === 'pending') {
-      dispatch(loadPicture(picture));
+    if (state === 'pending') {
+      dispatch(loadPicture(picture))
     }
-  }, [dispatch, visible, state, picture]);
+  }, [dispatch, state, picture])
 
   useEffect(() => {
-    if (currentBlob) {
-      setPrevSrc(currentBlob);
+    if (blob && blob !== prevBlob) {
+      setPrevSrc(blob)
     }
-  }, [currentBlob]);
+  }, [blob, prevBlob])
 
-  return { state, blob: currentBlob || prevBlob };
-}
-
-export function useRawPicture(
-  picture: PictureModel,
-): Omit<PictureState, 'url'> & { url?: string; setLoaded: () => void; setError: () => void } {
-  const dispatch = useDispatch<Dispatch>();
-  const visible = useIsVisible();
-  const pictureState = useSelector((state: State) => state.pictures[picture.id]);
-  const currentUrl = visible ? picture.url : undefined;
-  const [prevUrl, setPrevSrc] = useState(currentUrl);
-
-  useEffect(() => {
-    if (visible && pictureState.state === 'pending') {
-      dispatch(setPictureLoading({ id: picture.id }));
-    }
-  }, [dispatch, visible, pictureState.state, picture.id]);
-
-  useEffect(() => {
-    if (currentUrl) {
-      setPrevSrc(currentUrl);
-    }
-  }, [currentUrl]);
-
-  const setLoaded = useCallback(
-    () => dispatch(setPictureSuccess({ id: picture.id })),
-    [dispatch, picture.id],
-  );
-
-  const setError = useCallback(
-    () => dispatch(setPictureError({ id: picture.id, error: 'Error while loading picture' })),
-    [dispatch, picture.id],
-  );
-
-  const url = currentUrl || prevUrl;
-
-  return { ...pictureState, url, setLoaded, setError };
-}
-
-export function loadCachedPicture(picture: PictureModel) {
-  return async (dispatch: Dispatch): Promise<boolean> => {
-    const cached = await getBlob(picture.id);
-
-    if (!cached) {
-      dispatch(setPictureLoading({ id: picture.id }));
-
-      return true;
-    }
-
-    const blob = URL.createObjectURL(cached.blob);
-    const isValid = dayjs(new Date()).isBefore(dayjs(cached.date).add(picture.validity, 'second'));
-
-    if (!isValid) {
-      dispatch(setPictureLoading({ id: picture.id, blob }));
-
-      return true;
-    }
-
-    dispatch(setPictureSuccess({ id: picture.id, blob }));
-
-    return false;
-  };
+  return { state, blob: blob || prevBlob }
 }
 
 export function loadPicture(picture: PictureModel) {
   return async (dispatch: Dispatch): Promise<void> => {
-    try {
-      const needsLoad = await dispatch(loadCachedPicture(picture));
+    const { valid, blob } = await cachedPicture(picture)
 
-      if (needsLoad) {
-        const response = await fetch(picture.url);
-        // TODO const date = new Date(response.headers.get('Date') as string);
-        const date = new Date();
-        const blob = await response.blob();
-
-        dispatch(setPictureSuccess({ id: picture.id, blob: URL.createObjectURL(blob) }));
-
-        setTimeout(async () => {
-          await addBlob(picture.id, blob, date);
-        });
-      }
-    } catch (error) {
-      console.error(error);
-
-      dispatch(setPictureError({ id: picture.id, error }));
+    if (valid) {
+      dispatch(setPictureSuccess({ id: picture.id, blob }))
+    } else {
+      await dispatch(refreshPicture(picture, blob))
     }
-  };
+  }
+}
+
+export function refreshPicture(picture: PictureModel, cachedBlob?: string) {
+  return async (dispatch: Dispatch): Promise<void> => {
+    try {
+      dispatch(setPictureLoading({ id: picture.id, blob: cachedBlob }))
+
+      const blob = await fetchPicture(picture)
+
+      dispatch(setPictureSuccess({ id: picture.id, blob }))
+    } catch (error) {
+      console.error(error)
+
+      dispatch(setPictureError({ id: picture.id, error }))
+    }
+  }
+}
+
+export async function cachedPicture(
+  picture: PictureModel,
+): Promise<{ blob?: string; valid: boolean }> {
+  const cached = await get<{ url: string; blob: Blob; date: Date }>('pictures', picture.id)
+
+  if (!cached || cached.url !== picture.url) {
+    return { valid: false }
+  }
+
+  const blob = URL.createObjectURL(cached.blob)
+  const valid = dayjs(new Date()).isBefore(dayjs(cached.date).add(picture.validity, 'second'))
+
+  return { valid, blob }
+}
+
+export async function fetchPicture(picture: PictureModel): Promise<string> {
+  const response = await fetch(picture.url)
+
+  if (response.status !== 200) {
+    throw Error(`Unable to load picture at ${picture.url}`)
+  }
+
+  const header = response.headers.get('Date')
+  const date = header ? new Date(header) : new Date()
+  const blob = await response.blob()
+
+  setTimeout(() => put('pictures', picture.id, { url: picture.url, blob, date }))
+
+  return URL.createObjectURL(blob)
 }

@@ -1,8 +1,9 @@
-import { Fragment, FunctionComponent } from 'react';
-import { Authors } from '../authors/AuthorTable';
-import { Link } from '../lib/Link';
-import { Sources } from '../sources/SourceTable';
-import './About.scss';
+import { Fragment, FunctionComponent } from 'react'
+import { Authors } from '../authors/AuthorTable'
+import { Link } from '../lib/Link'
+import { Sources } from '../sources/SourceTable'
+
+import './About.scss'
 
 export const About: FunctionComponent = () => (
   <div className="about">
@@ -43,4 +44,4 @@ export const About: FunctionComponent = () => (
       </Fragment>
     ))}
   </div>
-);
+)
