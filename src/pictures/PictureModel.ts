@@ -9,6 +9,7 @@ export class PictureModel {
     public source: keyof SourceTable,
     public category: keyof CategoryTable,
     public url: string,
+    public original: string | undefined,
     public alt: string,
     public width: number,
     public height: number,

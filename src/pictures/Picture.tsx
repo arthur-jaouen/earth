@@ -24,7 +24,7 @@ export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
         </svg>
       ) : null}
       <legend>
-        <Link href={picture.url}>Original image</Link> {picture.legend}
+        <Link href={picture.original || picture.url}>Original image</Link> {picture.legend}
       </legend>
     </div>
   );

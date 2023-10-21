@@ -23,9 +23,11 @@ export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
       ) : state === 'error' ? (
         <NotFound style={style} />
       ) : state === 'success' ? (
-        <Picture picture={picture} />
+        <>
+          <Picture picture={picture} />
+          <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
+        </>
       ) : null}
-      <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
     </div>
   );
 };

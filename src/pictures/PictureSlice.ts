@@ -13,6 +13,12 @@ const initialState: PictureSliceState = Object.fromEntries(
   Object.keys(Pictures).map((id) => [id, { state: 'pending' }]),
 );
 
+function dropBlob(oldBlob?: string, newBlob?: string) {
+  if (oldBlob && newBlob && oldBlob !== newBlob) {
+    URL.revokeObjectURL(oldBlob);
+  }
+}
+
 export const PictureSlice = createSlice({
   name: 'pictures',
   initialState,
@@ -21,11 +27,7 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id } }: PayloadAction<{ id: string }>,
     ) {
-      const oldBlob = state[id]?.blob;
-
-      if (oldBlob) {
-        URL.revokeObjectURL(oldBlob);
-      }
+      dropBlob(state[id]?.blob);
 
       state[id] = {
         state: 'pending',
@@ -36,11 +38,7 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id, blob } }: PayloadAction<{ id: string; blob?: string }>,
     ) {
-      const oldBlob = state[id]?.blob;
-
-      if (oldBlob && oldBlob != blob) {
-        URL.revokeObjectURL(oldBlob);
-      }
+      dropBlob(state[id]?.blob, blob);
 
       state[id] = {
         state: 'loading',
@@ -52,11 +50,7 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id, blob } }: PayloadAction<{ id: string; blob?: string }>,
     ) {
-      const oldBlob = state[id]?.blob;
-
-      if (oldBlob && oldBlob != blob) {
-        URL.revokeObjectURL(oldBlob);
-      }
+      dropBlob(state[id]?.blob, blob);
 
       state[id] = {
         state: 'success',
@@ -68,11 +62,7 @@ export const PictureSlice = createSlice({
       state: PictureSliceState,
       { payload: { id, error } }: PayloadAction<{ id: string; error: unknown }>,
     ) {
-      const oldBlob = state[id]?.blob;
-
-      if (oldBlob) {
-        URL.revokeObjectURL(oldBlob);
-      }
+      dropBlob(state[id]?.blob);
 
       state[id] = {
         state: 'error',

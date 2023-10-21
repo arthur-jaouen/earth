@@ -28,10 +28,12 @@ export class TimelineModel {
     return `${this.id}_${date}`;
   }
 
-  getPictureUrl(date: string): string {
-    const url = dayjs(date).format(this.template);
+  getPictureOriginalUrl(date: string): string {
+    return dayjs(date).format(this.template);
+  }
 
-    return `https://wsrv.nl?url=${url}`;
+  getPictureUrl(date: string): string {
+    return `https://wsrv.nl?url=${this.getPictureOriginalUrl(date)}`;
   }
 
   getPictureModel(date: string): PictureModel {
@@ -42,6 +44,7 @@ export class TimelineModel {
       this.source,
       this.category,
       this.getPictureUrl(date),
+      this.getPictureOriginalUrl(date),
       this.alt,
       this.width,
       this.height,

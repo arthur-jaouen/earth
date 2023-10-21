@@ -1,17 +1,10 @@
-import { FunctionComponent, PropsWithChildren, useState } from 'react';
-import { VisibleProvider } from './Visible';
+import { FunctionComponent, PropsWithChildren } from 'react';
 
 import './Card.scss';
 
-export const Card: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  const [elem, setElem] = useState<HTMLElement | null>(null);
-
-  return (
-    <div className="card" ref={setElem}>
-      <VisibleProvider elem={elem}>{children}</VisibleProvider>
-    </div>
-  );
-};
+export const Card: FunctionComponent<PropsWithChildren> = ({ children }) => (
+  <div className="card">{children}</div>
+);
 
 export const CardTitle: FunctionComponent<PropsWithChildren> = ({ children }) => (
   <h3 className="card-title">{children}</h3>

@@ -1,6 +1,6 @@
 export const createDb = (): Promise<IDBDatabase> =>
   new Promise((resolve, reject) => {
-    const request = window.indexedDB.open('earth', 1);
+    const request = window.indexedDB.open('earth', 2);
 
     request.onerror = () => reject(request.error);
     request.onsuccess = () => {
@@ -16,10 +16,18 @@ export const createDb = (): Promise<IDBDatabase> =>
 
       db.onerror = () => reject(Error());
 
-      const store = db.createObjectStore('blobs');
+      if (db.objectStoreNames.contains('blobs')) {
+        db.deleteObjectStore('blobs');
+      }
 
-      store.createIndex('blob', 'blob', { unique: false });
-      store.createIndex('date', 'date', { unique: false });
+      const pictures = db.createObjectStore('pictures');
+      const timelines = db.createObjectStore('timelines');
+
+      pictures.createIndex('url', 'url', { unique: false });
+      pictures.createIndex('blob', 'blob', { unique: false });
+      pictures.createIndex('date', 'date', { unique: false });
+
+      timelines.createIndex('latest', 'latest', { unique: false });
     };
   });
 
@@ -39,24 +47,22 @@ export const getDb = async () => {
   return db!;
 };
 
-export const getBlob = async (id: string): Promise<{ blob: Blob; date: Date } | null> => {
+export const get = async <T>(table: string, id: string): Promise<T | undefined> => {
   const db = await getDb();
-
   const request = db
-    .transaction('blobs', 'readonly', { durability: 'relaxed' })
-    .objectStore('blobs')
+    .transaction(table, 'readonly', { durability: 'relaxed' })
+    .objectStore(table)
     .get(id);
 
   return execute(request);
 };
 
-export const addBlob = async (id: string, blob: Blob, date: Date): Promise<void> => {
+export const put = async <T>(table: string, id: string, entry: T): Promise<void> => {
   const db = await getDb();
-
   const request = db
-    .transaction('blobs', 'readwrite', { durability: 'relaxed' })
-    .objectStore('blobs')
-    .put({ blob, date }, id);
+    .transaction(table, 'readwrite', { durability: 'relaxed' })
+    .objectStore(table)
+    .put(entry, id);
 
   await execute(request);
 };

@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlob } from '../app/Db';
 import { Dispatch, State } from '../app/Store';
-import { useIsVisible } from '../lib/Visible';
+import { get } from '../lib/Db';
 import { PictureModel } from '../pictures/PictureModel';
 import { setPicturePending } from '../pictures/PictureSlice';
 import { TimelineModel } from './TimelineModel';
@@ -19,14 +18,13 @@ export function useTimeline(
   timeline: TimelineModel,
 ): TimelineState & { picture: PictureModel; changeOffset: (offset: number) => void } {
   const dispatch = useDispatch<Dispatch>();
-  const visible = useIsVisible();
   const { state, latest, offset } = useSelector((state: State) => state.timelines[timeline.id]);
 
   useEffect(() => {
-    if (visible && state === 'pending') {
+    if (state === 'pending') {
       dispatch(loadTimeline(timeline));
     }
-  }, [dispatch, visible, state, timeline]);
+  }, [dispatch, state, timeline]);
 
   const date = dayjs(latest!)
     .add((offset || 0) * timeline.duration, timeline.unit)
@@ -48,7 +46,7 @@ export async function getLatestDate(timeline: TimelineModel): Promise<string> {
   for (let count = 0; count < timeline.tries; count++) {
     try {
       const date = start.subtract(count * timeline.duration, timeline.unit).toISOString();
-      const cached = await getBlob(timeline.getPictureId(date));
+      const cached = await get('pictures', timeline.getPictureId(date));
 
       if (cached) {
         return date;

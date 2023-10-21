@@ -3,10 +3,14 @@
 .loading {
   z-index: 1;
 
-  svg path {
-    color: $turquoise-base;
-    animation: 2s linear infinite spin;
-    transform-origin: 16px 16px;
+  svg {
+    transform: translate(-16px, -16px);
+
+    path {
+      color: $turquoise-base;
+      animation: 2s linear infinite spin;
+      transform-origin: 16px 16px;
+    }
   }
 }
 
