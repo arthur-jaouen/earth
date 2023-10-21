@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, State } from '../app/Store'
-import { get } from '../lib/Db'
+import { get, put } from '../lib/Db'
 import { PictureModel } from '../pictures/PictureModel'
 import { setPicturePending } from '../pictures/PictureSlice'
 import { TimelineModel } from './TimelineModel'
@@ -16,7 +16,7 @@ import {
 
 export function useTimeline(
   timeline: TimelineModel,
-): TimelineState & { picture: PictureModel; changeOffset: (offset: number) => void } {
+): TimelineState & { picture?: PictureModel; changeOffset: (offset: number) => void } {
   const dispatch = useDispatch<Dispatch>()
   const { state, latest, offset } = useSelector((state: State) => state.timelines[timeline.id])
 
@@ -26,56 +26,43 @@ export function useTimeline(
     }
   }, [dispatch, state, timeline])
 
-  const date = dayjs(latest!)
-    .add((offset || 0) * timeline.duration, timeline.unit)
-    .toISOString()
-
-  const picture = useMemo(() => timeline.getPictureModel(date), [timeline, date])
+  const picture = useMemo(
+    () => (latest ? timeline.getPictureModel(timeline.getDate(latest, offset || 0)) : undefined),
+    [timeline, latest, offset],
+  )
 
   const changeOffset = useCallback(
-    (offset: number) => dispatch(loadTimelineOffset(timeline, offset)),
+    (offset: number) => dispatch(loadTimelinePicture(timeline, offset)),
     [dispatch, timeline],
   )
 
   return { state, latest, offset, picture, changeOffset }
 }
 
-export async function getLatestDate(timeline: TimelineModel): Promise<string> {
-  const start = dayjs().startOf(timeline.unit)
-
-  for (let count = 0; count < timeline.tries; count++) {
-    try {
-      const date = start.subtract(count * timeline.duration, timeline.unit).toISOString()
-      const cached = await get('pictures', timeline.getPictureId(date))
-
-      if (cached) {
-        return date
-      }
-
-      const response = await fetch(timeline.getPictureUrl(date), { method: 'HEAD' })
-
-      if (response.status === 200) {
-        return date
-      }
-    } catch (error) {
-      // Nothing, just try next date
-    }
-  }
-
-  throw Error('Not found')
-}
-
 export function loadTimeline(timeline: TimelineModel) {
   return async (dispatch: Dispatch): Promise<void> => {
-    dispatch(setTimelineLoading({ id: timeline.id }))
+    const latest = await cachedTimeline(timeline)
 
+    if (latest) {
+      dispatch(setPicturePending({ id: timeline.getPictureId(latest) }))
+    }
+
+    await dispatch(refreshTimeline(timeline, latest))
+  }
+}
+
+export function refreshTimeline(timeline: TimelineModel, cachedLatest?: string) {
+  return async (dispatch: Dispatch): Promise<void> => {
     try {
-      const date = await getLatestDate(timeline)
+      dispatch(setTimelineLoading({ id: timeline.id, latest: cachedLatest, offset: 0 }))
 
-      dispatch(setPicturePending({ id: timeline.getPictureId(date) }))
-      dispatch(setTimelineSuccess({ id: timeline.id, latest: date, offset: 0 }))
+      const latest = await fetchTimeline(timeline, cachedLatest)
 
-      return
+      if (!cachedLatest) {
+        dispatch(setPicturePending({ id: timeline.getPictureId(latest) }))
+      }
+
+      dispatch(setTimelineSuccess({ id: timeline.id, latest, offset: 0 }))
     } catch (error) {
       console.error(error)
 
@@ -84,14 +71,11 @@ export function loadTimeline(timeline: TimelineModel) {
   }
 }
 
-export function loadTimelineOffset(timeline: TimelineModel, offset: number) {
+export function loadTimelinePicture(timeline: TimelineModel, offset: number) {
   return async (dispatch: Dispatch, getState: () => State) => {
     const { latest } = getState().timelines[timeline.id]
 
-    const date = dayjs(latest)
-      .add(offset * timeline.duration, timeline.unit)
-      .toISOString()
-
+    const date = timeline.getDate(latest!, offset)
     const pictureId = timeline.getPictureId(date)
     const picture = getState().pictures[pictureId]
 
@@ -101,4 +85,45 @@ export function loadTimelineOffset(timeline: TimelineModel, offset: number) {
 
     dispatch(setTimelineOffset({ id: timeline.id, offset }))
   }
+}
+
+export async function cachedTimeline(timeline: TimelineModel): Promise<string | undefined> {
+  const cached = await get<{ template: string; latest: string }>('timelines', timeline.id)
+
+  if (!cached || cached.template !== timeline.template) {
+    return
+  }
+
+  return cached.latest
+}
+
+export async function fetchTimeline(
+  timeline: TimelineModel,
+  cachedLatest?: string,
+): Promise<string> {
+  const start = dayjs().startOf(timeline.unit).toISOString()
+
+  for (let count = 0; count < timeline.tries; count++) {
+    try {
+      const date = timeline.getDate(start, -count)
+
+      if (date === cachedLatest) {
+        return date
+      }
+
+      const response = await fetch(timeline.getPictureUrl(date), { method: 'HEAD' })
+
+      if (response.status === 200) {
+        setTimeout(() =>
+          put('timelines', timeline.id, { template: timeline.template, latest: date }),
+        )
+
+        return date
+      }
+    } catch (error) {
+      // Nothing, just try next date
+    }
+  }
+
+  throw Error(`Unable to load timeline at ${timeline.template}`)
 }
