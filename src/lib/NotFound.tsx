@@ -15,7 +15,7 @@ export const NotFound: FunctionComponent<NotFoundProps> = ({ className, ...props
     strokeWidth="2"
     {...props}
   >
-    <svg x="calc(50% - 16px)" y="calc(50% - 16px)">
+    <svg x="50%" y="50%" transform="translate(-16, -16)">
       <path d="M 1 1 L 31 31 M 31 1 L 1 31" />
     </svg>
   </svg>

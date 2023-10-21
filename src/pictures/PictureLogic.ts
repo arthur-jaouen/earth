@@ -15,15 +15,15 @@ import {
 export function usePicture(picture: PictureModel): PictureState {
   const dispatch = useDispatch<Dispatch>();
   const visible = useIsVisible();
-  const pictureState = useSelector((state: State) => state.pictures[picture.id]);
-  const currentBlob = visible ? pictureState.blob : undefined;
+  const { state, blob } = useSelector((state: State) => state.pictures[picture.id]);
+  const currentBlob = visible ? blob : undefined;
   const [prevBlob, setPrevSrc] = useState(currentBlob);
 
   useEffect(() => {
-    if (visible && pictureState.state === 'pending') {
+    if (visible && state === 'pending') {
       dispatch(loadPicture(picture));
     }
-  }, [dispatch, visible, pictureState.state, picture]);
+  }, [dispatch, visible, state, picture]);
 
   useEffect(() => {
     if (currentBlob) {
@@ -31,9 +31,7 @@ export function usePicture(picture: PictureModel): PictureState {
     }
   }, [currentBlob]);
 
-  const blob = currentBlob || prevBlob;
-
-  return { ...pictureState, blob };
+  return { state, blob: currentBlob || prevBlob };
 }
 
 export function useRawPicture(
