@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { redirect, useParams } from 'react-router-dom'
 import { EntityCard } from '../entities/EntityCard'
-import { Entities } from '../entities/EntityTable'
+import { Entities, getEntityData } from '../entities/EntityTable'
 
 import './Category.scss'
 
@@ -18,6 +18,7 @@ export const Category: FunctionComponent = () => {
   return (
     <div className="category">
       {Object.values(Entities)
+        .map(getEntityData)
         .filter((entity) => entity.category === id)
         .map((entity) => (
           <EntityCard key={entity.id} entity={entity} />

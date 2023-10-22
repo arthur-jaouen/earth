@@ -4,10 +4,10 @@ import { Link } from '../lib/Link'
 import { Source } from '../sources/Source'
 import { Sources } from '../sources/SourceTable'
 import { Entity } from './Entity'
-import { EntityModel } from './EntityModel'
+import { Entities, EntityData } from './EntityTable'
 
 export type EntityCardProps = {
-  entity: EntityModel
+  entity: EntityData
 }
 
 export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => (
@@ -19,6 +19,6 @@ export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => (
       {entity.subtitle ? entity.subtitle + ' - ' : null}
       <Source source={Sources[entity.source]} />
     </CardSubtitle>
-    <Entity entity={entity} />
+    <Entity entity={Entities[entity.id]} />
   </Card>
 )

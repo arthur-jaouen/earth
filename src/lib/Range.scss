@@ -3,14 +3,19 @@
 .range {
   position: relative;
   height: 1rem;
+  margin: 0.2rem 0;
+
+  > * {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+  }
 
   > .range-widget {
     position: absolute;
     z-index: 1;
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
     align-items: center;
     pointer-events: none;
 
@@ -41,10 +46,8 @@
   }
 
   > input {
-    width: 100%;
-    height: 100%;
-    margin: 0;
     display: block;
+    margin: 0;
     opacity: 0;
   }
 }
