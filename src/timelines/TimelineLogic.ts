@@ -6,7 +6,6 @@ import { get, put } from '../lib/Db'
 import { usePrev } from '../lib/Hooks'
 import { loadPicture } from '../pictures/PictureLogic'
 import { PictureModel } from '../pictures/PictureModel'
-import { setPicturePending } from '../pictures/PictureSlice'
 import { TimelineModel } from './TimelineModel'
 import {
   TimelineState,
@@ -85,10 +84,6 @@ export function refreshTimeline(timeline: TimelineModel, cachedLatest?: string) 
       dispatch(setTimelineLoading({ id: timeline.id, latest: cachedLatest }))
 
       const latest = await fetchTimeline(timeline, cachedLatest)
-
-      if (!cachedLatest) {
-        dispatch(setPicturePending({ id: timeline.getPictureId(latest) }))
-      }
 
       dispatch(setTimelineSuccess({ id: timeline.id, latest }))
     } catch (error) {
