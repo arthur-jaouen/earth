@@ -84,7 +84,9 @@ export function refreshTimeline(timeline: TimelineModel, cachedLatest?: string) 
       dispatch(setTimelineLoading({ id: timeline.id, latest: cachedLatest }))
 
       const latest = await fetchTimeline(timeline, cachedLatest)
+      const picture = timeline.getPictureModel(latest)
 
+      dispatch(loadPicture(picture))
       dispatch(setTimelineSuccess({ id: timeline.id, latest }))
     } catch (error) {
       console.error(error)
