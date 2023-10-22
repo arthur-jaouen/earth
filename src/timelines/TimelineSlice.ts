@@ -20,27 +20,21 @@ export const TimelineSlice = createSlice({
   reducers: {
     setTimelineLoading(
       state: TimelineSliceState,
-      {
-        payload: { id, latest, offset },
-      }: PayloadAction<{ id: string; latest?: string; offset?: number }>,
+      { payload: { id, latest } }: PayloadAction<{ id: string; latest?: string }>,
     ) {
       state[id] = {
         state: 'loading',
         latest,
-        offset,
       }
     },
 
     setTimelineSuccess(
       state: TimelineSliceState,
-      {
-        payload: { id, latest, offset },
-      }: PayloadAction<{ id: string; latest: string; offset: number }>,
+      { payload: { id, latest } }: PayloadAction<{ id: string; latest: string }>,
     ) {
       state[id] = {
         state: 'success',
         latest,
-        offset,
       }
     },
 

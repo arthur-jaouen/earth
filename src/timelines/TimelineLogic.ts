@@ -3,8 +3,9 @@ import { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, State } from '../app/Store'
 import { get, put } from '../lib/Db'
+import { usePrev } from '../lib/Hooks'
+import { loadPicture } from '../pictures/PictureLogic'
 import { PictureModel } from '../pictures/PictureModel'
-import { setPicturePending } from '../pictures/PictureSlice'
 import { TimelineModel } from './TimelineModel'
 import {
   TimelineState,
@@ -14,11 +15,21 @@ import {
   setTimelineSuccess,
 } from './TimelineSlice'
 
-export function useTimeline(
-  timeline: TimelineModel,
-): TimelineState & { picture?: PictureModel; changeOffset: (offset: number) => void } {
+export function useTimeline(timeline: TimelineModel): TimelineState & {
+  picture?: PictureModel
+  blob?: string
+  changeOffset: (offset: number) => void
+} {
   const dispatch = useDispatch<Dispatch>()
   const { state, latest, offset } = useSelector((state: State) => state.timelines[timeline.id])
+
+  const picture = useMemo(
+    () => (latest ? timeline.getPictureModel(timeline.getDate(latest, offset || 0)) : undefined),
+    [timeline, latest, offset],
+  )
+
+  const pictureState = useSelector((state: State) => picture && state.pictures[picture.id])
+  const blob = usePrev(pictureState?.blob)
 
   useEffect(() => {
     if (state === 'pending') {
@@ -26,25 +37,41 @@ export function useTimeline(
     }
   }, [dispatch, state, timeline])
 
-  const picture = useMemo(
-    () => (latest ? timeline.getPictureModel(timeline.getDate(latest, offset || 0)) : undefined),
-    [timeline, latest, offset],
-  )
-
   const changeOffset = useCallback(
     (offset: number) => dispatch(loadTimelinePicture(timeline, offset)),
     [dispatch, timeline],
   )
 
-  return { state, latest, offset, picture, changeOffset }
+  return {
+    state: state === 'success' && pictureState ? pictureState.state : state,
+    latest,
+    offset,
+    picture,
+    blob,
+    changeOffset,
+  }
 }
 
 export function loadTimeline(timeline: TimelineModel) {
-  return async (dispatch: Dispatch): Promise<void> => {
+  return async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    const timelineState = getState().timelines[timeline.id]
+
+    if (timelineState && timelineState.state !== 'pending') {
+      return
+    }
+
     const latest = await cachedTimeline(timeline)
 
     if (latest) {
-      dispatch(setPicturePending({ id: timeline.getPictureId(latest) }))
+      const picture = timeline.getPictureModel(latest)
+
+      dispatch(loadPicture(picture))
+
+      if (latest == dayjs().startOf(timeline.unit).toISOString()) {
+        dispatch(setTimelineSuccess({ id: timeline.id, latest }))
+
+        return
+      }
     }
 
     await dispatch(refreshTimeline(timeline, latest))
@@ -54,15 +81,11 @@ export function loadTimeline(timeline: TimelineModel) {
 export function refreshTimeline(timeline: TimelineModel, cachedLatest?: string) {
   return async (dispatch: Dispatch): Promise<void> => {
     try {
-      dispatch(setTimelineLoading({ id: timeline.id, latest: cachedLatest, offset: 0 }))
+      dispatch(setTimelineLoading({ id: timeline.id, latest: cachedLatest }))
 
       const latest = await fetchTimeline(timeline, cachedLatest)
 
-      if (!cachedLatest) {
-        dispatch(setPicturePending({ id: timeline.getPictureId(latest) }))
-      }
-
-      dispatch(setTimelineSuccess({ id: timeline.id, latest, offset: 0 }))
+      dispatch(setTimelineSuccess({ id: timeline.id, latest }))
     } catch (error) {
       console.error(error)
 
@@ -76,11 +99,11 @@ export function loadTimelinePicture(timeline: TimelineModel, offset: number) {
     const { latest } = getState().timelines[timeline.id]
 
     const date = timeline.getDate(latest!, offset)
-    const pictureId = timeline.getPictureId(date)
-    const picture = getState().pictures[pictureId]
+    const picture = timeline.getPictureModel(date)
+    const pictureState = getState().pictures[picture.id]
 
-    if (!picture) {
-      dispatch(setPicturePending({ id: pictureId }))
+    if (!pictureState) {
+      dispatch(loadPicture(picture))
     }
 
     dispatch(setTimelineOffset({ id: timeline.id, offset }))

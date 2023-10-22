@@ -22,5 +22,7 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "typescript.extension.sortImports.enableJavascript": true,
+  "typescript.extension.sortImports.omitSemicolon": true
 }

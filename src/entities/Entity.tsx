@@ -15,5 +15,7 @@ export const Entity: FunctionComponent<EntityProps> = ({ entity }) => {
       return <Picture picture={Pictures[entity.id]} />
     case EntityType.Timeline:
       return <Timeline timeline={Timelines[entity.id]} />
+    default:
+      throw Error('Invalid entity type')
   }
 }

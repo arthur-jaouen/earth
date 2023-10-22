@@ -1,8 +1,7 @@
 import { FunctionComponent } from 'react'
-import { Loading } from '../lib/Loading'
-import { NotFound } from '../lib/NotFound'
+import { Img } from '../lib/Img'
+import { Link } from '../lib/Link'
 import { Range } from '../lib/Range'
-import { Picture } from '../pictures/Picture'
 import { useTimeline } from './TimelineLogic'
 import { TimelineModel } from './TimelineModel'
 
@@ -13,14 +12,16 @@ export type TimelineProps = {
 }
 
 export const Timeline: FunctionComponent<TimelineProps> = ({ timeline }) => {
-  const { state, picture, offset, changeOffset } = useTimeline(timeline)
-  const style = { aspectRatio: timeline.aspectRatio }
+  const { state, picture, blob, offset, changeOffset } = useTimeline(timeline)
 
   return (
-    <div className={'timeline timeline-' + state}>
-      {state === 'error' ? <NotFound style={style} /> : !picture ? <Loading style={style} /> : null}
-      {picture ? <Picture picture={picture} /> : null}
-      {picture ? <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} /> : null}
-    </div>
+    <Img className="timeline" state={state} url={blob} aspectRatio={timeline.aspectRatio}>
+      {picture ? (
+        <legend>
+          <Link href={picture.original || picture.url}>Original image</Link> {picture.legend}
+          <Range min={-30} max={0} value={offset || 0} onChange={changeOffset} />
+        </legend>
+      ) : null}
+    </Img>
   )
 }

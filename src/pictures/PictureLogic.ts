@@ -1,33 +1,33 @@
 import dayjs from 'dayjs'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dispatch, State } from '../app/Store'
 import { get, put } from '../lib/Db'
+import { usePrev } from '../lib/Hooks'
 import { PictureModel } from './PictureModel'
 import { PictureState, setPictureError, setPictureLoading, setPictureSuccess } from './PictureSlice'
 
 export function usePicture(picture: PictureModel): PictureState {
   const dispatch = useDispatch<Dispatch>()
   const { state, blob } = useSelector((state: State) => state.pictures[picture.id])
-  const [prevBlob, setPrevSrc] = useState(blob)
 
   useEffect(() => {
-    if (state === 'pending') {
+    if (picture && state === 'pending') {
       dispatch(loadPicture(picture))
     }
   }, [dispatch, state, picture])
 
-  useEffect(() => {
-    if (blob && blob !== prevBlob) {
-      setPrevSrc(blob)
-    }
-  }, [blob, prevBlob])
-
-  return { state, blob: blob || prevBlob }
+  return { state, blob: usePrev(blob) }
 }
 
 export function loadPicture(picture: PictureModel) {
-  return async (dispatch: Dispatch): Promise<void> => {
+  return async (dispatch: Dispatch, getState: () => State): Promise<void> => {
+    const pictureState = getState().pictures[picture.id]
+
+    if (pictureState && pictureState.state !== 'pending') {
+      return
+    }
+
     const { valid, blob } = await cachedPicture(picture)
 
     if (valid) {
