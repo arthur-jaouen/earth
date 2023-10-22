@@ -1,16 +1,12 @@
 @import '../common.scss';
 
 .loading {
+  color: $turquoise-base;
   z-index: 1;
 
-  svg {
-    transform: translate(-16px, -16px);
-
-    path {
-      color: $turquoise-base;
-      animation: 2s linear infinite spin;
-      transform-origin: 16px 16px;
-    }
+  path {
+    animation: 2s linear infinite spin;
+    transform-origin: 16px 16px;
   }
 }
 

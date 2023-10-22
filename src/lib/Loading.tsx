@@ -1,5 +1,4 @@
 import { FunctionComponent, SVGAttributes } from 'react'
-
 import './Loading.scss'
 import { cls } from './Utils'
 
@@ -13,8 +12,10 @@ export const Loading: FunctionComponent<LoadingProps> = ({ className, ...props }
     strokeWidth="2"
     {...props}
   >
-    <svg x="50%" y="50%">
-      <path d="M 16 1 A 15 15 0 1 0 31 16" />
-    </svg>
+    <g transform="translate(-16 -16)">
+      <svg x="50%" y="50%">
+        <path d="M 16 1 A 15 15 0 1 0 31 16" />
+      </svg>
+    </g>
   </svg>
 )
