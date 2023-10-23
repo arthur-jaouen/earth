@@ -150,5 +150,9 @@ export async function fetchTimeline(
     }
   }
 
-  throw Error(`Unable to load timeline at ${timeline.template}`)
+  if (cachedLatest) {
+    return cachedLatest
+  } else {
+    throw Error(`Unable to load timeline at ${timeline.template}`)
+  }
 }
