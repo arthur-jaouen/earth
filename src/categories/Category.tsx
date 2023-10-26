@@ -18,8 +18,7 @@ export const Category: FunctionComponent = () => {
   return (
     <div className="category">
       {Object.values(Entities)
-        .map(getEntityData)
-        .filter((entity) => entity.category === id)
+        .filter((entity) => getEntityData(entity).category === id)
         .map((entity) => (
           <EntityCard key={entity.id} entity={entity} />
         ))}
