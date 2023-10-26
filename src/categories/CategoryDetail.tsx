@@ -1,8 +1,8 @@
 import { FunctionComponent } from 'react'
 import { redirect, useParams } from 'react-router-dom'
-import { EntityCard } from '../entities/EntityCard'
+import { EntityDetail } from '../entities/EntityDetail'
+import { Entities } from '../entities/EntityTable'
 
-import { Entities, getEntityData } from '../entities/EntityTable'
 import './CategoryDetail.scss'
 
 export const CategoryDetail: FunctionComponent = () => {
@@ -18,7 +18,7 @@ export const CategoryDetail: FunctionComponent = () => {
 
   return (
     <div className="category-detail">
-      <EntityCard entity={getEntityData(Entities[entityId])} />
+      <EntityDetail entity={Entities[entityId]} />
     </div>
   )
 }

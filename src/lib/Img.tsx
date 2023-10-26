@@ -19,7 +19,7 @@ export const Img: FunctionComponent<ImgProps> = ({
 }) => (
   <div className={cls('img', className)}>
     <svg style={{ aspectRatio }} stroke="currentColor" fill="transparent" strokeWidth="2">
-      {url ? <image href={url} width="100%" height="100%" /> : null}
+      {state !== 'error' && url ? <image href={url} width="100%" height="100%" /> : null}
 
       {state === 'loading' ? (
         <g transform="translate(-16 -16)">

@@ -4,21 +4,26 @@ import { Link } from '../lib/Link'
 import { Source } from '../sources/Source'
 import { Sources } from '../sources/SourceTable'
 import { Entity } from './Entity'
-import { Entities, EntityData } from './EntityTable'
+import { EntityModel } from './EntityModel'
+import { Entities, getEntityData } from './EntityTable'
 
 export type EntityCardProps = {
-  entity: EntityData
+  entity: EntityModel
 }
 
-export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => (
-  <Card>
-    <CardTitle>
-      <Link href={`#${entity.category}/${entity.id}`}>{entity.title}</Link>
-    </CardTitle>
-    <CardSubtitle>
-      {entity.subtitle ? entity.subtitle + ' - ' : null}
-      <Source source={Sources[entity.source]} />
-    </CardSubtitle>
-    <Entity entity={Entities[entity.id]} />
-  </Card>
-)
+export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => {
+  const { title, subtitle, category, source } = getEntityData(entity)
+
+  return (
+    <Card className="entity-card">
+      <CardTitle>
+        <Link href={`#${category}/${entity.id}`}>{title}</Link>
+      </CardTitle>
+      <CardSubtitle>
+        {subtitle ? subtitle + ' - ' : null}
+        <Source source={Sources[source]} />
+      </CardSubtitle>
+      <Entity entity={Entities[entity.id]} />
+    </Card>
+  )
+}

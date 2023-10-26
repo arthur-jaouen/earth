@@ -1,7 +1,7 @@
 @import '../common.scss';
 
 .timeline {
-  > .range {
-    width: 100%;
+  .range {
+    margin-top: 0;
   }
 }
