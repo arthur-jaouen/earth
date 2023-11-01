@@ -6,7 +6,6 @@ import { PictureModel } from './PictureModel'
 
 export type PictureProps = {
   picture: PictureModel
-  loading?: boolean
 }
 
 export const Picture: FunctionComponent<PictureProps> = ({ picture }) => {
