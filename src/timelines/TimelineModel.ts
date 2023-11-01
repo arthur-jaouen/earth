@@ -1,15 +1,13 @@
 import dayjs, { ManipulateType } from 'dayjs'
-import { CategoryTable } from '../categories/CategoryTable'
 import { PictureModel } from '../pictures/PictureModel'
-import { SourceTable } from '../sources/SourceTable'
 
 export class TimelineModel {
   constructor(
     public id: string,
     public title: string,
     public subtitle: string | undefined,
-    public source: keyof SourceTable,
-    public category: keyof CategoryTable,
+    public source: string,
+    public category: string,
     public template: string,
     public alt: string,
     public width: number,

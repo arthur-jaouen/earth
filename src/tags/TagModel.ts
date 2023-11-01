@@ -1,3 +1,3 @@
-export type TagModel = {
-  name: string
+export class TagModel {
+  constructor(public id: string) {}
 }

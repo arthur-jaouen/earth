@@ -1,10 +1,8 @@
-import { createTable } from '../lib/Table'
+import { Table } from '../lib/Table'
 import { TimelineModel } from './TimelineModel'
 
-export type TimelineTable = typeof Timelines
-
-export const Timelines = createTable([
-  new TimelineModel(
+export const Timelines = new Table(TimelineModel)
+  .add(
     'nsidcArcticIceCon',
     'Arctic - Sea ice concentration',
     undefined,
@@ -15,8 +13,8 @@ export const Timelines = createTable([
     420,
     500,
     'Daily arctic sea ice concentration map',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'nsidcAntarcticIceCon',
     'Antarctic - Sea ice concentration',
     undefined,
@@ -27,8 +25,8 @@ export const Timelines = createTable([
     420,
     500,
     'Daily arctic sea ice concentration map',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'ppArcticThickness',
     'Arctic - Daily sea ice thickness',
     undefined,
@@ -39,8 +37,8 @@ export const Timelines = createTable([
     1109,
     1218,
     'Daily thickness of the arctic sea ice',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'ppArcticVolume',
     'Arctic - Sea ice volume timeseries',
     undefined,
@@ -51,8 +49,8 @@ export const Timelines = createTable([
     1093,
     904,
     'Timeseries of the total volume of arctic sea ice',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'ppGreenlandSmb',
     'Greenland - Surface mass balance',
     undefined,
@@ -63,8 +61,8 @@ export const Timelines = createTable([
     678,
     1063,
     'Daily surface mass balance of the Greenland ice sheet',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'ppGreenlandCumSmb',
     'Greenland - Cumulated surface mass balance',
     undefined,
@@ -75,8 +73,8 @@ export const Timelines = createTable([
     679,
     1063,
     'Cumulated surface mass balance of the Greenland ice sheet',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'ppGreenlandSmbTs',
     'Greenland - Surface mass balance timeseries',
     undefined,
@@ -87,8 +85,8 @@ export const Timelines = createTable([
     846,
     1080,
     'Timeseries of the surface mass balance of the Greenland ice sheet',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'crSst',
     'World - Sea surface temperature',
     undefined,
@@ -99,8 +97,8 @@ export const Timelines = createTable([
     1100,
     796,
     "Daily surface temperature of the world's oceans",
-  ),
-  new TimelineModel(
+  )
+  .add(
     'crSstAnom',
     'World - Sea surface temperature anomaly',
     undefined,
@@ -111,8 +109,8 @@ export const Timelines = createTable([
     1100,
     794,
     "Daily surface temperature anomaly of the world's oceans (compared to 1971-2000 baseline)",
-  ),
-  new TimelineModel(
+  )
+  .add(
     'crT2',
     'World - Air temperature at 2 meters',
     undefined,
@@ -123,8 +121,8 @@ export const Timelines = createTable([
     1024,
     742,
     'Daily worldwide air temperature at 2 meters of altitude',
-  ),
-  new TimelineModel(
+  )
+  .add(
     'crT2Anom',
     'World - Air temperature anomaly at 2 meters',
     undefined,
@@ -135,5 +133,4 @@ export const Timelines = createTable([
     1024,
     741,
     'Daily worldwide air temperature anomaly at 2 meters of altitude (compared to 1971-2000 baseline)',
-  ),
-])
+  )

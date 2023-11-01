@@ -18,7 +18,7 @@ export const CategoryDetail: FunctionComponent = () => {
 
   return (
     <div className="category-detail">
-      <EntityDetail entity={Entities[entityId]} />
+      <EntityDetail entity={Entities.get(entityId)} />
     </div>
   )
 }

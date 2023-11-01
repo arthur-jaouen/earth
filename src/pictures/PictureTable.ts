@@ -1,10 +1,8 @@
-import { createTable } from '../lib/Table'
+import { Table } from '../lib/Table'
 import { PictureModel } from './PictureModel'
 
-export type PictureTable = typeof Pictures
-
-export const Pictures = createTable([
-  new PictureModel(
+export const Pictures = new Table(PictureModel)
+  .add(
     'kilaueaTilt2d',
     'Kilauea - Tilt past 2 days',
     'Summit Area',
@@ -17,8 +15,8 @@ export const Pictures = createTable([
     300,
     'Electronic tilt at the Kilauea summit area for the past 2 days',
     600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'kilaueaTilt1w',
     'Kilauea - Tilt past week',
     'Summit Area',
@@ -31,8 +29,8 @@ export const Pictures = createTable([
     300,
     'Electronic tilt at the Kilauea summit area for the past week',
     3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'kilaueaTilt1m',
     'Kilauea - Tilt past month',
     'Summit Area',
@@ -45,8 +43,8 @@ export const Pictures = createTable([
     300,
     'Electronic tilt at the Kilauea summit area for the past month',
     4 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'kilaueaTiltSdh1m',
     'Kilauea - Tilt SDH station past month',
     'Summit Area',
@@ -59,8 +57,8 @@ export const Pictures = createTable([
     300,
     'Electronic tilt at the Kilauea summit area for the past 2 days',
     4 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'kilaueaGps1y',
     'Kilauea - GPS past year',
     'Summit Area',
@@ -73,8 +71,8 @@ export const Pictures = createTable([
     300,
     'GPS signal at the Kilauea summit area for the past year',
     24 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'kilaueaGps5y',
     'Kilauea - GPS past 5 years',
     'Summit Area',
@@ -87,8 +85,8 @@ export const Pictures = createTable([
     300,
     'GPS signal at the Kilauea summit area for the past 5 years',
     24 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'nsidcArcticIceTime',
     'Arctic - Sea ice area timeseries',
     undefined,
@@ -101,8 +99,8 @@ export const Pictures = createTable([
     840,
     'Daily arctic sea ice extent timeseries',
     24 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'nsidcAntarcticIceTime',
     'Antarctic - Sea ice area timeseries',
     undefined,
@@ -115,8 +113,8 @@ export const Pictures = createTable([
     840,
     'Daily arctic sea ice extent timeseries',
     24 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'nsidcGreenlandMeltArea',
     'Greenland - Melt area',
     undefined,
@@ -129,8 +127,8 @@ export const Pictures = createTable([
     1800,
     'Daily Greenland melt area',
     24 * 3600,
-  ),
-  new PictureModel(
+  )
+  .add(
     'nsidcGreenlandMeltDays',
     'Greenland - Cumulated melt days',
     undefined,
@@ -143,5 +141,4 @@ export const Pictures = createTable([
     1800,
     'Cumulated melt days of the Greenland ice sheet',
     24 * 3600,
-  ),
-])
+  )

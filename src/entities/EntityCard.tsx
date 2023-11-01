@@ -5,14 +5,13 @@ import { Source } from '../sources/Source'
 import { Sources } from '../sources/SourceTable'
 import { Entity } from './Entity'
 import { EntityModel } from './EntityModel'
-import { Entities, getEntityData } from './EntityTable'
 
 export type EntityCardProps = {
   entity: EntityModel
 }
 
 export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => {
-  const { title, subtitle, category, source } = getEntityData(entity)
+  const { title, subtitle, category, source } = entity.data
 
   return (
     <Card className="entity-card">
@@ -21,9 +20,9 @@ export const EntityCard: FunctionComponent<EntityCardProps> = ({ entity }) => {
       </CardTitle>
       <CardSubtitle>
         {subtitle ? subtitle + ' - ' : null}
-        <Source source={Sources[source]} />
+        <Source source={Sources.get(source)} />
       </CardSubtitle>
-      <Entity entity={Entities[entity.id]} />
+      <Entity entity={entity} />
     </Card>
   )
 }

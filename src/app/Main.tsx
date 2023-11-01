@@ -6,7 +6,7 @@ import './Main.scss'
 
 export const Main: FunctionComponent = () => (
   <main className="main">
-    {Object.values(Entities).map((entity) => (
+    {Entities.values().map((entity) => (
       <EntityCard key={entity.id} entity={entity} />
     ))}
   </main>

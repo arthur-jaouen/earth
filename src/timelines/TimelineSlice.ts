@@ -11,7 +11,7 @@ export type TimelineState = {
 export type TimelineSliceState = { [id: string]: TimelineState }
 
 const initialState: TimelineSliceState = Object.fromEntries(
-  Object.keys(Timelines).map((id) => [id, { state: 'pending' }]),
+  Timelines.ids().map((id) => [id, { state: 'pending' }]),
 )
 
 export const TimelineSlice = createSlice({

@@ -1,12 +1,9 @@
 import { GiIceCube, GiVolcano, GiWaveCrest, GiWhirlwind } from 'react-icons/gi'
-import { createTable } from '../lib/Table'
+import { Table } from '../lib/Table'
 import { CategoryModel } from './CategoryModel'
 
-export type CategoryTable = typeof Categories
-
-export const Categories = createTable([
-  new CategoryModel('volcanoes', 'Volcanoes', GiVolcano),
-  new CategoryModel('oceans', 'Oceans', GiWaveCrest),
-  new CategoryModel('ice', 'Ice', GiIceCube),
-  new CategoryModel('atmosphere', 'Atmosphere', GiWhirlwind),
-])
+export const Categories = new Table(CategoryModel)
+  .add('volcanoes', 'Volcanoes', GiVolcano)
+  .add('oceans', 'Oceans', GiWaveCrest)
+  .add('ice', 'Ice', GiIceCube)
+  .add('atmosphere', 'Atmosphere', GiWhirlwind)
