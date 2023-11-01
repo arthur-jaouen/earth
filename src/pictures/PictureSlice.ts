@@ -10,7 +10,7 @@ export type PictureState = {
 export type PictureSliceState = { [id: string]: PictureState }
 
 const initialState: PictureSliceState = Object.fromEntries(
-  Object.keys(Pictures).map((id) => [id, { state: 'pending' }]),
+  Pictures.ids().map((id) => [id, { state: 'pending' }]),
 )
 
 function dropBlob(oldBlob?: string, newBlob?: string) {

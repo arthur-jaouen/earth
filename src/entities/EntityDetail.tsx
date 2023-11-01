@@ -3,7 +3,6 @@ import { Source } from '../sources/Source'
 import { Sources } from '../sources/SourceTable'
 import { Entity } from './Entity'
 import { EntityModel } from './EntityModel'
-import { Entities, getEntityData } from './EntityTable'
 
 import './EntityDetail.scss'
 
@@ -12,16 +11,16 @@ export type EntityDetailProps = {
 }
 
 export const EntityDetail: FunctionComponent<EntityDetailProps> = ({ entity }) => {
-  const { title, subtitle, source } = getEntityData(entity)
+  const { title, subtitle, source } = entity.data
 
   return (
     <div className="entity-detail">
       <h1>{title}</h1>
       <h3>
         {subtitle ? subtitle + ' - ' : null}
-        <Source source={Sources[source]} />
+        <Source source={Sources.get(source)} />
       </h3>
-      <Entity entity={Entities[entity.id]} />
+      <Entity entity={entity} />
     </div>
   )
 }

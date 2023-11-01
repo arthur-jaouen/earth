@@ -1,5 +1,4 @@
-import { createTable } from '../lib/Table'
+import { Table } from '../lib/Table'
+import { TagModel } from './TagModel'
 
-export type TagTable = typeof Tags
-
-export const Tags = createTable([])
+export const Tags = new Table(TagModel)

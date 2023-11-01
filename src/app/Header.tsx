@@ -11,7 +11,7 @@ export const Header: FunctionComponent = () => (
     <Menu>
       <MenuLink className="header-logo" href="#" I={BsGlobe} />
 
-      {Object.entries(Categories).map(([key, { Icon, name }]) => (
+      {Categories.entries().map(([key, { Icon, name }]) => (
         <MenuLink key={key} className={'header-' + key} href={'#' + key} I={Icon}>
           {name}
         </MenuLink>
