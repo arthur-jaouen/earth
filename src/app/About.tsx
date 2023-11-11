@@ -26,7 +26,7 @@ export const About: FunctionComponent = () => (
       <li>Add more data</li>
     </ul>
     <h2>Sources</h2>
-    {Object.entries(Authors).map(([key, author]) => (
+    {Authors.entries().map(([key, author]) => (
       <Fragment key={key}>
         <h3>{author.name}</h3>
         <p>
@@ -34,7 +34,7 @@ export const About: FunctionComponent = () => (
           &nbsp;
           {author.description}
         </p>
-        {Object.entries(Sources)
+        {Sources.entries()
           .filter(([, source]) => source.author === key)
           .map(([key, source]) => (
             <p key={key}>
