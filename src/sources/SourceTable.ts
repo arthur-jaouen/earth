@@ -11,6 +11,13 @@ export const Sources = new Table(SourceModel)
     'https://www.usgs.gov/volcanoes/kilauea/monitoring-data',
     '',
   )
+  .add(
+    'kilaueaPastWeekMonitoring',
+    'USGS',
+    'usgs',
+    'https://www.usgs.gov/volcanoes/kilauea/past-week-monitoring-data-kilauea',
+    '',
+  )
   .add('nsidcArctic', 'NSIDC', 'nsidc', 'https://nsidc.org/arcticseaicenews/', '')
   .add('nsidcGreenland', 'NSIDC', 'nsidc', 'https://nsidc.org/greenland-today/', '')
   .add(
@@ -25,5 +32,12 @@ export const Sources = new Table(SourceModel)
     'Polar Portal',
     'pp',
     'http://polarportal.dk/en/greenland/surface-conditions/',
+    '',
+  )
+  .add(
+    'vedurReykjanesEarthquakes',
+    'Icelandic Met Office',
+    'vedur',
+    'https://en.vedur.is/earthquakes-and-volcanism/earthquakes/reykjanespeninsula',
     '',
   )
