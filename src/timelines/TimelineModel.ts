@@ -9,13 +9,12 @@ export class TimelineModel {
     public source: string,
     public category: string,
     public template: string,
-    public alt: string,
     public width: number,
     public height: number,
     public legend: string,
-    public tries: number = 10,
-    public duration: number = 1,
     public unit: ManipulateType = 'day',
+    public duration: number = 1,
+    public tries: number = 10,
   ) {}
 
   get aspectRatio(): number {
@@ -49,7 +48,6 @@ export class TimelineModel {
       this.category,
       this.getPictureUrl(date),
       this.getPictureOriginalUrl(date),
-      this.alt,
       this.width,
       this.height,
       this.legend,

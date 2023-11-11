@@ -7,7 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-const config = (env) => ({
+export default (env) => ({
   mode: env.dev ? 'development' : 'production',
   target: env.dev ? 'web' : 'browserslist',
   devtool: env.dev ? 'inline-source-map' : 'source-map',
@@ -19,7 +19,7 @@ const config = (env) => ({
     chunkFilename: 'js/[name].[contenthash].js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
@@ -82,5 +82,3 @@ const config = (env) => ({
     open: true,
   },
 })
-
-export default config

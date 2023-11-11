@@ -7,7 +7,6 @@ export class PictureModel {
     public category: string,
     public url: string,
     public original: string | undefined,
-    public alt: string,
     public width: number,
     public height: number,
     public legend: string,
