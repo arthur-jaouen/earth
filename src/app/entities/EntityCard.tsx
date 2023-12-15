@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { useCategoryChild, useMedia, useSourceItem } from '../../model'
+import { useCategoryChild, useMedia, useSourceItem, useTag } from '../../model'
 import { Card, CardSubtitle, CardTitle, EntityProps, Link } from '../../ui'
 import { SourceLink } from '../sources/SourceLink'
 import { EntityItem } from './EntityItem'
@@ -7,12 +7,14 @@ import { EntityItem } from './EntityItem'
 export const EntityCard: FunctionComponent<EntityProps> = ({ entity }) => {
   const media = useMedia(entity)
   const source = useSourceItem(entity)
+  const tag = useTag(entity)?.tag
   const category = useCategoryChild(entity)
+  const categoryTag = useTag(category!.categoryEntity)?.tag
 
   return (
     <Card className="entity-card">
       <CardTitle>
-        <Link href={`#/${category?.categoryEntity.id}/${entity.id}`}>{media?.name}</Link>
+        <Link href={`#/${categoryTag}/${tag}`}>{media?.name}</Link>
       </CardTitle>
       <CardSubtitle>
         {media?.description}

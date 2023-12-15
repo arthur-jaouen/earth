@@ -21,7 +21,7 @@ import { STORE } from './Store'
 
 export const AuthorSystem = STORE.system(Media, Author, Url)
 
-export const CategorySystem = STORE.system(Media, Category)
+export const CategorySystem = STORE.system(Media, Category, Tag)
 
 export const LocationSystem = STORE.system(Media, Coords, Bounds)
 

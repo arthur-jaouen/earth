@@ -44,7 +44,7 @@ export const MenuLink: FunctionComponent<MenuLinkProps> = ({
 }
 
 export const MenuSearch: FunctionComponent = () => (
-  <form className="menu-search" action="#search" method="GET">
+  <form className="menu-search" action="#/search" method="GET">
     <input type="text" name="q" placeholder="Search" />
     <button type="submit">
       <Icon I={FaMagnifyingGlass} />

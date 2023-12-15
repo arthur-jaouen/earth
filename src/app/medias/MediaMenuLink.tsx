@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 import { IconType } from 'react-icons/lib'
-import { Entity, useMedia } from '../../model'
+import { Entity, useMedia, useTag } from '../../model'
 import { MenuLink } from '../../ui'
 
 export type MediaMenuLinkProps = {
@@ -8,8 +8,12 @@ export type MediaMenuLinkProps = {
   I?: IconType
 }
 
-export const MediaMenuLink: FunctionComponent<MediaMenuLinkProps> = ({ entity, I }) => (
-  <MenuLink href={'#/' + entity.id} I={I}>
-    {useMedia(entity)!.name}
-  </MenuLink>
-)
+export const MediaMenuLink: FunctionComponent<MediaMenuLinkProps> = ({ entity, I }) => {
+  const tag = useTag(entity)?.tag
+
+  return (
+    <MenuLink href={'#/' + tag} I={I}>
+      {useMedia(entity)!.name}
+    </MenuLink>
+  )
+}
