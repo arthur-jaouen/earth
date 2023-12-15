@@ -1,0 +1,14 @@
+@import '../../common.scss';
+
+.category-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+  padding: 0.8rem;
+  gap: 0.8rem;
+
+  @include phone {
+    grid-template-columns: 100%;
+    padding: 0;
+    gap: 0;
+  }
+}

@@ -1,6 +1,6 @@
 export const createDb = (): Promise<IDBDatabase> =>
   new Promise((resolve, reject) => {
-    const request = window.indexedDB.open('earth', 2)
+    const request = window.indexedDB.open('earth', 3)
 
     request.onerror = () => reject(request.error)
     request.onsuccess = () => {
@@ -18,6 +18,14 @@ export const createDb = (): Promise<IDBDatabase> =>
 
       if (db.objectStoreNames.contains('blobs')) {
         db.deleteObjectStore('blobs')
+      }
+
+      if (db.objectStoreNames.contains('pictures')) {
+        db.deleteObjectStore('pictures')
+      }
+
+      if (db.objectStoreNames.contains('timelines')) {
+        db.deleteObjectStore('timelines')
       }
 
       const pictures = db.createObjectStore('pictures')
@@ -48,7 +56,7 @@ export const getDb = async () => {
   return db!
 }
 
-export const get = async <T>(table: string, id: string): Promise<T | undefined> => {
+export const get = async <T>(table: string, id: string | number): Promise<T | undefined> => {
   const db = await getDb()
   const request = db
     .transaction(table, 'readonly', { durability: 'relaxed' })
@@ -58,7 +66,7 @@ export const get = async <T>(table: string, id: string): Promise<T | undefined> 
   return execute(request)
 }
 
-export const put = async <T>(table: string, id: string, entry: T): Promise<void> => {
+export const put = async <T>(table: string, id: string | number, entry: T): Promise<void> => {
   const db = await getDb()
   const request = db
     .transaction(table, 'readwrite', { durability: 'relaxed' })
