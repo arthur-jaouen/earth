@@ -62,10 +62,14 @@ export async function refreshTimeline(
     LoadingPool.set(entity, new Loading())
 
     const latest = await fetchTimeline(timeline, tag, cachedLatest)
-    const pictureEntity = await createTimelinePicture(entity, timeline, tag, latest)
+
+    if (latest.toISOString() !== cachedLatest?.toISOString()) {
+      const pictureEntity = await createTimelinePicture(entity, timeline, tag, latest)
+
+      TimelineStatePool.set(entity, new TimelineState(pictureEntity, latest))
+    }
 
     LoadingPool.remove(entity)
-    TimelineStatePool.set(entity, new TimelineState(pictureEntity, latest))
   } catch (error) {
     console.error(error)
 
