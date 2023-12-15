@@ -1,0 +1,10 @@
+@import '../../common.scss';
+
+.category-detail {
+  height: calc(100vh - 2.6rem);
+  box-sizing: border-box;
+
+  .entity-detail {
+    height: 100%;
+  }
+}

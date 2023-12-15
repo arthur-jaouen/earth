@@ -1,7 +1,7 @@
-import { Fragment, FunctionComponent } from 'react'
-import { Authors } from '../authors/AuthorTable'
-import { Link } from '../lib/Link'
-import { Sources } from '../sources/SourceTable'
+import { FunctionComponent } from 'react'
+import { useAuthorEntities } from '../model'
+import { Link } from '../ui/Link'
+import { AuthorAbout } from './authors/AuthorAbout'
 
 import './About.scss'
 
@@ -26,22 +26,8 @@ export const About: FunctionComponent = () => (
       <li>Add more data</li>
     </ul>
     <h2>Sources</h2>
-    {Authors.entries().map(([key, author]) => (
-      <Fragment key={key}>
-        <h3>{author.name}</h3>
-        <p>
-          <Link href={author.website}>Website</Link>
-          &nbsp;
-          {author.description}
-        </p>
-        {Sources.entries()
-          .filter(([, source]) => source.author === key)
-          .map(([key, source]) => (
-            <p key={key}>
-              <Link href={source.url}>{source.url}</Link>
-            </p>
-          ))}
-      </Fragment>
+    {useAuthorEntities().map((entity) => (
+      <AuthorAbout key={entity.id} entity={entity} />
     ))}
   </div>
 )
