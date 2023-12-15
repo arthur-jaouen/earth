@@ -13,6 +13,7 @@ import {
   Picture,
   Source,
   SourceItem,
+  Tag,
   Timeline,
   TimelineState,
   Url,
@@ -48,6 +49,9 @@ export const useSource = STORE.pool(Source).useComponent
 export const useSourceItem = STORE.pool(SourceItem).useComponent
 
 export const useSuccess = STORE.pool(Loading).useComponent
+
+export const useTag = STORE.pool(Tag).useComponent
+export const useTags = STORE.pool(Tag).useEntries
 
 export const useTimeline = STORE.pool(Timeline).useComponent
 export const useTimelineState = STORE.pool(TimelineState).useComponent

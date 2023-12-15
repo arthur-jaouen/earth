@@ -47,10 +47,18 @@ export const Authors = {
 }
 
 export const Categories = {
-  volcanoes: CategorySystem.create(new Media('Volcanoes'), new Category(GiVolcano)),
-  oceans: CategorySystem.create(new Media('Oceans'), new Category(GiWaveCrest)),
-  ice: CategorySystem.create(new Media('Ice'), new Category(GiIceCube)),
-  atmosphere: CategorySystem.create(new Media('Atmosphere'), new Category(GiWhirlwind)),
+  volcanoes: CategorySystem.create(
+    new Media('Volcanoes'),
+    new Category(GiVolcano),
+    new Tag('volcanoes'),
+  ),
+  oceans: CategorySystem.create(new Media('Oceans'), new Category(GiWaveCrest), new Tag('oceans')),
+  ice: CategorySystem.create(new Media('Ice'), new Category(GiIceCube), new Tag('ice')),
+  atmosphere: CategorySystem.create(
+    new Media('Atmosphere'),
+    new Category(GiWhirlwind),
+    new Tag('atmosphere'),
+  ),
 }
 
 export const Locations = {

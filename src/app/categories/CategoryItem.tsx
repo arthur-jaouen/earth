@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
-import { Entity, useCategoryChildren } from '../../model'
+import { useCategoryChildren, useTags } from '../../model'
 import { EntityCard } from '../entities/EntityCard'
 
 import './CategoryItem.scss'
 
 export const CategoryItem: FunctionComponent = () => {
   const params = useParams()
-  const entity = Entity.parse(params.category!)
+  const entity = useTags().find((entry) => entry.component.tag === params.category!)!.entity
   const children = useCategoryChildren()
 
   return (

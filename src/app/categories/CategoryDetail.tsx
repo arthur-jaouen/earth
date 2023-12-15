@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
-import { Entity } from '../../model'
+import { useTags } from '../../model'
 import { EntityDetail } from '../entities/EntityDetail'
 
 import './CategoryDetail.scss'
 
 export const CategoryDetail: FunctionComponent = () => {
   const params = useParams()
-  const entity = Entity.parse(params.id!)
+  const entity = useTags().find((entry) => entry.component.tag === params.id!)!.entity
 
   return (
     <div className="category-detail">
