@@ -1,3 +1,3 @@
-import { Store } from './Entity'
+import { Store } from '../lib'
 
 export const STORE = new Store()

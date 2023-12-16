@@ -1,8 +1,7 @@
 import dayjs from 'dayjs'
 import { FunctionComponent, useCallback, useEffect, useRef } from 'react'
-import { get, put } from '../../lib'
+import { Entity, get, put } from '../../lib'
 import {
-  Entity,
   Err,
   Init,
   Loading,

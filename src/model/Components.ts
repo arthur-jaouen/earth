@@ -1,11 +1,11 @@
 import dayjs, { ManipulateType } from 'dayjs'
 import { IconType } from 'react-icons/lib'
-import { Entity } from './Entity'
+import { Entity } from '../lib'
 
 export class Author {}
 
 export class AuthorItem {
-  constructor(public readonly author: Entity) {}
+  constructor(public readonly authorEntity: Entity) {}
 }
 
 export class Bounds {

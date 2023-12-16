@@ -1,6 +1,5 @@
 export * from './Components'
 export * from './Data'
-export * from './Entity'
 export * from './Hooks'
 export * from './Store'
 export * from './Systems'

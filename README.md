@@ -4,7 +4,7 @@ Website to monitor climate and volcanoes from multiple sources
 
 ## Roadmap
 
-- Add image/timeline details
+- Add location
 - Add dashboard + favorites
 - Add search
 - Add more data
