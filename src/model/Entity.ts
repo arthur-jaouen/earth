@@ -265,8 +265,22 @@ export class Pool<C> {
       this.entities[index] = swapEntity
       this.components[index] = swapComponent
 
+      this.entitiesIt = It.from(this.entities)
+      this.componentsIt = It.from(this.components)
+      this.entriesIt = new It(() => this.entities.entries()).map(
+        ([index, entity]) => new Entry(entity, this.components[index]),
+      )
+      this.observable.trigger()
+
       return current
     }
+
+    this.entitiesIt = It.from(this.entities)
+    this.componentsIt = It.from(this.components)
+    this.entriesIt = new It(() => this.entities.entries()).map(
+      ([index, entity]) => new Entry(entity, this.components[index]),
+    )
+    this.observable.trigger()
 
     return swapComponent
   }
