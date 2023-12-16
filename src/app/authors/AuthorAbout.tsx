@@ -15,7 +15,7 @@ export const AuthorAbout: FunctionComponent<EntityProps> = ({ entity }) => {
       </p>
       {description ? <p>{description}</p> : null}
       {useAuthorItems()
-        .filter((entry) => entry.component.author.id === entity.id)
+        .filter((entry) => entry.component.authorEntity.id === entity.id)
         .map((entry) => (
           <p key={entry.entity.id}>
             <SourceLink entity={entry.entity} />

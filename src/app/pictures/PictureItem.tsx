@@ -1,9 +1,8 @@
 import dayjs from 'dayjs'
 import { FunctionComponent, useEffect } from 'react'
-import { get, put } from '../../lib'
+import { Entity, get, put } from '../../lib'
 import {
   BlobUrl,
-  Entity,
   Err,
   Init,
   Loading,

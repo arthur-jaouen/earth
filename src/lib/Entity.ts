@@ -407,14 +407,3 @@ export class System<T extends Type[]> {
       | undefined
   }
 }
-
-// export function useSystem<T extends Type[]>(system: System<T>) {
-//   return useSyncExternalStore(system.subscribe, system.getSnapshot)
-// }
-
-// export function useEntity<T extends Type[]>(
-//   system: System<T>,
-//   entity: Entity,
-// ): Components<T> | undefined {
-//   return useSyncExternalStore(system.subscribe, () => system.getEntitySnapshot(entity))
-// }
