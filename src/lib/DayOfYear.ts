@@ -16,7 +16,9 @@ export const DayOfYear: PluginFunc = (_, DayJs) => {
         case 'DOY':
           return (
             Math.floor((this.startOf('day').unix() - this.startOf('year').unix()) / 86_400) + 1
-          ).toString()
+          )
+            .toString()
+            .padStart(3, '0')
         default:
           return match
       }
