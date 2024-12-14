@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import { useTags } from '../../model'
-import { EntityDetail } from '../entities/EntityDetail'
+import { ItemDetail } from '../items/ItemDetail'
 
 import './CategoryDetail.scss'
 
@@ -11,7 +11,7 @@ export const CategoryDetail: FunctionComponent = () => {
 
   return (
     <div className="category-detail">
-      <EntityDetail entity={entity} />
+      <ItemDetail entity={entity} />
     </div>
   )
 }

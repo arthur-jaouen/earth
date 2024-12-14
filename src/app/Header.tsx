@@ -3,7 +3,7 @@ import { BsGlobe } from 'react-icons/bs'
 import { FaCircleInfo } from 'react-icons/fa6'
 import { useCategories } from '../model'
 import { Menu, MenuLink, MenuSearch } from '../ui/Menu'
-import { MediaMenuLink } from './medias/MediaMenuLink'
+import { CategoryLink } from './categories/CategoryLink'
 
 import './Header.scss'
 
@@ -13,7 +13,7 @@ export const Header: FunctionComponent = () => (
       <MenuLink className="header-logo" href="#/" I={BsGlobe} />
 
       {useCategories().map((entry) => (
-        <MediaMenuLink key={entry.entity.id} entity={entry.entity} I={entry.component.Icon} />
+        <CategoryLink key={entry.entity.id} entity={entry.entity} I={entry.component.Icon} />
       ))}
 
       <MenuSearch />
