@@ -2,11 +2,11 @@ import { FunctionComponent } from 'react'
 import { useMedia, useSourceItem } from '../../model'
 import { EntityProps } from '../../ui'
 import { SourceLink } from '../sources/SourceLink'
-import { EntityItem } from './EntityItem'
+import { ItemContent } from './ItemContent'
 
-import './EntityDetail.scss'
+import './ItemDetail.scss'
 
-export const EntityDetail: FunctionComponent<EntityProps> = ({ entity }) => {
+export const ItemDetail: FunctionComponent<EntityProps> = ({ entity }) => {
   const media = useMedia(entity)
   const source = useSourceItem(entity)
 
@@ -17,7 +17,7 @@ export const EntityDetail: FunctionComponent<EntityProps> = ({ entity }) => {
         {media?.description ? media?.description + ' - ' : null}
         {source ? <SourceLink entity={source?.sourceEntity} /> : null}
       </h3>
-      <EntityItem entity={entity} />
+      <ItemContent entity={entity} />
     </div>
   )
 }

@@ -6,9 +6,9 @@ import {
   CategoryChild,
   Coords,
   Dim,
+  Item,
   Legend,
   LocationItem,
-  Media,
   Picture,
   Source,
   SourceItem,
@@ -19,14 +19,14 @@ import {
 } from './Components'
 import { STORE } from './Store'
 
-export const AuthorSystem = STORE.system(Media, Author, Url)
+export const AuthorSystem = STORE.system(Item, Author, Url)
 
-export const CategorySystem = STORE.system(Media, Category, Tag)
+export const CategorySystem = STORE.system(Item, Category, Tag)
 
-export const LocationSystem = STORE.system(Media, Coords, Bounds)
+export const LocationSystem = STORE.system(Item, Coords, Bounds)
 
 export const PictureSystem = STORE.system(
-  Media,
+  Item,
   Picture,
   Legend,
   Dim,
@@ -36,10 +36,10 @@ export const PictureSystem = STORE.system(
   Tag,
 )
 
-export const SourceSystem = STORE.system(Media, Source, Url, AuthorItem)
+export const SourceSystem = STORE.system(Item, Source, Url, AuthorItem)
 
 export const TimelineSystem = STORE.system(
-  Media,
+  Item,
   Timeline,
   Legend,
   Dim,

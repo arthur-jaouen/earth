@@ -4,7 +4,7 @@ import { EntityProps } from '../../ui'
 import { PictureItem } from '../pictures/PictureItem'
 import { TimelineItem } from '../timelines/TimelineItem'
 
-export const EntityItem: FunctionComponent<EntityProps> = ({ entity }) => {
+export const ItemContent: FunctionComponent<EntityProps> = ({ entity }) => {
   if (PictureSystem.has(entity)) {
     return <PictureItem entity={entity} />
   } else if (TimelineSystem.has(entity)) {

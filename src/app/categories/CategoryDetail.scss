@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common.scss' as *;
 
 .category-detail {
   height: calc(100vh - 2.6rem);

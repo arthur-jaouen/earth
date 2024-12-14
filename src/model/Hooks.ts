@@ -7,9 +7,9 @@ import {
   Dim,
   Err,
   Init,
+  Item,
   Legend,
   Loading,
-  Media,
   Picture,
   Source,
   SourceItem,
@@ -40,8 +40,8 @@ export const useLegend = STORE.pool(Legend).useComponent
 
 export const useLoading = STORE.pool(Loading).useComponent
 
-export const useMedia = STORE.pool(Media).useComponent
-export const useMediaEntities = STORE.pool(Media).useEntities
+export const useMedia = STORE.pool(Item).useComponent
+export const useMediaEntities = STORE.pool(Item).useEntities
 
 export const usePicture = STORE.pool(Picture).useComponent
 

@@ -4,12 +4,12 @@ import { Entity } from '../../lib'
 import { useMedia, useTag } from '../../model'
 import { MenuLink } from '../../ui'
 
-export type MediaMenuLinkProps = {
+export type CategoryLinkProps = {
   entity: Entity
   I?: IconType
 }
 
-export const MediaMenuLink: FunctionComponent<MediaMenuLinkProps> = ({ entity, I }) => {
+export const CategoryLink: FunctionComponent<CategoryLinkProps> = ({ entity, I }) => {
   const tag = useTag(entity)?.tag
 
   return (

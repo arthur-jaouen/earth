@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react'
 import { useParams } from 'react-router-dom'
 import { useCategoryChildren, useTags } from '../../model'
-import { EntityCard } from '../entities/EntityCard'
+import { ItemCard } from '../items/ItemCard'
 
 import './CategoryItem.scss'
 
@@ -15,7 +15,7 @@ export const CategoryItem: FunctionComponent = () => {
       {children
         .filter((entry) => entry.component.categoryEntity.id === entity.id)
         .map((entry) => (
-          <EntityCard key={entry.entity.id} entity={entry.entity} />
+          <ItemCard key={entry.entity.id} entity={entry.entity} />
         ))}
     </div>
   )

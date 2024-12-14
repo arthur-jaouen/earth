@@ -61,7 +61,7 @@ export class LocationItem {
   constructor(public readonly locationEntity: Entity) {}
 }
 
-export class Media {
+export class Item {
   constructor(
     public readonly name: string,
     public readonly description: string | undefined = undefined,
